@@ -1,9 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { artworks, getArtwork } from "@/lib/artworks";
 import BuyPanel from "@/components/BuyPanel";
+import PoemBlock from "@/components/PoemBlock";
+import MusicPlayer from "@/components/MusicPlayer";
+import ArtworkViewer from "@/components/ArtworkViewer";
 
 export function generateStaticParams() {
   return artworks.map((a) => ({ slug: a.slug }));
@@ -15,7 +17,7 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const artwork = getArtwork(params.slug);
-  return { title: artwork ? `${artwork.title} — Michał Nosiadek` : "Not found" };
+  return { title: artwork ? `${artwork.title} — M. Nosiadek` : "Not found" };
 }
 
 export default function ProductPage({
@@ -28,23 +30,21 @@ export default function ProductPage({
 
   return (
     <section className="container-art grid grid-cols-1 gap-12 pb-24 pt-32 md:grid-cols-2 md:gap-16 md:pt-40">
-      <div className="relative aspect-[4/5] overflow-hidden bg-void-raised">
-        <Image
+      <div className="flex items-center">
+        <ArtworkViewer
           src={artwork.image}
           alt={artwork.title}
-          fill
-          priority
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
+          width={artwork.imageWidth}
+          height={artwork.imageHeight}
         />
       </div>
 
       <div className="flex flex-col justify-center">
         <Link
-          href="/shop"
+          href="/gallery"
           className="mb-8 text-xs uppercase tracking-widest2 text-ink-faint transition-colors hover:text-ink"
         >
-          ← Back to shop
+          ← Back to gallery
         </Link>
 
         <h1 className="font-serif text-4xl font-light text-ink md:text-5xl">
@@ -56,6 +56,16 @@ export default function ProductPage({
         <p className="mt-6 max-w-md leading-relaxed text-ink-muted">
           {artwork.description}
         </p>
+
+        {artwork.poem && (
+          <div className="mt-10 max-w-md">
+            <PoemBlock poem={artwork.poem} />
+          </div>
+        )}
+
+        <div className="mt-8 max-w-md">
+          <MusicPlayer track={artwork.track} title={artwork.title} />
+        </div>
 
         <div className="mt-10">
           <BuyPanel artwork={artwork} />

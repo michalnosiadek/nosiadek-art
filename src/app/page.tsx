@@ -43,7 +43,7 @@ export default function Home() {
             original painting.
           </h2>
           <Link
-            href="/shop"
+            href="/gallery"
             className="mt-4 border border-ink/30 px-8 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
           >
             Shop the Collection

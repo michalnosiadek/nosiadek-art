@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden">
       <Image
         src="/images/the-last-dawn.jpg"
-        alt="The Last Dawn — original painting by Michał Nosiadek"
+        alt="The Last Dawn — original painting by M. Nosiadek"
         fill
         priority
         sizes="100vw"
@@ -21,7 +21,7 @@ export default function Hero() {
           Original paintings &amp; prints
         </p>
         <h1 className="max-w-3xl font-serif text-5xl font-light leading-[1.05] text-ink sm:text-6xl md:text-7xl">
-          Michał Nosiadek
+          M. Nosiadek
         </h1>
         <p className="mt-6 max-w-md text-base leading-relaxed text-ink-muted md:text-lg">
           Paintings built from myth, dusk, and the moment right before
@@ -36,7 +36,7 @@ export default function Hero() {
             View Gallery
           </Link>
           <Link
-            href="/shop"
+            href="/gallery"
             className="bg-dawn px-7 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright"
           >
             Shop Prints

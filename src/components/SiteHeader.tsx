@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const links = [
   { href: "/gallery", label: "Gallery" },
-  { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
 ];
 
@@ -19,7 +18,7 @@ export default function SiteHeader() {
           href="/"
           className="font-serif text-lg tracking-widest2 text-ink md:text-xl"
         >
-          MICHAŁ NOSIADEK
+          M. NOSIADEK
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">

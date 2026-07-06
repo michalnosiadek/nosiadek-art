@@ -19,10 +19,10 @@ export default function SiteFooter() {
             Gallery
           </Link>
           <Link
-            href="/shop"
+            href="/about"
             className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors hover:text-ink"
           >
-            Shop
+            About
           </Link>
           <a
             href="mailto:nosiadek.michal@gmail.com"
@@ -33,7 +33,7 @@ export default function SiteFooter() {
         </nav>
 
         <p className="text-xs text-ink-faint">
-          © {new Date().getFullYear()} Michał Nosiadek. All rights reserved.
+          © {new Date().getFullYear()} M. Nosiadek. All rights reserved.
         </p>
       </div>
     </footer>
