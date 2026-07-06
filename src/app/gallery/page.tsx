@@ -3,7 +3,7 @@ import ArtworkCard from "@/components/ArtworkCard";
 import { artworks } from "@/lib/artworks";
 
 export const metadata: Metadata = {
-  title: "Gallery — M. Nosiadek",
+  title: "Gallery · Michał Nosiadek",
 };
 
 export default function GalleryPage() {

@@ -52,7 +52,7 @@ export default function MusicPlayer({
           <span className="text-xs">♪</span>
         </div>
         <div>
-          <p className="text-sm text-ink-faint">Companion track — coming soon</p>
+          <p className="text-sm text-ink-faint">Companion track, coming soon</p>
           <p className="text-xs text-ink-faint/70">
             A piece written to accompany &ldquo;{title}&rdquo;.
           </p>

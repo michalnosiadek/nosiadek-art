@@ -16,9 +16,9 @@ export default function SiteHeader() {
       <div className="container-art flex h-16 items-center justify-between md:h-20">
         <Link
           href="/"
-          className="font-serif text-lg tracking-widest2 text-ink md:text-xl"
+          className="font-serif text-sm tracking-wide text-ink sm:text-lg sm:tracking-widest2 md:text-xl"
         >
-          M. NOSIADEK
+          MICHAŁ NOSIADEK
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">

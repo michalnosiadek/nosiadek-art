@@ -43,7 +43,7 @@ export const artworks: Artwork[] = [
     medium: "Acrylic on canvas",
     dimensions: "60 × 80 cm",
     description:
-      "A lone rider crosses the threshold of a dying kingdom as the sun breaks blood-red over the mountains. Painted as the closing image of a story — the last light before the dark.",
+      "A lone rider crosses the threshold of a dying kingdom as the sun breaks blood-red over the mountains, painted as the closing image of a story: the last light before the dark.",
     image: "/images/the-last-dawn.jpg",
     imageWidth: 2000,
     imageHeight: 1599,
@@ -63,7 +63,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "70 × 100 cm",
     description:
-      "A ring of fire opens over a mountain range, indifferent and total. A study in scale — how small a peak looks against something ending.",
+      "A ring of fire opens over a mountain range, indifferent and total. A study in scale: how small a peak looks against something ending.",
     image: "/images/the-end.jpg",
     imageWidth: 2000,
     imageHeight: 1430,
@@ -110,7 +110,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 48 cm",
     description:
-      "A skull, a candle, a tankard of ale — vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
+      "A skull, a candle, a tankard of ale: vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
     image: "/images/celtic.jpg",
     imageWidth: 2000,
     imageHeight: 1599,
@@ -129,7 +129,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 60 cm",
     description:
-      "Totality over a mountain line — a black sun ringed in fire, indifferent to the peaks beneath it. A companion study to the end of things, seen from a different angle of the same sky.",
+      "Totality over a mountain line: a black sun ringed in fire, indifferent to the peaks beneath it. A companion study to the end of things, seen from a different angle of the same sky.",
     image: "/images/eclipse.jpg",
     imageWidth: 2000,
     imageHeight: 1996,
@@ -167,7 +167,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "50 × 64 cm",
     description:
-      "A cloaked figure dissolves into — or is born from — a torrent of crimson light against total black. The instant before dawn, or the instant after everything else has gone out.",
+      "A cloaked figure dissolves into, or is born from, a torrent of crimson light against total black. The instant before dawn, or the instant after everything else has gone out.",
     image: "/images/edge-of-the-night.jpg",
     imageWidth: 2000,
     imageHeight: 2560,
@@ -186,7 +186,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 48 cm",
     description:
-      "A tomb carved into rock, glowing from within like an ember that refuses to go out. A reinterpretation of the old motif — the threshold to whatever waits past the dead, lit rather than shrouded.",
+      "A tomb carved into rock, glowing from within like an ember that refuses to go out. A reinterpretation of the old motif: the threshold to whatever waits past the dead, lit rather than shrouded.",
     image: "/images/isle-of-the-dead.jpg",
     imageWidth: 2000,
     imageHeight: 1600,
@@ -205,7 +205,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "50 × 62 cm",
     description:
-      "A direct, unflinching self-portrait built from hard chiaroscuro — half the face lit, half given to the dark, the way most things about a person are.",
+      "A direct, unflinching self-portrait built from hard chiaroscuro: half the face lit, half given to the dark, the way most things about a person are.",
     image: "/images/self-portrait-study.jpg",
     imageWidth: 2000,
     imageHeight: 2499,
@@ -223,7 +223,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "50 × 50 cm",
     description:
-      "A lone red moon adrift in a near-black sky. Restraint over detail — everything the painting needs is already there in the color.",
+      "A lone red moon adrift in a near-black sky. Restraint over detail: everything the painting needs is already there in the color.",
     image: "/images/moon.jpg",
     imageWidth: 2000,
     imageHeight: 1999,
@@ -241,7 +241,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 48 cm",
     description:
-      "A vast, tusked lunar eye dominates the frame while a small penguin stands beneath it, unbothered. Scale and strangeness — a stray moment of dark humor let into the work.",
+      "A vast, tusked lunar eye dominates the frame while a small penguin stands beneath it, unbothered. Scale and strangeness: a stray moment of dark humor let into the work.",
     image: "/images/moongoose.jpg",
     imageWidth: 2000,
     imageHeight: 1600,
@@ -278,7 +278,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "70 × 50 cm",
     description:
-      "Named for Milton's capital of ruin — a vast colonnade burns through the night as robed figures process past it, torches and banners held high against the dark it's built from.",
+      "Named for Milton's capital of ruin: a vast colonnade burns through the night as robed figures process past it, torches and banners held high against the dark it's built from.",
     image: "/images/pandemonium.jpg",
     imageWidth: 2000,
     imageHeight: 1397,
@@ -297,7 +297,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 48 cm",
     description:
-      "Sunset over still water, two figures at rest beneath it — a rare warm, tender scene set against the darker currents running through the rest of the work. Quiet gratitude, given room to breathe.",
+      "Sunset over still water, two figures at rest beneath it: a rare warm, tender scene set against the darker currents running through the rest of the work. Quiet gratitude, given room to breathe.",
     image: "/images/wish-you-were-here.jpg",
     imageWidth: 2000,
     imageHeight: 1596,
@@ -322,7 +322,7 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "60 × 48 cm",
     description:
-      "A gathering at the forest's edge — two figures lit by campfire beneath a rising moon and a glowing ridge of mountains. Firelight and moonlight are the only witnesses to whatever rite this is.",
+      "A gathering at the forest's edge: two figures lit by campfire beneath a rising moon and a glowing ridge of mountains. Firelight and moonlight are the only witnesses to whatever rite this is.",
     image: "/images/witches.jpg",
     imageWidth: 2000,
     imageHeight: 1600,

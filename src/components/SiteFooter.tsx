@@ -1,11 +1,12 @@
 import Link from "next/link";
+import SocialLinks from "@/components/SocialLinks";
 
 export default function SiteFooter() {
   return (
     <footer className="border-t border-void-line/60">
-      <div className="container-art flex flex-col gap-6 py-12 md:flex-row md:items-center md:justify-between">
+      <div className="container-art flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-serif text-lg text-ink">M. Nosiadek</p>
+          <p className="font-serif text-lg text-ink">Michał Nosiadek</p>
           <p className="mt-1 text-sm text-ink-faint">
             Original paintings &amp; fine art prints.
           </p>
@@ -32,8 +33,10 @@ export default function SiteFooter() {
           </a>
         </nav>
 
+        <SocialLinks />
+
         <p className="text-xs text-ink-faint">
-          © {new Date().getFullYear()} M. Nosiadek. All rights reserved.
+          © {new Date().getFullYear()} Michał Nosiadek. All rights reserved.
         </p>
       </div>
     </footer>

@@ -19,9 +19,9 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "M. Nosiadek — Paintings",
+  title: "Michał Nosiadek · Paintings",
   description:
-    "Original paintings and fine art prints by M. Nosiadek.",
+    "Original paintings and fine art prints by Michał Nosiadek.",
 };
 
 export default function RootLayout({

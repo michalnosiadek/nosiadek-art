@@ -10,13 +10,44 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
     | { type: "original"; price: number }
   >({ type: "print", label: artwork.prints[0].label, price: artwork.prints[0].price });
   const [framed, setFramed] = useState(false);
-  const [added, setAdded] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "unavailable" | "error">(
+    "idle"
+  );
 
   const total = selected.price + (framed ? artwork.framingPrice : 0);
 
-  function handleBuy() {
-    setAdded(true);
-    window.setTimeout(() => setAdded(false), 2200);
+  async function handleBuy() {
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          slug: artwork.slug,
+          type: selected.type,
+          label: selected.type === "print" ? selected.label : undefined,
+          framed,
+        }),
+      });
+
+      if (res.status === 501) {
+        setStatus("unavailable");
+        return;
+      }
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   }
 
   if (!open) {
@@ -53,7 +84,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
               }`}
             >
               <span className="text-sm text-ink">
-                Print — {p.label}{" "}
+                Print: {p.label}{" "}
                 <span className="text-ink-faint">({p.dimensions})</span>
               </span>
               <span className="text-sm text-ink-muted">${p.price}</span>
@@ -132,22 +163,42 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
 
       <button
         onClick={handleBuy}
-        className="mt-8 w-full bg-dawn py-4 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright"
+        disabled={status === "loading"}
+        className="mt-8 w-full bg-dawn py-4 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright disabled:opacity-60"
       >
-        {added ? "Added — checkout coming soon" : `Buy — $${total}`}
+        {status === "loading" ? "Redirecting to checkout…" : `Buy for $${total}`}
       </button>
 
-      <p className="mt-4 text-xs leading-relaxed text-ink-faint">
-        This is a preview store. Checkout isn&apos;t wired up to real payments
-        yet — inquire directly at{" "}
-        <a
-          href="mailto:nosiadek.michal@gmail.com"
-          className="underline decoration-ink-faint underline-offset-2 hover:text-ink"
-        >
-          nosiadek.michal@gmail.com
-        </a>
-        .
-      </p>
+      {status === "unavailable" ? (
+        <p className="mt-4 text-xs leading-relaxed text-ink-faint">
+          Online checkout isn&apos;t connected yet, inquire directly at{" "}
+          <a
+            href={`mailto:nosiadek.michal@gmail.com?subject=${encodeURIComponent(
+              `Inquiry: ${artwork.title}`
+            )}`}
+            className="underline decoration-ink-faint underline-offset-2 hover:text-ink"
+          >
+            nosiadek.michal@gmail.com
+          </a>{" "}
+          and I&apos;ll arrange payment with you directly.
+        </p>
+      ) : status === "error" ? (
+        <p className="mt-4 text-xs leading-relaxed text-dawn-bright">
+          Something went wrong starting checkout, please try again, or email{" "}
+          <a
+            href="mailto:nosiadek.michal@gmail.com"
+            className="underline decoration-dawn-bright underline-offset-2"
+          >
+            nosiadek.michal@gmail.com
+          </a>
+          .
+        </p>
+      ) : (
+        <p className="mt-4 text-xs leading-relaxed text-ink-faint">
+          Secure checkout via Stripe. Prints and originals ship insured,
+          signed, and numbered.
+        </p>
+      )}
     </div>
   );
 }

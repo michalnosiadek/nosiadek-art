@@ -17,13 +17,15 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const artwork = getArtwork(params.slug);
-  return { title: artwork ? `${artwork.title} — M. Nosiadek` : "Not found" };
+  return { title: artwork ? `${artwork.title} · Michał Nosiadek` : "Not found" };
 }
 
 export default function ProductPage({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams: { checkout?: string };
 }) {
   const artwork = getArtwork(params.slug);
   if (!artwork) notFound();
@@ -46,6 +48,19 @@ export default function ProductPage({
         >
           ← Back to gallery
         </Link>
+
+        {searchParams.checkout === "success" && (
+          <div className="mb-8 border-l-2 border-dawn bg-dawn/10 px-5 py-4 text-sm text-ink">
+            Thank you, your order went through. A confirmation has been sent
+            to your email, and I&apos;ll be in touch about shipping.
+          </div>
+        )}
+        {searchParams.checkout === "cancelled" && (
+          <div className="mb-8 border-l-2 border-ink-faint/50 bg-void-raised px-5 py-4 text-sm text-ink-muted">
+            Checkout was cancelled, nothing was charged. Pick up whenever
+            you&apos;re ready.
+          </div>
+        )}
 
         <h1 className="font-serif text-4xl font-light text-ink md:text-5xl">
           {artwork.title}

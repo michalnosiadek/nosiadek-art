@@ -11,7 +11,7 @@ export default function PoemBlock({ poem }: { poem: Poem }) {
         {poem.medium || poem.year ? (
           <>
             {" "}
-            — {[poem.medium, poem.year].filter(Boolean).join(", ")}
+            · {[poem.medium, poem.year].filter(Boolean).join(", ")}
           </>
         ) : null}
       </footer>
