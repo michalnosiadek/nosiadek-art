@@ -2,5 +2,11 @@ node_modules
 .next
 out
 .env*
+!.env.example
 .DS_Store
 *.log
+
+# SE-1: local SQLite db + uploaded files (originals live in storage/, never in git)
+prisma/*.db
+prisma/*.db-journal
+/storage

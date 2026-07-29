@@ -1,0 +1,47 @@
+// SE-1 · Studio Engine data model
+// SQLite locally, swappable to Postgres: no SQLite-only features used.
+// NOTE: SQLite via Prisma supports neither enums nor scalar lists, so:
+//   - visibility/status are String columns validated in code (src/lib/artwork-types.ts)
+//   - images[] / wip_images[] are ArtworkFile rows with kind = "image" | "wip"
+// See DECISIONS.md (2026-07-15, SE-1).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Artwork {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  poem       String? // verbatim text; never paraphrased downstream
+  musicRef   String?  @map("music_ref") // URL or free-text reference to a track
+  visibility String   @default("hidden") // public | blog-only | social-only | hidden
+  status     String   @default("draft") // draft | queued | published
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  files ArtworkFile[]
+
+  @@map("artworks")
+}
+
+model ArtworkFile {
+  id           String   @id @default(cuid())
+  artworkId    String   @map("artwork_id")
+  artwork      Artwork  @relation(fields: [artworkId], references: [id], onDelete: Cascade)
+  kind         String // image | wip  (renditions get their own kinds in SE-3)
+  storageKey   String   @unique @map("storage_key") // key within the storage driver, e.g. artworks/<slug>/image/00-file.jpg
+  originalName String   @map("original_name")
+  mimeType     String   @map("mime_type")
+  sizeBytes    Int      @map("size_bytes")
+  sortOrder    Int      @default(0) @map("sort_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([artworkId, kind])
+  @@map("artwork_files")
+}

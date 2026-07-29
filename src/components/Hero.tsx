@@ -30,19 +30,25 @@ export default function Hero() {
             something ends.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/gallery"
-              className="border border-ink/30 px-7 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
-            >
-              View Gallery
-            </Link>
-            <Link
-              href="/about#newsletter"
-              className="bg-dawn px-7 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright"
-            >
-              Join the Newsletter
-            </Link>
+          <div className="mt-10">
+            <p className="mb-4 text-xs uppercase tracking-widest2 text-ink-faint">
+              Enter the gallery
+            </p>
+            <div className="flex flex-wrap gap-4">
+              {/* the 3D gallery is a static app served from /public/experience */}
+              <a
+                href="/experience/index.html"
+                className="bg-dawn px-7 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright"
+              >
+                First-Person Experience
+              </a>
+              <Link
+                href="/#collection"
+                className="border border-ink/30 px-7 py-3 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
+              >
+                Classic Web Scroll
+              </Link>
+            </div>
           </div>
         </div>
       </div>

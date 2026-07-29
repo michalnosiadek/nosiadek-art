@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <section className="container-art py-24 md:py-32">
+      <section id="collection" className="container-art scroll-mt-16 py-24 md:py-32">
         <div className="mb-14 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">
