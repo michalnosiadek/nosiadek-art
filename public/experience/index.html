@@ -183,6 +183,34 @@
     font-size: 0.625rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint);
     opacity: 0; transition: opacity 500ms var(--ease-smooth);
   }
+
+  /* the secret door — void veil, museum-slow */
+  #secret-veil {
+    position: fixed; inset: 0; z-index: 200; background: var(--void);
+    opacity: 0; pointer-events: none; transition: opacity 1.4s var(--ease-smooth);
+  }
+  #secret-veil.on { opacity: 1; pointer-events: auto; }
+  #btn-secret {
+    display: block; margin-top: 2.4rem; background: none; border: none; cursor: pointer;
+    font-family: var(--font-serif); font-style: italic; font-weight: 300;
+    font-size: 1.05rem; color: var(--ink-faint); padding: 0;
+    transition: color 600ms var(--ease-smooth);
+  }
+  #btn-secret:hover { color: var(--dawn-bright); }
+  #secret-ask {
+    position: fixed; inset: 0; z-index: 120; display: none;
+    align-items: center; justify-content: center; background: var(--scrim-strong);
+  }
+  #secret-ask.open { display: flex; }
+  #secret-ask .box {
+    max-width: 26rem; margin: 1.5rem; padding: 2.6rem 2.4rem; text-align: center;
+    background: var(--void-raised); border: 1px solid var(--void-line);
+  }
+  #secret-ask .q {
+    font-family: var(--font-serif); font-style: italic; font-weight: 300;
+    font-size: 1.4rem; line-height: 1.6; color: var(--ink);
+  }
+  #secret-ask .choices { margin-top: 2.2rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
   body.entered #hint { opacity: 1; }
   @media (max-width: 700px) { #hint { display: none; } }
 </style>
@@ -190,6 +218,17 @@
 <body>
 
 <div id="grain"></div>
+<div id="secret-veil"></div>
+
+<div id="secret-ask">
+  <div class="box">
+    <div class="q">It seems like there is a way inside this painting, want to take a look?</div>
+    <div class="choices">
+      <button class="btn primary" id="secret-yes">Take a look</button>
+      <button class="btn" id="secret-no">Not yet</button>
+    </div>
+  </div>
+</div>
 
 <div id="intro">
   <div class="eyebrow">Michał Nosiadek — Paintings, Poems &amp; Music</div>
@@ -232,6 +271,7 @@
         <button class="btn" id="btn-prev">‹ Prev</button>
         <button class="btn" id="btn-next">Next ›</button>
       </div>
+      <button id="btn-secret" style="display:none">Something is not quite right...</button>
     </div>
   </div>
 </div>
@@ -348,6 +388,8 @@ const GALLERY = [
     poem: "" },
   { file: "TheLastDawn.jpg", title: "The Last Dawn", year: "2026", medium: "Acrylic on canvas", dimensions: "60 × 80 cm",
     room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
+    /* secret door — any painting may register its own game + route here. */
+    secret: "games/the-last-dawn/index.html",
     description: "A lone rider crosses the threshold of a dying kingdom as the sun breaks blood-red over the mountains, painted as the closing image of a story: the last light before the dark.",
     poem: "" },
   { file: "TheEnd.jpg", title: "The Murder of a Star", year: "2025", medium: "Oil on canvas", dimensions: "70 × 100 cm",
@@ -697,9 +739,27 @@ function openPanel(i) {
   $("panel-meta").textContent = `${p.year} · ${p.medium} · ${p.dimensions}`;
   $("panel-desc").textContent = p.description || "";
   $("panel-poem").textContent = p.poem || "";
+  $("btn-secret").style.display = p.secret ? "block" : "none";
   panel.classList.add("open");
   document.exitPointerLock?.();
 }
+/* =========================================================================
+   The secret door (§ TheLastDawn). The painting panel grows a quiet button;
+   it asks once more, then you go inside.
+   ========================================================================= */
+let secretGone = false;
+function openSecretDoor(url) {
+  if (secretGone) return;
+  secretGone = true;
+  document.exitPointerLock?.();
+  $("secret-ask").classList.remove("open");
+  $("secret-veil").classList.add("on");
+  setTimeout(() => location.href = url, 1450);
+}
+$("btn-secret").onclick = () => $("secret-ask").classList.add("open");
+$("secret-yes").onclick = () => openSecretDoor(GALLERY[currentIdx].secret);
+$("secret-no").onclick = () => $("secret-ask").classList.remove("open");
+
 $("panel-close").onclick = () => panel.classList.remove("open");
 $("index-close").onclick = () => indexOv.classList.remove("open");
 $("btn-prev").onclick = () => openPanel((currentIdx + GALLERY.length - 1) % GALLERY.length);
@@ -753,7 +813,10 @@ function updateToast() {
 const keys = {};
 addEventListener("keydown", (e) => {
   keys[e.code] = true;
-  if (e.code === "Escape") { panel.classList.remove("open"); indexOv.classList.remove("open"); }
+  if (e.code === "Escape") {
+    if ($("secret-ask").classList.contains("open")) { $("secret-ask").classList.remove("open"); return; }
+    panel.classList.remove("open"); indexOv.classList.remove("open");
+  }
   if (e.code === "KeyE" && document.pointerLockElement && focusedIdx >= 0) openPanel(focusedIdx);
 });
 addEventListener("keyup", (e) => keys[e.code] = false);

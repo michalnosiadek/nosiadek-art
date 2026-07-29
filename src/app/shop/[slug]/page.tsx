@@ -6,6 +6,7 @@ import BuyPanel from "@/components/BuyPanel";
 import PoemBlock from "@/components/PoemBlock";
 import MusicPlayer from "@/components/MusicPlayer";
 import ArtworkViewer from "@/components/ArtworkViewer";
+import SecretDoor from "@/components/SecretDoor";
 
 export function generateStaticParams() {
   return artworks.map((a) => ({ slug: a.slug }));
@@ -85,6 +86,8 @@ export default function ProductPage({
         <div className="mt-10">
           <BuyPanel artwork={artwork} />
         </div>
+
+        <SecretDoor slug={artwork.slug} />
       </div>
     </section>
   );
