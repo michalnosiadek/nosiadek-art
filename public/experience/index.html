@@ -19,6 +19,7 @@
     --dawn-bright: #b3291f;
     --dawn-deep: #451412;
     --moon: #a25640;
+    --ember: #ffd9a0;
     --scrim-strong: rgba(10, 9, 8, 0.95);
     --scrim-soft: rgba(10, 9, 8, 0.55);
     --hairline-ink-30: rgba(242, 236, 230, 0.3);
@@ -40,6 +41,13 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* arriving from the main site: land on the same void, then let the dawn bloom in */
+  #boot {
+    position: fixed; inset: 0; z-index: 95; background: var(--void);
+    pointer-events: none; opacity: 1; transition: opacity 2.2s var(--ease-smooth);
+  }
+  #boot.off { opacity: 0; }
+
   .eyebrow {
     font-size: 0.75rem; letter-spacing: var(--tracking); text-transform: uppercase;
     color: var(--ink-faint); font-weight: 400;
@@ -58,8 +66,8 @@
   #intro {
     position: fixed; inset: 0; z-index: 40;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at 50% 62%, rgba(69, 20, 18, 0.5), var(--void) 72%);
-    text-align: center; padding: 2rem; transition: opacity 1.2s var(--ease-smooth);
+    background: radial-gradient(ellipse at 50% 62%, rgba(69, 20, 18, 0.38), var(--void) 78%);
+    text-align: center; padding: 2rem; transition: opacity 1.6s var(--ease-smooth);
   }
   #intro.hidden { opacity: 0; pointer-events: none; }
   #intro h1 {
@@ -91,20 +99,71 @@
   }
   .hbtn:hover { color: var(--ink); }
 
+  /* the wordmark charges like a fireball on hover, and casts on press */
+  .wordmark-fire { position: relative; z-index: 0;
+    transition: color 450ms var(--ease-smooth), text-shadow 450ms var(--ease-smooth); }
+  .wordmark-fire::after {
+    content: ""; position: absolute; inset: -55% -14%; z-index: -1; border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 55%, rgba(179, 41, 31, 0.5), rgba(122, 31, 26, 0.22) 45%, transparent 70%);
+    opacity: 0; transform: scale(0.55); filter: blur(10px);
+    transition: opacity 500ms var(--ease-smooth), transform 500ms var(--ease-smooth);
+  }
+  .wordmark-fire:hover {
+    color: var(--ember);
+    text-shadow: 0 0 6px rgba(255, 150, 50, 0.75), 0 0 22px rgba(179, 41, 31, 0.6), 0 0 48px rgba(122, 31, 26, 0.5);
+    animation: fire-flicker 1.4s ease-in-out 450ms infinite;
+  }
+  .wordmark-fire:hover::after { opacity: 1; transform: scale(1); animation: fire-pulse 1.4s ease-in-out 450ms infinite; }
+  .wordmark-fire:active { animation: fire-cast 550ms var(--ease-smooth); }
+  .wordmark-fire:active::after { animation: fire-burst 550ms var(--ease-smooth); }
+  @keyframes fire-flicker {
+    0%, 100% { text-shadow: 0 0 6px rgba(255,150,50,.75), 0 0 22px rgba(179,41,31,.6), 0 0 48px rgba(122,31,26,.5); }
+    30%      { text-shadow: 0 0 9px rgba(255,170,70,.9), 0 0 30px rgba(200,60,35,.7), 0 0 60px rgba(122,31,26,.55); }
+    60%      { text-shadow: 0 0 5px rgba(255,140,45,.7), 0 0 18px rgba(179,41,31,.55), 0 0 40px rgba(122,31,26,.45); }
+  }
+  @keyframes fire-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  @keyframes fire-cast { 0% { transform: scale(1); } 35% { transform: scale(1.05); filter: brightness(1.7); } 100% { transform: scale(1); } }
+  @keyframes fire-burst {
+    0% { opacity: 1; transform: scale(1); }
+    45% { opacity: .95; transform: scale(1.9); filter: blur(14px); }
+    100% { opacity: 0; transform: scale(2.6); }
+  }
+
   /* ============ HUD ============ */
   #crosshair {
     position: fixed; left: 50%; top: 50%; width: 4px; height: 4px; z-index: 10;
     transform: translate(-50%,-50%); border-radius: 9999px;
-    background: rgba(242,236,230,.7); display: none;
+    background: rgba(242,236,230,.7); opacity: 0; transition: opacity 400ms var(--ease-smooth);
+    pointer-events: none;
   }
-  body.walking #crosshair { display: block; }
+  body.walking #crosshair { opacity: .7; }
+  body.walking.focused #crosshair { opacity: 0; }   /* nothing between you and the painting */
+
+  /* the view prompt: a single E surfacing from the dark like torchlight,
+     low on the screen so it never covers the canvas */
   #focus {
-    position: fixed; left: 50%; top: 57%; transform: translateX(-50%); z-index: 10;
-    text-align: center; display: none;
+    position: fixed; left: 50%; bottom: 11%; transform: translateX(-50%); z-index: 10;
+    text-align: center; opacity: 0; transition: opacity 1.1s var(--ease-smooth);
+    pointer-events: none;
   }
-  #focus .t { font-family: var(--font-serif); font-weight: 400; font-size: 1.3rem; color: var(--ink); }
-  #focus .k { margin-top: 0.3rem; font-size: 0.625rem; letter-spacing: var(--tracking);
-    text-transform: uppercase; color: var(--ink-faint); }
+  #focus.on { opacity: 1; }
+  #focus .key {
+    display: inline-block; font-family: var(--font-serif); font-weight: 400;
+    font-size: 1.05rem; line-height: 1; color: var(--ember);
+    padding: 0.45rem 0.72rem; border: 1px solid rgba(255, 170, 80, 0.22); border-radius: 2px;
+    background: radial-gradient(ellipse at 50% 60%, rgba(122, 31, 26, 0.26), transparent 75%);
+    text-shadow: 0 0 10px rgba(255, 140, 40, 0.55), 0 0 26px rgba(179, 41, 31, 0.4);
+    animation: torch-breathe 2.8s ease-in-out infinite;
+  }
+  #focus .t {
+    margin-top: 0.5rem; font-size: 0.625rem; letter-spacing: var(--tracking);
+    text-transform: uppercase; color: var(--ink-faint); opacity: .85;
+    text-shadow: 0 1px 6px #000;
+  }
+  @keyframes torch-breathe {
+    0%, 100% { opacity: .88; text-shadow: 0 0 8px rgba(255,140,40,.45), 0 0 22px rgba(179,41,31,.32); }
+    50%      { opacity: 1;   text-shadow: 0 0 12px rgba(255,150,50,.65), 0 0 30px rgba(179,41,31,.45); }
+  }
   #room-toast {
     position: fixed; left: 50%; top: 14%; transform: translateX(-50%); z-index: 10;
     font-size: 0.75rem; letter-spacing: var(--tracking); text-transform: uppercase; color: var(--ink-muted);
@@ -218,11 +277,12 @@
 <body>
 
 <div id="grain"></div>
+<div id="boot"></div>
 <div id="secret-veil"></div>
 
 <div id="secret-ask">
   <div class="box">
-    <div class="q">It seems like there is a way inside this painting, want to take a look?</div>
+    <div class="q" id="secret-q">It seems like there is a way inside this painting, want to take a look?</div>
     <div class="choices">
       <button class="btn primary" id="secret-yes">Take a look</button>
       <button class="btn" id="secret-no">Not yet</button>
@@ -231,29 +291,30 @@
 </div>
 
 <div id="intro">
-  <div class="eyebrow">Michał Nosiadek — Paintings, Poems &amp; Music</div>
+  <div class="eyebrow" id="intro-eyebrow">Michał Nosiadek — Paintings, Poems &amp; Music</div>
   <h1>The Last Dawn</h1>
-  <div class="sub">a gallery beneath a dying sun</div>
+  <div class="sub" id="intro-sub">a gallery beneath a dying sun</div>
   <div class="choices">
     <button class="btn primary" id="btn-enter">Enter the gallery</button>
     <button class="btn" id="btn-traditional">View traditionally</button>
   </div>
-  <div class="keys">
+  <div class="keys" id="intro-keys">
     WASD walk · mouse look · E view a painting · Esc release<br>
     controller: left stick walk · right stick look · A view · B close
   </div>
 </div>
 
 <header id="header">
-  <a id="wordmark" href="/">Michał Nosiadek</a>
+  <a id="wordmark" class="wordmark-fire" href="/">Michał Nosiadek</a>
   <nav>
+    <button class="hbtn" id="btn-lang">PL</button>
     <button class="hbtn" id="btn-index">Index</button>
-    <a class="hbtn" href="/#collection" style="text-decoration:none">Back to site</a>
+    <a class="hbtn" id="btn-back" href="/#collection" style="text-decoration:none">Back to site</a>
   </nav>
 </header>
 
 <div id="crosshair"></div>
-<div id="focus"><div class="t"></div><div class="k">Press E to view</div></div>
+<div id="focus"><div class="key">E</div><div class="t"></div></div>
 <div id="room-toast"></div>
 
 <div class="overlay" id="panel">
@@ -280,8 +341,8 @@
   <button class="overlay-x" id="index-close">✕</button>
   <div id="index-inner">
     <div id="index-head">
-      <div class="eyebrow">The collection</div>
-      <h2>Twenty paintings</h2>
+      <div class="eyebrow" id="index-eyebrow">The collection</div>
+      <h2 id="index-count">Twenty-three paintings</h2>
     </div>
     <div id="index-grid"></div>
   </div>
@@ -300,102 +361,292 @@
 
 <script>
 /* =========================================================================
-   EDIT ME — the collection.
-   Titles, years, descriptions and existing poems come from artworks.ts
-   (nosiadek-art repo). poem: "" hides the poem block — paste yours in.
-   music: point each painting at its track in ./audio/ (shared files merge
-   into one dock entry). Order = hanging order through the rooms.
+   EDIT ME — languages, rooms, the collection.
+
+   LANGUAGES: add a code to LANGS (e.g. "de"), then give every UI string,
+   room name/story and painting t:{} block an entry under that code.
+   The header button cycles through LANGS.
+
+   ROOMS: each room of the cathedral has a name and a backstory (shown on a
+   plaque by its door). Geometry lives in SEGMENTS / CROSS_WALLS below.
+
+   GALLERY: order = hanging order through the rooms (SLOTS pair up 1:1).
+   t[lang] holds description + poem per language. poem: "" hides the block.
    ========================================================================= */
+const LANGS = ["en", "pl"];
+
+const UI = {
+  en: {
+    eyebrow: "Michał Nosiadek — Paintings, Poems & Music",
+    sub: "a gallery beneath a dying sun",
+    enter: "Enter the gallery", trad: "View traditionally",
+    keys: "WASD walk · mouse look · E view a painting · Esc release<br>controller: left stick walk · right stick look · A view · B close",
+    index: "Index", back: "Back to site",
+    collection: "The collection", count: "Twenty-three paintings",
+    hint: "E — view a painting",
+    theme: "♪  Play theme", prev: "‹ Prev", next: "Next ›",
+    room: (num, name) => num ? `Room ${num} — ${name}` : name,
+    signage: "twenty-three paintings, with poems and music",
+    secretQ: "It seems like there is a way inside this painting, want to take a look?",
+    secretYes: "Take a look", secretNo: "Not yet",
+    secretHint: "Something is not quite right...",
+  },
+  pl: {
+    eyebrow: "Michał Nosiadek — Obrazy, Wiersze i Muzyka",
+    sub: "galeria pod gasnącym słońcem",
+    enter: "Wejdź do galerii", trad: "Przeglądaj tradycyjnie",
+    keys: "WASD chód · mysz rozglądanie · E obejrzyj obraz · Esc uwolnij<br>pad: lewa gałka chód · prawa rozglądanie · A obejrzyj · B zamknij",
+    index: "Spis", back: "Wróć na stronę",
+    collection: "Kolekcja", count: "Dwadzieścia trzy obrazy",
+    hint: "E — obejrzyj obraz",
+    theme: "♪  Zagraj motyw", prev: "‹ Poprz.", next: "Nast. ›",
+    room: (num, name) => num ? `Sala ${num} — ${name}` : name,
+    signage: "dwadzieścia trzy obrazy, z wierszami i muzyką",
+    secretQ: "Wygląda na to, że do tego obrazu da się wejść. Chcesz zajrzeć?",
+    secretYes: "Zajrzyj", secretNo: "Jeszcze nie",
+    secretHint: "Coś tu się nie zgadza...",
+  },
+};
+
+const ROOMS = {
+  narthex: {
+    num: "", signZ: null, z0: 30, z1: 40,
+    name: { en: "Narthex", pl: "Przedsionek" },
+    story: {
+      en: "No one remembers when the Painter came to the cathedral. He does not sleep; he paints. He paints a world where souls suffer until the sun vanishes from its face forever — and he swears he is only copying what he sees through the window. There is no window in his cell.",
+      pl: "Nikt nie pamięta, kiedy Malarz przybył do katedry. Nie sypia; maluje. Maluje świat, w którym dusze cierpią, aż słońce na zawsze zniknie z jego oblicza — i przysięga, że tylko przepisuje to, co widzi za oknem. W jego celi nie ma okna.",
+    },
+  },
+  vigil: {
+    num: "I", signZ: 30, z0: 6, z1: 22,
+    name: { en: "The Vigil", pl: "Czuwanie" },
+    story: {
+      en: "The Painter's own chamber. Here hang the faces he tried to give himself and the few warm hours he chose to keep: a shared sunset, a lit window at the edge of the wild. Every vigil ends the same way — with the knife behind the canvas.",
+      pl: "Izba samego Malarza. Wiszą tu twarze, które próbował sobie nadać, i tych kilka ciepłych godzin, które postanowił zatrzymać: wspólny zachód słońca, oświetlone okno na skraju dziczy. Każde czuwanie kończy się tak samo — nożem za płótnem.",
+    },
+  },
+  moon: {
+    num: "II", signZ: 6, z0: -18, z1: -2,
+    name: { en: "Chapel of the Moon", pl: "Kaplica Księżyca" },
+    story: {
+      en: "The Moonlight Clan holds that the moon is the lens of the universe: look through it long enough and you will see what waits behind the veil. Shards of it fell into their forest and sang. Beneath the Red Moon the druids judge the hearts of trespassers, and the frogs of the Pond ring moonstone bells so their dead keep singing in the wind.",
+      pl: "Klan Księżycowej Poświaty wierzy, że księżyc jest soczewką wszechświata: patrz przez niego dość długo, a zobaczysz, co czeka za zasłoną. Jego odłamki spadły w ich las i śpiewały. Pod Czerwonym Księżycem druidzi sądzą serca intruzów, a żaby znad Stawu biją w dzwonki z księżycowego kamienia, by ich zmarli wciąż śpiewali na wietrze.",
+    },
+  },
+  alsnar: {
+    num: "III", signZ: -18, z0: -42, z1: -26,
+    name: { en: "The Curse of Alsnar", pl: "Klątwa Alsnaru" },
+    story: {
+      en: "A star fell on the lands of Alsnar, and a king came to dig it out. The land answered with a curse: the farmlands turned to mist, the hamlet of Rimlet fell, and a cloaked rider now follows a painting made before he was born — past cities of mages, watching gates and burning colonnades — toward the keep where it all went dark.",
+      pl: "Na ziemie Alsnaru spadła gwiazda i przybył król, by ją wykopać. Ziemia odpowiedziała klątwą: pola zamieniły się we mgłę, osada Rimlet upadła, a zakapturzony jeździec podąża za obrazem namalowanym, nim się urodził — mijając miasta magów, patrzące bramy i płonące kolumnady — ku warowni, w której wszystko pociemniało.",
+    },
+  },
+  sun: {
+    num: "IV", signZ: -42, z0: -64, z1: -50,
+    name: { en: "The Second Sun", pl: "Drugie Słońce" },
+    story: {
+      en: "“The Black Sun shall mark the end of light. A night shall rise that knows no morning.” Every world the Painter has made ends beneath the same sky: a star is murdered, an eclipse opens like a door, and a second sun rises black to burn what is left. This is the last room. There is a way out — it leads inside.",
+      pl: "„Czarne Słońce oznajmi kres światła. Wzejdzie noc, co nie zna poranka.” Każdy świat, który Malarz stworzył, kończy się pod tym samym niebem: gwiazda zostaje zamordowana, zaćmienie otwiera się jak drzwi, a drugie słońce wschodzi czarno, by spalić to, co zostało. To ostatnia sala. Wyjście istnieje — prowadzi do środka.",
+    },
+  },
+};
+
 const GALLERY = [
-  // —— Entrance ——
+  /* —— Narthex —— */
+  { file: "ThePainter.jpg", title: "The Painter", year: "—", medium: "Photograph", dimensions: "—",
+    room: "narthex", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "The only likeness of him that survives, and not one he made. He refuses to paint his own face — a face, he says, is a door, and his stays locked. The keepers of the candles say he works only at dusk, mixing his reds while the light dies, and that the paintings answer him.",
+            poem: "I paint a world where souls suffer\nuntil the sun vanishes from the face of it,\nforever.\nI am only copying what I see." },
+      pl: { description: "Jedyna jego podobizna, jaka przetrwała — i nie on ją wykonał. Nie chce malować własnej twarzy; twarz, jak mówi, to drzwi, a swoje trzyma zamknięte. Opiekunowie świec mówią, że pracuje tylko o zmierzchu, mieszając czerwienie, gdy umiera światło — i że obrazy mu odpowiadają.",
+            poem: "Maluję świat, w którym dusze cierpią,\naż słońce zniknie z jego oblicza\nna zawsze.\nJa tylko przepisuję to, co widzę." },
+    } },
+
+  /* —— Room I · The Vigil —— */
   { file: "JohnSinger.jpg", title: "Self-Portrait Study", year: "2026", medium: "Oil on canvas", dimensions: "50 × 62 cm",
-    room: "Entrance", music: "audio/theLastDawn.mp3",
-    description: "A direct, unflinching self-portrait built from hard chiaroscuro: half the face lit, half given to the dark, the way most things about a person are.",
-    poem: "" },
-
-  // —— Room I · Dusk ——
+    room: "vigil", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A direct, unflinching self-portrait built from hard chiaroscuro: half the face lit, half given to the dark, the way most things about a person are.",
+            poem: "I lit one half of my face\nso you would trust the other.\nThe dark half is the honest one.\nIt keeps the vigil." },
+      pl: { description: "Bezpośredni, pozbawiony złudzeń autoportret zbudowany na twardym światłocieniu: pół twarzy w świetle, pół oddane ciemności — jak większość rzeczy w człowieku.",
+            poem: "Oświetliłem pół twarzy,\nżebyś zaufał drugiej połowie.\nTa ciemna jest szczera.\nTo ona trzyma wartę." },
+    } },
+  { file: "KacMorderca.jpg", title: "Kac Morderca", year: "2026", medium: "Oil on canvas", dimensions: "40 × 50 cm",
+    room: "vigil", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A head with no face — only a hollow that spirals inward — and where a halo should hang, a kitchen knife. The morning after, painted as a portrait: the murderer and the murdered sharing one skull.",
+            poem: "The morning after, I met myself\nwith no face left to wear.\nSomething had used my hands all night —\nthe knife remembers where." },
+      pl: { description: "Głowa bez twarzy — tylko pustka zwijająca się do środka — a tam, gdzie powinna wisieć aureola, kuchenny nóż. Poranek dnia następnego namalowany jako portret: morderca i zamordowany w jednej czaszce.",
+            poem: "Nazajutrz rano spotkałem siebie\nbez twarzy do włożenia.\nCoś całą noc używało mych rąk —\nnóż pamięta gdzie." },
+    } },
   { file: "WishYouWereHere.jpg", title: "Wish You Were Here", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "Sunset over still water, two figures at rest beneath it: a rare warm, tender scene set against the darker currents running through the rest of the work. Quiet gratitude, given room to breathe.",
-    poem: "As the Sun sets upon the mountain view,\nIn its light I see what I love most,\nThe warmth, comfort and beauty\nOf simple kindness and compassion." },
-  { file: "Witches.jpg", title: "Witches", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "A gathering at the forest's edge: two figures lit by campfire beneath a rising moon and a glowing ridge of mountains. Firelight and moonlight are the only witnesses to whatever rite this is.",
-    poem: "" },
-  { file: "Moon.jpg", title: "Moon", year: "2026", medium: "Oil on canvas", dimensions: "50 × 50 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "A lone red moon adrift in a near-black sky. Restraint over detail: everything the painting needs is already there in the color.",
-    poem: "" },
-  { file: "theSecondMoon.jpg", title: "The Second Moon", year: "2025", medium: "Oil on canvas", dimensions: "40 × 50 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "An eye rendered close and unblinking, lit like a second moon rising. Warmth and watchfulness in the same brushstroke.",
-    poem: "the Second Moon is watching\nso is the sleeping forest\nIn the depths of reflection\nOf a lake long forgotten" },
-  { file: "Celtic.jpg", title: "Celtic", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "A skull, a candle, a tankard of ale: vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
-    poem: "" },
-  { file: "Ribbiton.jpg", title: "Ribbiton", year: "2026", medium: "Oil on canvas", dimensions: "60 × 45 cm",
-    room: "Room I — Dusk", music: "audio/theLastDawn.mp3",
-    description: "One of the bestiary pieces: a creature caught between menace and play, painted with more affection than fear.",
-    poem: "" },
-
-  // —— Room II · Thresholds ——
-  { file: "Edephious.jpg", title: "Edephious", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "A red-carpeted hallway stretches toward a pale, watching face framed in a window at its end, while a door left ajar spills warm light from the other direction. A choice between two thresholds, neither one comfortable.",
-    poem: "" },
-  { file: "IsleOfTheDead.jpg", title: "Isle of the Dead", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "A tomb carved into rock, glowing from within like an ember that refuses to go out. A reinterpretation of the old motif: the threshold to whatever waits past the dead, lit rather than shrouded.",
-    poem: "" },
-  { file: "EdgeOfTheNight.jpg", title: "Edge of the Night", year: "2026", medium: "Oil on canvas", dimensions: "50 × 64 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "A cloaked figure dissolves into, or is born from, a torrent of crimson light against total black. The instant before dawn, or the instant after everything else has gone out.",
-    poem: "" },
-  { file: "CityOfMages.jpg", title: "City of Mages", year: "2026", medium: "Oil on canvas", dimensions: "50 × 68 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "Crimson spires rise over a lantern-lit path beneath snow-capped peaks. Every window is lit; no one is visible.",
-    poem: "" },
-  { file: "Neverwinter.jpg", title: "Neverwinter", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "A cloaked rider approaches a silhouetted keep beneath a swollen sun. The road is short; the arrival is the whole story.",
-    poem: "" },
+    room: "vigil", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "Sunset over still water, two figures at rest beneath it: a rare warm, tender scene set against the darker currents running through the rest of the work. Quiet gratitude, given room to breathe.",
+            poem: "As the Sun sets upon the mountain view,\nIn its light I see what I love most,\nThe warmth, comfort and beauty\nOf simple kindness and compassion." },
+      pl: { description: "Zachód słońca nad spokojną wodą i dwie odpoczywające postacie: rzadka, ciepła scena na tle ciemniejszych nurtów reszty prac. Cicha wdzięczność, której pozwolono odetchnąć.",
+            poem: "Gdy słońce zachodzi nad górskim widokiem,\nw jego świetle widzę to, co kocham najbardziej:\nciepło, ukojenie i piękno\nzwykłej dobroci i współczucia." },
+    } },
   { file: "EdgeOfCivilization.jpg", title: "Edge of Civilization", year: "2026", medium: "Oil on canvas", dimensions: "48 × 60 cm",
-    room: "Room II — Thresholds", music: "audio/theLastDawn.mp3",
-    description: "A window at the edge of the wild: beyond the sill, a burrow, a worn path, and the last kept light before the trees take over.",
-    poem: "" },
+    room: "vigil", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A window at the edge of the wild: beyond the sill, a burrow, a worn path, and the last kept light before the trees take over.",
+            poem: "The last kept light before the trees.\nBeyond the sill, a worn path waits.\nEverything I love fits in one window.\nEverything else is night." },
+      pl: { description: "Okno na skraju dziczy: za parapetem nora, wydeptana ścieżka i ostatnie pilnowane światło, nim las przejmie wszystko.",
+            poem: "Ostatnie pilnowane światło przed lasem.\nZa parapetem czeka wydeptana ścieżka.\nWszystko, co kocham, mieści się w jednym oknie.\nCała reszta jest nocą." },
+    } },
 
-  // —— Room III · The Ending ——
-  { file: "Orgrimmar.jpg", title: "Orgrimmar", year: "2026", medium: "Oil on canvas", dimensions: "70 × 56 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "A fortress gate flanked by towers built as giant horned eyes, watching every approach. A road lined with broken fences leads travelers toward the fire glowing at its heart.",
-    poem: "" },
-  { file: "Pandemonium.jpg", title: "Pandemonium", year: "2026", medium: "Oil on canvas", dimensions: "70 × 50 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "Named for Milton's capital of ruin: a vast colonnade burns through the night as robed figures process past it, torches and banners held high against the dark it's built from.",
-    poem: "" },
-  { file: "EndOfTheWorld.jpg", title: "End of the World", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "A tree of fire feeds a wound in the sky over snow-lit peaks: the world ending not with noise but with a slow red spiral.",
-    poem: "" },
+  /* —— Room II · Chapel of the Moon —— */
+  { file: "Moon.jpg", title: "Moon", year: "2026", medium: "Oil on canvas", dimensions: "50 × 50 cm",
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A lone red moon adrift in a near-black sky. Restraint over detail: everything the painting needs is already there in the color. The Moonlight Clan would call it the lens of the universe, briefly uncovered.",
+            poem: "The moon is the lens of the universe.\nLook long enough and you will see\nwhat waits behind the veil —\nand it will see you looking." },
+      pl: { description: "Samotny czerwony księżyc dryfujący po niemal czarnym niebie. Powściągliwość zamiast detalu: wszystko, czego obraz potrzebuje, jest już w kolorze. Klan Księżycowej Poświaty nazwałby go soczewką wszechświata, na chwilę odsłoniętą.",
+            poem: "Księżyc jest soczewką wszechświata.\nPatrz wystarczająco długo, a zobaczysz,\nco czeka za zasłoną —\ni ono zobaczy, że patrzysz." },
+    } },
+  { file: "theSecondMoon.jpg", title: "The Second Moon", year: "2025", medium: "Oil on canvas", dimensions: "40 × 50 cm",
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "An eye rendered close and unblinking, lit like a second moon rising. Warmth and watchfulness in the same brushstroke.",
+            poem: "the Second Moon is watching\nso is the sleeping forest\nIn the depths of reflection\nOf a lake long forgotten" },
+      pl: { description: "Oko namalowane z bliska, nieruchome, rozświetlone jak wschodzący drugi księżyc. Ciepło i czujność w jednym pociągnięciu pędzla.",
+            poem: "Drugi Księżyc patrzy,\ntak jak i śpiący las,\nw głębinach odbicia\ndawno zapomnianego jeziora." },
+    } },
+  { file: "Witches.jpg", title: "Witches", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A gathering at the forest's edge: two figures lit by campfire beneath a rising moon and a glowing ridge of mountains. Firelight and moonlight are the only witnesses to whatever rite this is.",
+            poem: "Two by the fire, the ridge alight,\nthe moon a witness overhead.\nWhat we asked for that night, we received.\nWe should have asked for less." },
+      pl: { description: "Zgromadzenie na skraju lasu: dwie postacie w blasku ogniska, nad nimi wschodzący księżyc i łuna nad granią. Ogień i księżyc są jedynymi świadkami tego obrzędu.",
+            poem: "Dwie przy ogniu, grań w łunie,\nksiężyc świadkiem nad głowami.\nO co prosiłyśmy tej nocy, to otrzymałyśmy.\nTrzeba było prosić o mniej." },
+    } },
+  { file: "Celtic.jpg", title: "Celtic", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A skull, a candle, a tankard of ale: vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
+            poem: "Drink, for the candle is patient\nand the skull is in no hurry.\nBeyond the glass, a green moon\ncounts what is left of us." },
+      pl: { description: "Czaszka, świeca i kufel piwa: vanitas w pogańskim ujęciu. Za oknem chorobliwie zielony księżyc wisi nad nagimi drzewami — ostatni świadek, gdy zgaśnie ostatnie światło.",
+            poem: "Pij, bo świeca jest cierpliwa,\na czaszce się nie spieszy.\nZa szybą zielony księżyc\nliczy, ile z nas zostało." },
+    } },
+  { file: "Ribbiton.jpg", title: "Ribbiton", year: "2026", medium: "Oil on canvas", dimensions: "60 × 45 cm",
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "One of the bestiary pieces: a Ribbit of the Pond, caught between menace and play, painted with more affection than fear. In the lore of Reviclades his tribe worships the Primordial Sound and carves moonstone bells of remembrance for their dead.",
+            poem: "The world was born from a single sound,\nsay the frogs of the Pond,\nand every bell rung for the dead\nreturns a little of it." },
+      pl: { description: "Jeden z obrazów bestiariusza: Ribbit znad Stawu, zawieszony między groźbą a zabawą, namalowany z większą czułością niż strachem. W świecie Reviclades jego plemię czci Pradźwięk i rzeźbi z księżycowego kamienia dzwonki pamięci dla zmarłych.",
+            poem: "Świat narodził się z jednego dźwięku,\nmówią żaby znad Stawu,\ni każdy dzwonek bijący za zmarłych\noddaje go po trochu." },
+    } },
   { file: "Moongose.jpg", title: "Moongoose", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "A vast, tusked lunar eye dominates the frame while a small penguin stands beneath it, unbothered. Scale and strangeness: a stray moment of dark humor let into the work.",
-    poem: "" },
+    room: "moon", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A vast, tusked lunar eye dominates the frame while a small penguin stands beneath it, unbothered. Scale and strangeness: a stray moment of dark humor let into the work.",
+            poem: "Under the tusked eye of the moon\nthe smallest witness stands unbothered.\nNot all who are watched\nare afraid." },
+      pl: { description: "Ogromne, kłowe księżycowe oko wypełnia kadr, a pod nim stoi niewzruszony mały pingwin. Skala i dziwność: zabłąkana chwila czarnego humoru wpuszczona między obrazy.",
+            poem: "Pod kłowym okiem księżyca\nnajmniejszy świadek stoi niewzruszony.\nNie wszyscy, na których się patrzy,\nsię boją." },
+    } },
+
+  /* —— Room III · The Curse of Alsnar —— */
+  { file: "Neverwinter.jpg", title: "Neverwinter", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A cloaked rider approaches a silhouetted keep beneath a swollen sun. The road is short; the arrival is the whole story.",
+            poem: "The King hath tried —\noh yes, he hath tried,\nbut the deed was done,\nand he too knew why." },
+      pl: { description: "Zakapturzony jeździec zbliża się do sylwetki warowni pod spuchniętym słońcem. Droga jest krótka; przybycie jest całą historią.",
+            poem: "Król próbował, tak bardzo, próbował,\nlecz czyn został dokonany,\na on też wiedział czemu." },
+    } },
+  { file: "CityOfMages.jpg", title: "City of Mages", year: "2026", medium: "Oil on canvas", dimensions: "50 × 68 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "Crimson spires rise over a lantern-lit path beneath snow-capped peaks. Every window is lit; no one is visible.",
+            poem: "Every window burning, every street empty.\nThe mages left their lamps lit\nso the dark would think\nsomeone still lived there." },
+      pl: { description: "Karmazynowe iglice nad oświetloną latarniami ścieżką, w tle ośnieżone szczyty. Każde okno się świeci; nie widać nikogo.",
+            poem: "Każde okno płonie, każda ulica pusta.\nMagowie zostawili zapalone lampy,\nżeby ciemność myślała,\nże ktoś tu jeszcze mieszka." },
+    } },
+  { file: "Edephious.jpg", title: "Edephious", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A red-carpeted hallway stretches toward a pale, watching face framed in a window at its end, while a door left ajar spills warm light from the other direction. A choice between two thresholds, neither one comfortable.",
+            poem: "Two doors, one hallway, no good end:\nwarm light behind me, a face ahead.\nI have been walking this carpet for years.\nThe face is patient. The light is not." },
+      pl: { description: "Czerwony dywan korytarza ciągnie się ku bladej, patrzącej twarzy w oknie na jego końcu, a uchylone drzwi z drugiej strony sączą ciepłe światło. Wybór między dwoma progami — żaden nie jest bezpieczny.",
+            poem: "Dwoje drzwi, jeden korytarz, żadnego dobrego końca:\nza mną ciepłe światło, przede mną twarz.\nIdę tym dywanem od lat.\nTwarz jest cierpliwa. Światło nie." },
+    } },
+  { file: "IsleOfTheDead.jpg", title: "Isle of the Dead", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A tomb carved into rock, glowing from within like an ember that refuses to go out. A reinterpretation of the old motif: the threshold to whatever waits past the dead, lit rather than shrouded.",
+            poem: "They carved the tomb into the rock\nand the rock kept it warm.\nWhatever waits past the dead\nleaves a light on for us." },
+      pl: { description: "Grobowiec wykuty w skale, jarzący się od środka jak żar, który nie chce zgasnąć. Stary motyw na nowo: próg tego, co czeka za umarłymi — oświetlony, nie spowity.",
+            poem: "Wykuli grobowiec w skale,\na skała utrzymała w nim ciepło.\nCokolwiek czeka za umarłymi,\nzostawia nam zapalone światło." },
+    } },
+  { file: "EdgeOfTheNight.jpg", title: "Edge of the Night", year: "2026", medium: "Oil on canvas", dimensions: "50 × 64 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A cloaked figure dissolves into, or is born from, a torrent of crimson light against total black. The instant before dawn, or the instant after everything else has gone out.",
+            poem: "At the edge of the night a figure stands\nstitched from the last of the red.\nOne step forward is morning.\nOne step back is not." },
+      pl: { description: "Zakapturzona postać rozpływa się w strumieniu karmazynowego światła na tle absolutnej czerni — albo się z niego rodzi. Chwila tuż przed świtem, albo tuż po tym, jak zgasło wszystko inne.",
+            poem: "Na krawędzi nocy stoi postać\nuszyta z resztek czerwieni.\nKrok naprzód to poranek.\nKrok wstecz — już nie." },
+    } },
+  { file: "Orgrimmar.jpg", title: "Orgrimmar", year: "2026", medium: "Oil on canvas", dimensions: "70 × 56 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A fortress gate flanked by towers built as giant horned eyes, watching every approach. A road lined with broken fences leads travelers toward the fire glowing at its heart.",
+            poem: "The gate has eyes and the eyes have horns\nand the road walks you in.\nEvery fence along it is broken\nfrom the inside." },
+      pl: { description: "Brama twierdzy między wieżami zbudowanymi jak wielkie rogate oczy, śledzące każde podejście. Droga wśród połamanych płotów prowadzi wędrowców ku ognisku żarzącemu się w jej sercu.",
+            poem: "Brama ma oczy, a oczy mają rogi,\ni to droga wprowadza cię do środka.\nKażdy płot przy niej jest połamany\nod wewnątrz." },
+    } },
+  { file: "Pandemonium.jpg", title: "Pandemonium", year: "2026", medium: "Oil on canvas", dimensions: "70 × 50 cm",
+    room: "alsnar", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "Named for Milton's capital of ruin: a vast colonnade burns through the night as robed figures process past it, torches and banners held high against the dark it's built from.",
+            poem: "They built their capital out of the dark\nand were surprised when it burned.\nNow they process past the colonnade,\ntorches high, praising the flame." },
+      pl: { description: "Od Miltonowskiej stolicy ruiny: ogromna kolumnada płonie w nocy, a obok procesją suną postacie w szatach, z pochodniami i sztandarami wzniesionymi przeciw ciemności, z której ją zbudowano.",
+            poem: "Zbudowali stolicę z ciemności\ni zdziwili się, że płonie.\nTeraz suną procesją wzdłuż kolumnady,\nz pochodniami, wielbiąc płomień." },
+    } },
+
+  /* —— Room IV · The Second Sun —— */
+  { file: "ComingOfTheSecondSun.jpg", title: "Coming of the Second Sun", year: "2026", medium: "Oil on canvas", dimensions: "50 × 50 cm",
+    room: "sun", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "The prophecy the Children of the Sun pray toward: a second sun rising black over the mountains, ringed in fire, come to end all suffering by ending everything else. Painted as totality — the ring burns, the disc devours.",
+            poem: "The Black Sun shall mark the end of light.\nA night shall rise that knows no morning.\nThrough pride and prejudice mankind shall fall,\nAnd from its ashes, a darker age begin." },
+      pl: { description: "Przepowiednia, ku której modlą się Dzieci Słońca: drugie słońce wschodzące czarno nad górami, otoczone pierścieniem ognia, przybywające zakończyć wszelkie cierpienie — kończąc wszystko inne. Namalowane jako pełnia zaćmienia: pierścień płonie, tarcza pochłania.",
+            poem: "Czarne Słońce oznajmi kres światła.\nWzejdzie noc, co nie zna poranka.\nZ pychy i uprzedzeń ludzkość upadnie,\na z jej popiołów narodzi się mroczniejsza era." },
+    } },
+  { file: "EndOfTheWorld.jpg", title: "End of the World", year: "2026", medium: "Oil on canvas", dimensions: "60 × 48 cm",
+    room: "sun", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A tree of fire feeds a wound in the sky over snow-lit peaks: the world ending not with noise but with a slow red spiral.",
+            poem: "The world does not end with noise.\nIt ends with a tree of fire\nfeeding a wound in the sky\nslowly, like devotion." },
+      pl: { description: "Drzewo ognia karmi ranę na niebie nad ośnieżonymi szczytami: świat kończy się nie hałasem, lecz powolną czerwoną spiralą.",
+            poem: "Świat nie kończy się hałasem.\nKończy się drzewem ognia,\nkarmiącym ranę na niebie\npowoli, jak modlitwa." },
+    } },
   { file: "Eclipse.jpg", title: "Eclipse", year: "2026", medium: "Oil on canvas", dimensions: "60 × 60 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "Totality over a mountain line: a black sun ringed in fire, indifferent to the peaks beneath it. A companion study to the end of things, seen from a different angle of the same sky.",
-    poem: "" },
+    room: "sun", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "Totality over a mountain line: a black sun ringed in fire, indifferent to the peaks beneath it. A companion study to the end of things, seen from a different angle of the same sky.",
+            poem: "In the deepest chamber,\nbeneath the tree that blossomed the first seed,\na Stone stands, that saw the stars come to be.\nThere you will find answers you seek —\nbut not those that should be asked." },
+      pl: { description: "Pełnia zaćmienia nad linią gór: czarne słońce w pierścieniu ognia, obojętne na szczyty pod sobą. Studium towarzyszące końcowi rzeczy, widzianemu z innego kąta tego samego nieba.",
+            poem: "W najgłębszej komnacie,\npod drzewem, co rozkwitło pierwszym nasieniem,\nstoi Kamień, który widział narodziny gwiazd.\nTam znajdziesz odpowiedzi, których szukasz —\nlecz nie te, o które należało pytać." },
+    } },
   { file: "TheLastDawn.jpg", title: "The Last Dawn", year: "2026", medium: "Acrylic on canvas", dimensions: "60 × 80 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
+    room: "sun", music: "audio/theLastDawn.mp3",
     /* secret door — any painting may register its own game + route here. */
     secret: "games/the-last-dawn/index.html",
-    description: "A lone rider crosses the threshold of a dying kingdom as the sun breaks blood-red over the mountains, painted as the closing image of a story: the last light before the dark.",
-    poem: "" },
+    t: {
+      en: { description: "A lone rider crosses the threshold of a dying kingdom as the sun breaks blood-red over the mountains, painted as the closing image of a story: the last light before the dark.",
+            poem: "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once." },
+      pl: { description: "Samotny jeździec przekracza próg umierającego królestwa, gdy słońce wschodzi krwawo nad górami — namalowane jako obraz zamykający opowieść: ostatnie światło przed ciemnością.",
+            poem: "Jedź, póki góry trzymają jeszcze światło.\nKrólestwo jest wstrzymanym oddechem.\nCokolwiek słońce ma za chwilę powiedzieć,\npowie to tylko raz." },
+    } },
   { file: "TheEnd.jpg", title: "The Murder of a Star", year: "2025", medium: "Oil on canvas", dimensions: "70 × 100 cm",
-    room: "Room III — The Ending", music: "audio/theLastDawn.mp3",
-    description: "A ring of fire opens over a mountain range, indifferent and total. A study in scale: how small a peak looks against something ending.",
-    poem: "At the summit of men's hatred\nChanneled by hubris and greed\nA blow is struck that cannot be undone\nThat ends the world once and for all" },
+    room: "sun", music: "audio/theLastDawn.mp3",
+    t: {
+      en: { description: "A ring of fire opens over a mountain range, indifferent and total. In the lore of Reviclades this is the Night of the Red Moon: the Maker bending the heavens, forcing a star down upon a god. A study in scale — how small a peak looks against something ending.",
+            poem: "At the summit of men's hatred\nChanneled by hubris and greed\nA blow is struck that cannot be undone\nThat ends the world once and for all" },
+      pl: { description: "Pierścień ognia otwiera się nad łańcuchem gór, obojętny i całkowity. W świecie Reviclades to Noc Czerwonego Księżyca: Twórca nagina niebiosa i strąca gwiazdę na boga. Studium skali — jak mały wydaje się szczyt wobec czegoś, co się kończy.",
+            poem: "Na szczycie ludzkiej nienawiści,\nprowadzonej pychą i chciwością,\npada cios, którego nie da się cofnąć,\nktóry kończy świat raz na zawsze." },
+    } },
 ];
 /* ====================== end of editable data ============================ */
 </script>
@@ -409,8 +660,9 @@ import * as THREE from "three";
 
 /* =========================================================================
    FLOOR PLAN  (walking +Z → −Z)
-   entrance hall → corridor → Room I → corridor → Room II → corridor →
-   Room III, whose far wall carries The Last Dawn beneath the black sun.
+   narthex → corridor → Room I The Vigil → corridor → Room II Chapel of the
+   Moon → corridor → Room III The Curse of Alsnar → corridor → Room IV The
+   Second Sun, whose far wall carries The Last Dawn beneath the black sun.
    ========================================================================= */
 const SEGMENTS = [
   { name: "ante",  z0: 30,  z1: 40,  hw: 6,   h: 12, roof: false },
@@ -419,47 +671,58 @@ const SEGMENTS = [
   { name: "corB",  z0: -2,  z1: 6,   hw: 2.2, h: 6,  roof: true  },
   { name: "room2", z0: -18, z1: -2,  hw: 9,   h: 12, roof: false },
   { name: "corC",  z0: -26, z1: -18, hw: 2.2, h: 6,  roof: true  },
-  { name: "room3", z0: -40, z1: -26, hw: 8,   h: 12, roof: false },
+  { name: "room3", z0: -42, z1: -26, hw: 9,   h: 12, roof: false },
+  { name: "corD",  z0: -50, z1: -42, hw: 2.2, h: 6,  roof: true  },
+  { name: "room4", z0: -64, z1: -50, hw: 8,   h: 12, roof: false },
 ];
 const DOOR_W = 3.4, DOOR_H = 4.6, WALL_H = 12;
 // transverse walls: [z, spanHalfWidth, doorway?]
 const CROSS_WALLS = [
   [40, 6, false], [30, 6, true], [22, 9, true], [6, 9, true],
-  [-2, 9, true], [-18, 9, true], [-26, 8, true], [-40, 8, false],
-];
-// door signage on approach (+Z) face
-const SIGNS = [
-  [30, "I — DUSK"], [6, "II — THRESHOLDS"], [-18, "III — THE ENDING"],
+  [-2, 9, true], [-18, 9, true], [-26, 9, true], [-42, 9, true],
+  [-50, 8, true], [-64, 8, false],
 ];
 // one slot per painting, in GALLERY order: x, z, ry (facing), h (art height)
 const SLOTS = [
-  // entrance — the self-portrait, alone on the west wall
+  // narthex — the Painter, alone on the west wall
   { x: -5.85, z: 35,     ry:  Math.PI / 2, h: 2.2 },
-  // Room I (z 6..22, hw 9)
+  // Room I · The Vigil (z 6..22, hw 9)
   { x: -8.85, z: 17.5,   ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z: 17.5,   ry: -Math.PI / 2, h: 2.1 },
   { x: -8.85, z: 10.5,   ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z: 10.5,   ry: -Math.PI / 2, h: 2.1 },
-  { x: -5.2,  z: 6.57,   ry: 0,            h: 2.1 },
-  { x:  5.2,  z: 6.57,   ry: 0,            h: 2.1 },
-  // Room II (z -18..-2)
+  // Room II · Chapel of the Moon (z -18..-2)
   { x: -8.85, z: -6.5,   ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z: -6.5,   ry: -Math.PI / 2, h: 2.1 },
   { x: -8.85, z: -13.5,  ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z: -13.5,  ry: -Math.PI / 2, h: 2.1 },
   { x: -5.2,  z: -17.43, ry: 0,            h: 2.1 },
   { x:  5.2,  z: -17.43, ry: 0,            h: 2.1 },
-  // Room III (z -40..-26, hw 8)
-  { x: -7.85, z: -30.5,  ry:  Math.PI / 2, h: 2.1 },
-  { x:  7.85, z: -30.5,  ry: -Math.PI / 2, h: 2.1 },
-  { x: -7.85, z: -35.5,  ry:  Math.PI / 2, h: 2.1 },
-  { x:  7.85, z: -35.5,  ry: -Math.PI / 2, h: 2.1 },
+  // Room III · The Curse of Alsnar (z -42..-26)
+  { x: -8.85, z: -29.5,  ry:  Math.PI / 2, h: 2.1 },
+  { x:  8.85, z: -29.5,  ry: -Math.PI / 2, h: 2.1 },
+  { x: -8.85, z: -34.5,  ry:  Math.PI / 2, h: 2.1 },
+  { x:  8.85, z: -34.5,  ry: -Math.PI / 2, h: 2.1 },
+  { x: -8.85, z: -39.5,  ry:  Math.PI / 2, h: 2.1 },
+  { x:  8.85, z: -39.5,  ry: -Math.PI / 2, h: 2.1 },
+  { x: -5.2,  z: -41.43, ry: 0,            h: 2.1 },
+  // Room IV · The Second Sun (z -64..-50, hw 8)
+  { x: -7.85, z: -54.5,  ry:  Math.PI / 2, h: 2.1 },
+  { x:  7.85, z: -54.5,  ry: -Math.PI / 2, h: 2.1 },
   // the far wall: Eclipse · THE LAST DAWN · The Murder of a Star
-  { x: -5.0,  z: -39.43, ry: 0,            h: 2.1 },
-  { x:  0.0,  z: -39.43, ry: 0,            h: 2.7 },
-  { x:  5.0,  z: -39.43, ry: 0,            h: 2.1 },
+  { x: -5.0,  z: -63.43, ry: 0,            h: 2.1 },
+  { x:  0.0,  z: -63.43, ry: 0,            h: 2.7 },
+  { x:  5.0,  z: -63.43, ry: 0,            h: 2.1 },
 ];
 const EYE = 1.62, PLAYER_R = 0.42;
+
+/* ---------- language ---------- */
+let LANG = (() => {
+  try { const s = localStorage.getItem("tld-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  return LANGS[0];
+})();
+const T = () => UI[LANG];
+const roomLabel = (id) => T().room(ROOMS[id].num, ROOMS[id].name[LANG]);
 
 /* ---------- renderer / scene ---------- */
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -521,7 +784,7 @@ scene.add(sky);
 /* ---------- lights ---------- */
 scene.add(new THREE.HemisphereLight(0x581a0c, 0x0a0505, 0.8));
 const sun = new THREE.DirectionalLight(0xff5228, 1.4);
-sun.position.set(0, 22, -70);
+sun.position.set(0, 22, -90);
 scene.add(sun);
 
 /* ---------- materials ---------- */
@@ -552,8 +815,8 @@ function crossWall(z, hw, doorway) {
 }
 
 /* ---------- build the hall ---------- */
-box(22, 1, 84, 0, -0.5, 0, floorM, false);                       // floor
-box(2.2, 0.05, 78, 0, 0.026, 0, carpetM, false);                 // carpet spine
+box(22, 1, 108, 0, -0.5, -12, floorM, false);                    // floor
+box(2.2, 0.05, 100, 0, 0.026, -12.5, carpetM, false);            // carpet spine
 
 for (const s of SEGMENTS) {
   const len = s.z1 - s.z0, zc = (s.z0 + s.z1) / 2;
@@ -613,6 +876,18 @@ function labelPlane(tex, w, h) {
   return new THREE.Mesh(new THREE.PlaneGeometry(w, h),
     new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
 }
+function wrapLines(g, text, maxW) {
+  const words = text.split(" ");
+  const lines = [];
+  let line = "";
+  for (const w of words) {
+    const test = line ? line + " " + w : w;
+    if (g.measureText(test).width > maxW && line) { lines.push(line); line = w; }
+    else line = test;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
 
 /* ---------- paintings ---------- */
 const texLoader = new THREE.TextureLoader();
@@ -667,9 +942,26 @@ GALLERY.forEach((p, i) => {
   });
 });
 
-/* room signs above corridor doors */
-document.fonts.ready.then(() => {
-  for (const [z, text] of SIGNS) {
+/* ---------- language-dependent 3D text: door signs, entrance signage,
+              room-story plaques. Rebuilt whenever the language changes. */
+const langMeshes = [];
+function clearLangMeshes() {
+  for (const m of langMeshes) {
+    scene.remove(m);
+    m.geometry?.dispose();
+    m.material?.map?.dispose();
+    m.material?.dispose();
+  }
+  langMeshes.length = 0;
+}
+function buildLangMeshes() {
+  clearLangMeshes();
+
+  /* room signs above corridor doors */
+  for (const id of Object.keys(ROOMS)) {
+    const r = ROOMS[id];
+    if (r.signZ === null) continue;
+    const text = (r.num + " — " + r.name[LANG]).toUpperCase();
     const tt = textTexture((g, W, H) => {
       g.textAlign = "center";
       g.fillStyle = "#a89f97";
@@ -677,13 +969,14 @@ document.fonts.ready.then(() => {
       g.save(); g.translate(W / 2, H / 2 + 18);
       g.letterSpacing = "18px";
       g.fillText(text, 0, 0); g.restore();
-    }, 1024, 160);
-    const s = labelPlane(tt, 3.4, 0.53);
-    s.position.set(0, DOOR_H + 0.85, z + 0.52);
-    scene.add(s);
+    }, 1400, 160);
+    const s = labelPlane(tt, 4.6, 0.53);
+    s.position.set(0, DOOR_H + 0.85, r.signZ + 0.52);
+    scene.add(s); langMeshes.push(s);
   }
-  /* entrance signage, east wall */
-  const tt = textTexture((g, W, H) => {
+
+  /* entrance signage, east wall of the narthex */
+  const sig = textTexture((g, W, H) => {
     g.textAlign = "center";
     g.fillStyle = "#6f6862";
     g.font = "400 34px Inter, sans-serif";
@@ -694,13 +987,54 @@ document.fonts.ready.then(() => {
     g.fillText("The Last Dawn", W / 2, 300);
     g.fillStyle = "#a89f97";
     g.font = "italic 300 44px 'Cormorant Garamond', serif";
-    g.fillText("twenty paintings, with poems and music", W / 2, 400);
+    g.fillText(T().signage, W / 2, 400);
   }, 1600, 512);
-  const s = labelPlane(tt, 4.4, 1.4);
-  s.position.set(5.94, 2.6, 35);
-  s.rotation.y = -Math.PI / 2;
-  scene.add(s);
-});
+  const sigMesh = labelPlane(sig, 4.4, 1.4);
+  sigMesh.position.set(5.94, 2.9, 35);
+  sigMesh.rotation.y = -Math.PI / 2;
+  scene.add(sigMesh); langMeshes.push(sigMesh);
+
+  /* the narthex story, engraved beneath the signage */
+  const nstory = textTexture((g, W, H) => {
+    g.fillStyle = "#8a817a";
+    g.font = "italic 300 34px 'Cormorant Garamond', serif";
+    g.textAlign = "center";
+    const lines = wrapLines(g, ROOMS.narthex.story[LANG], W - 160);
+    let y = 70;
+    for (const ln of lines) { g.fillText(ln, W / 2, y); y += 46; }
+  }, 1600, 512);
+  const nMesh = labelPlane(nstory, 3.9, 1.25);
+  nMesh.position.set(5.94, 1.45, 35);
+  nMesh.rotation.y = -Math.PI / 2;
+  scene.add(nMesh); langMeshes.push(nMesh);
+
+  /* room-story plaques: just inside each room, on the entry wall,
+     to the right of the door as you walk in */
+  for (const id of Object.keys(ROOMS)) {
+    const r = ROOMS[id];
+    if (r.signZ === null) continue;
+    const tt = textTexture((g, W, H) => {
+      g.fillStyle = "#f2ece6";
+      g.font = "300 52px 'Cormorant Garamond', serif";
+      g.textAlign = "left";
+      g.fillText(r.name[LANG], 70, 100);
+      g.fillStyle = "#98908a";
+      g.font = "300 30px Inter, sans-serif";
+      const lines = wrapLines(g, r.story[LANG], W - 140);
+      let y = 170;
+      for (const ln of lines) { g.fillText(ln, 70, y); y += 44; }
+    }, 1200, 700);
+    const backing = new THREE.Mesh(new THREE.BoxGeometry(2.75, 1.62, 0.05), plaqueM);
+    backing.position.set(3.55, 2.45, r.z1 - 0.54);
+    backing.rotation.y = Math.PI;
+    scene.add(backing); langMeshes.push(backing);
+    const s = labelPlane(tt, 2.6, 1.517);
+    s.position.set(3.55, 2.45, r.z1 - 0.58);
+    s.rotation.y = Math.PI;
+    scene.add(s); langMeshes.push(s);
+  }
+}
+document.fonts.ready.then(buildLangMeshes);
 
 /* ---------- state / UI ---------- */
 const $ = (id) => document.getElementById(id);
@@ -733,12 +1067,12 @@ function openPanel(i) {
   currentIdx = i;
   const p = GALLERY[i];
   $("panel-img").src = "paintings/" + p.file;
-  $("panel-img").alt = p.title + " — original painting by Michał Nosiadek";
-  $("panel-room").textContent = p.room;
+  $("panel-img").alt = p.title + " — Michał Nosiadek";
+  $("panel-room").textContent = roomLabel(p.room);
   $("panel-title").textContent = p.title;
   $("panel-meta").textContent = `${p.year} · ${p.medium} · ${p.dimensions}`;
-  $("panel-desc").textContent = p.description || "";
-  $("panel-poem").textContent = p.poem || "";
+  $("panel-desc").textContent = p.t[LANG]?.description || "";
+  $("panel-poem").textContent = p.t[LANG]?.poem || "";
   $("btn-secret").style.display = p.secret ? "block" : "none";
   panel.classList.add("open");
   document.exitPointerLock?.();
@@ -772,14 +1106,18 @@ $("btn-theme").onclick = () => {
 
 /* index */
 const grid = $("index-grid");
-GALLERY.forEach((p, i) => {
-  const d = document.createElement("button");
-  d.className = "idx-item";
-  d.innerHTML = `<div class="ph"><img loading="lazy" src="paintings/${p.file}" alt="${p.title}"></div>
-    <div class="t">${p.title}</div><div class="r">${p.room}</div>`;
-  d.onclick = () => { indexOv.classList.remove("open"); teleportTo(i); openPanel(i); };
-  grid.appendChild(d);
-});
+function buildIndex() {
+  grid.innerHTML = "";
+  GALLERY.forEach((p, i) => {
+    const d = document.createElement("button");
+    d.className = "idx-item";
+    d.innerHTML = `<div class="ph"><img loading="lazy" src="paintings/${p.file}" alt="${p.title}"></div>
+      <div class="t">${p.title}</div><div class="r">${roomLabel(p.room)}</div>`;
+    d.onclick = () => { indexOv.classList.remove("open"); teleportTo(i); openPanel(i); };
+    grid.appendChild(d);
+  });
+}
+buildIndex();
 $("btn-index").onclick = () => { indexOv.classList.add("open"); document.exitPointerLock?.(); };
 
 function teleportTo(i) {
@@ -793,21 +1131,57 @@ function teleportTo(i) {
 /* room toast */
 let lastRoom = "";
 function roomAt(z) {
-  if (z > 30) return "Entrance";
-  if (z > 6) return "Room I — Dusk";
-  if (z > -18) return "Room II — Thresholds";
-  return "Room III — The Ending";
+  if (z > 30) return "narthex";
+  if (z > 6) return "vigil";
+  if (z > -18) return "moon";
+  if (z > -42) return "alsnar";
+  return "sun";
 }
 function updateToast() {
   const r = roomAt(camera.position.z);
   if (r !== lastRoom) {
     lastRoom = r;
-    toast.textContent = r;
+    toast.textContent = roomLabel(r);
     toast.style.opacity = 1;
     clearTimeout(updateToast._t);
     updateToast._t = setTimeout(() => toast.style.opacity = 0, 2600);
   }
 }
+
+/* ---------- language switching ---------- */
+function applyLang() {
+  document.documentElement.lang = LANG;
+  $("intro-eyebrow").innerHTML = T().eyebrow.replace("&", "&amp;");
+  $("intro-sub").textContent = T().sub;
+  $("btn-enter").textContent = T().enter;
+  $("btn-traditional").textContent = T().trad;
+  $("intro-keys").innerHTML = T().keys;
+  $("btn-index").textContent = T().index;
+  $("btn-back").textContent = T().back;
+  $("index-eyebrow").textContent = T().collection;
+  $("index-count").textContent = T().count;
+  $("hint").textContent = T().hint;
+  $("btn-theme").innerHTML = T().theme;
+  $("btn-prev").textContent = T().prev;
+  $("btn-next").textContent = T().next;
+  $("secret-q").textContent = T().secretQ;
+  $("secret-yes").textContent = T().secretYes;
+  $("secret-no").textContent = T().secretNo;
+  $("btn-secret").textContent = T().secretHint;
+  const next = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
+  $("btn-lang").textContent = next.toUpperCase();
+  buildIndex();
+  if (panel.classList.contains("open") && currentIdx >= 0) openPanel(currentIdx);
+  lastRoom = "";           // re-toast the room in the new language
+  if (document.fonts.status === "loaded") buildLangMeshes();
+  else document.fonts.ready.then(buildLangMeshes);
+}
+$("btn-lang").onclick = () => {
+  LANG = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
+  try { localStorage.setItem("tld-lang", LANG); } catch (e) {}
+  applyLang();
+};
+applyLang();
 
 /* ---------- input: keyboard / mouse ---------- */
 const keys = {};
@@ -964,16 +1338,21 @@ function animate() {
     if (hit && hit.distance < 6) focusedIdx = hit.object.userData.index;
   }
   if (focusedIdx >= 0) {
-    focusEl.style.display = "block";
+    focusEl.classList.add("on");
+    document.body.classList.add("focused");
+    focusEl.querySelector(".key").textContent = padActive ? "A" : "E";
     focusEl.querySelector(".t").textContent = GALLERY[focusedIdx].title;
-    focusEl.querySelector(".k").textContent = padActive ? "A — view" : "Press E to view";
   } else {
-    focusEl.style.display = "none";
+    focusEl.classList.remove("on");
+    document.body.classList.remove("focused");
   }
 
   renderer.render(scene, camera);
 }
 animate();
+
+/* arriving from the site: fade up from the same void the site sits on */
+requestAnimationFrame(() => requestAnimationFrame(() => $("boot").classList.add("off")));
 
 addEventListener("resize", () => {
   camera.aspect = innerWidth / innerHeight;

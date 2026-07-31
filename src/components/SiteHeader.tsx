@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 
 const links = [
-  { href: "/gallery", label: "Gallery" },
-  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery", external: false },
+  // the 3D first-person gallery is a static app served from /public/experience
+  { href: "/experience/index.html", label: "Experience", external: true },
+  { href: "/about", label: "About", external: false },
 ];
 
 export default function SiteHeader() {
@@ -16,21 +18,31 @@ export default function SiteHeader() {
       <div className="container-art flex h-16 items-center justify-between md:h-20">
         <Link
           href="/"
-          className="font-serif text-sm tracking-wide text-ink sm:text-lg sm:tracking-widest2 md:text-xl"
+          className="wordmark-fire font-serif text-sm tracking-wide text-ink sm:text-lg sm:tracking-widest2 md:text-xl"
         >
           MICHAŁ NOSIADEK
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <button
@@ -53,16 +65,27 @@ export default function SiteHeader() {
 
       {open && (
         <nav className="flex flex-col gap-1 border-t border-void-line/60 bg-void px-6 pb-6 pt-2 md:hidden">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
       )}
     </header>
