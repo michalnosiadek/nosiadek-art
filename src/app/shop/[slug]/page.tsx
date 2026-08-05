@@ -18,6 +18,18 @@ export function generateMetadata({
     title: artwork
       ? translate(defaultLocale, "site.meta.artworkTitle", { title: artwork.title })
       : translate(defaultLocale, "site.meta.notFound"),
+    description: artwork
+      ? translate(defaultLocale, "site.meta.artworkDescription", { title: artwork.title })
+      : undefined,
+    alternates: artwork ? { canonical: `/shop/${artwork.slug}` } : undefined,
+    openGraph: artwork
+      ? {
+          type: "website",
+          title: `${artwork.title} · Michał Nosiadek`,
+          description: artwork.description,
+          images: [{ url: artwork.image, width: artwork.imageWidth, height: artwork.imageHeight, alt: artwork.title }],
+        }
+      : undefined,
   };
 }
 

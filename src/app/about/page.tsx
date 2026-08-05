@@ -4,6 +4,8 @@ import AboutView from "./AboutView";
 
 export const metadata: Metadata = {
   title: translate(defaultLocale, "site.meta.aboutTitle"),
+  description: translate(defaultLocale, "site.meta.aboutDescription"),
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

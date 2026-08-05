@@ -183,6 +183,14 @@
   #death h2 { font-size: clamp(2.6rem, 6vw, 4.25rem); letter-spacing: 0.04em; }
 
   #end h2 { font-size: clamp(2.6rem, 6.4vw, 4.6rem); margin-top: 1.1rem; }
+  #end { background: #090605; overflow-y: auto; justify-content: flex-start; padding: 3rem 1.5rem; }
+  #end .shade { display: none; }
+  #end .inner { width: min(100%, 1040px); display: flex; flex-direction: column; align-items: center; }
+  #e-painting { display: block; width: min(100%, 920px); max-height: 55vh; object-fit: contain;
+    margin: 2rem auto 0; border: 1px solid rgba(242,236,230,.22);
+    box-shadow: 0 1.5rem 4rem rgba(0,0,0,.65), 0 0 2rem rgba(179,41,31,.2); }
+  #end:not(.blackout) #e-tag { display: none; }
+  #end:not(.blackout) #e-poem { max-width: 48rem; margin-top: 2rem; }
   #end .light-line { margin-top: 2rem; font-size: 0.72rem; letter-spacing: var(--tracking);
     text-transform: uppercase; color: var(--moon-soft); }
   #end .cta { display: block; margin-top: 2.4rem; font-size: 0.68rem; letter-spacing: var(--tracking);
@@ -197,6 +205,7 @@
     font-size: 1.28rem; line-height: 1.55; font-style: italic; color: var(--ink); }
   #end.blackout { background: #000; }
   #end.blackout .bg, #end.blackout .shade, #end.blackout #e-eyebrow, #end.blackout #e-title,
+  #end.blackout #e-painting,
   #end.blackout #e-poem, #end.blackout #light-carried, #end.blackout #e-back { display: none; }
   #end.blackout .tag { max-width: 48rem; font-size: clamp(1.6rem, 3vw, 3rem); color: var(--ink); font-style: normal; min-height: 4em; }
   #end-continue { margin-top: 2.4rem; font-family: var(--font-sans); background: transparent; color: var(--ink);
@@ -343,10 +352,11 @@
     </div>
 
     <div class="screen" id="end">
-      <div class="bg"></div><div class="shade"></div>
+      <div class="shade"></div>
       <div class="inner">
         <div class="eyebrow" id="e-eyebrow">Chapter I complete</div>
         <h2 id="e-title">The Murder of a Star</h2>
+        <img id="e-painting" src="paintings/TheEnd.jpg" alt="The Murder of a Star — oil painting by Michał Nosiadek">
         <div class="tag" id="e-tag">The Murder of a Star</div>
         <div class="poem" id="e-poem"></div>
         <div class="light-line" id="light-carried">0 light carried forward</div>
@@ -1995,6 +2005,7 @@ function applyLang() {
   set("respawn", "death.respawn");
   set("e-eyebrow", "end.eyebrow");
   set("e-title", "end.heading");
+  $("e-painting").alt = TT("end.imageAlt");
   set("e-tag", "end.tag");
   set("e-cta", "end.cta");
   set("e-back", "end.back");
@@ -2961,10 +2972,11 @@ function animate() {
     inspectUpdate(dt);
     U.uCamPos.value.copy(inspectCam.position);
     pushLights(t);
-    renderer.setRenderTarget(rt);
-    renderer.render(inspectScene, inspectCam);
+    /* Keep the ring at the display's native resolution. The game world uses
+       a deliberately low-res PS1 pass, but the inspection object must stay
+       crisp beside the DOM description. */
     renderer.setRenderTarget(null);
-    renderer.render(postScene, postCam);
+    renderer.render(inspectScene, inspectCam);
     return;
   }
 
