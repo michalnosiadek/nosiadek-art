@@ -1,4 +1,8 @@
+"use client";
+
 import { socials } from "@/lib/socials";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { hasKey } from "@/i18n";
 
 function Icon({ label }: { label: string }) {
   switch (label.toLowerCase()) {
@@ -77,6 +81,15 @@ function Icon({ label }: { label: string }) {
 }
 
 export default function SocialLinks() {
+  const { t } = useI18n();
+
+  // Platform names are proper nouns, but they still get a key so they can be
+  // transliterated for a future locale that needs it.
+  const label = (name: string) => {
+    const key = `site.socials.${name.toLowerCase()}`;
+    return hasKey(key) ? t(key) : name;
+  };
+
   return (
     <div className="flex items-center gap-4">
       {socials.map((s) => (
@@ -85,7 +98,7 @@ export default function SocialLinks() {
           href={s.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={s.label}
+          aria-label={label(s.label)}
           className="flex h-9 w-9 items-center justify-center rounded-full border border-void-line text-ink-muted transition-colors duration-300 hover:border-ink hover:text-ink"
         >
           <Icon label={s.label} />

@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import type { Artwork } from "@/lib/artworks";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { hasKey } from "@/i18n";
+
+const CONTACT_EMAIL = "nosiadek.michal@gmail.com";
 
 export default function BuyPanel({ artwork }: { artwork: Artwork }) {
+  const { t, tArt } = useI18n();
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<
     | { type: "print"; label: string; price: number }
@@ -15,6 +20,14 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
   );
 
   const total = selected.price + (framed ? artwork.framingPrice : 0);
+  const title = tArt(artwork.slug, "title", artwork.title);
+  const dimensions = tArt(artwork.slug, "dimensions", artwork.dimensions);
+
+  /** Print sizes are a short, closed vocabulary, so they get their own keys. */
+  const sizeLabel = (label: string) => {
+    const key = `site.printSizes.${label}`;
+    return hasKey(key) ? t(key) : label;
+  };
 
   async function handleBuy() {
     setStatus("loading");
@@ -56,7 +69,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
         onClick={() => setOpen(true)}
         className="w-full bg-dawn py-4 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright md:w-auto md:px-14"
       >
-        Buy
+        {t("site.buy.buy")}
       </button>
     );
   }
@@ -64,7 +77,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
   return (
     <div>
       <p className="text-xs uppercase tracking-widest2 text-ink-faint">
-        Choose edition
+        {t("site.buy.chooseEdition")}
       </p>
 
       <div className="mt-4 flex flex-col gap-2">
@@ -84,7 +97,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
               }`}
             >
               <span className="text-sm text-ink">
-                Print: {p.label}{" "}
+                {t("site.buy.printOption", { label: sizeLabel(p.label) })}{" "}
                 <span className="text-ink-faint">({p.dimensions})</span>
               </span>
               <span className="text-sm text-ink-muted">${p.price}</span>
@@ -104,8 +117,8 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
             }`}
           >
             <span className="text-sm text-ink">
-              Original painting{" "}
-              <span className="text-ink-faint">({artwork.dimensions})</span>
+              {t("site.buy.originalPainting")}{" "}
+              <span className="text-ink-faint">({dimensions})</span>
             </span>
             <span className="text-sm text-ink-muted">
               ${artwork.original.price}
@@ -115,9 +128,11 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
 
         {!artwork.original.available && (
           <div className="flex items-center justify-between border border-void-line/50 px-5 py-3.5 opacity-50">
-            <span className="text-sm text-ink-faint">Original painting</span>
+            <span className="text-sm text-ink-faint">
+              {t("site.buy.originalPainting")}
+            </span>
             <span className="text-xs uppercase tracking-widest2 text-ink-faint">
-              Sold
+              {t("site.buy.sold")}
             </span>
           </div>
         )}
@@ -154,7 +169,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
               </svg>
             )}
           </span>
-          Add framing
+          {t("site.buy.addFraming")}
         </span>
         <span className="text-sm text-ink-muted">
           +${artwork.framingPrice}
@@ -166,37 +181,38 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
         disabled={status === "loading"}
         className="mt-8 w-full bg-dawn py-4 text-sm uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright disabled:opacity-60"
       >
-        {status === "loading" ? "Redirecting to checkout…" : `Buy for $${total}`}
+        {status === "loading"
+          ? t("site.buy.redirecting")
+          : t("site.buy.buyFor", { total })}
       </button>
 
       {status === "unavailable" ? (
         <p className="mt-4 text-xs leading-relaxed text-ink-faint">
-          Online checkout isn&apos;t connected yet, inquire directly at{" "}
+          {t("site.buy.unavailableBefore")}
           <a
-            href={`mailto:nosiadek.michal@gmail.com?subject=${encodeURIComponent(
-              `Inquiry: ${artwork.title}`
+            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+              t("site.buy.inquirySubject", { title })
             )}`}
             className="underline decoration-ink-faint underline-offset-2 hover:text-ink"
           >
-            nosiadek.michal@gmail.com
-          </a>{" "}
-          and I&apos;ll arrange payment with you directly.
+            {CONTACT_EMAIL}
+          </a>
+          {t("site.buy.unavailableAfter")}
         </p>
       ) : status === "error" ? (
         <p className="mt-4 text-xs leading-relaxed text-dawn-bright">
-          Something went wrong starting checkout, please try again, or email{" "}
+          {t("site.buy.errorBefore")}
           <a
-            href="mailto:nosiadek.michal@gmail.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="underline decoration-dawn-bright underline-offset-2"
           >
-            nosiadek.michal@gmail.com
+            {CONTACT_EMAIL}
           </a>
-          .
+          {t("site.buy.errorAfter")}
         </p>
       ) : (
         <p className="mt-4 text-xs leading-relaxed text-ink-faint">
-          Secure checkout via Stripe. Prints and originals ship insured,
-          signed, and numbered.
+          {t("site.buy.secureNote")}
         </p>
       )}
     </div>

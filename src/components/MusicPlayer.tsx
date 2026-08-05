@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/i18n/LocaleProvider";
 
 export default function MusicPlayer({
   track,
@@ -9,6 +10,7 @@ export default function MusicPlayer({
   track?: string;
   title: string;
 }) {
+  const t = useT();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0); // 0..1
@@ -52,9 +54,9 @@ export default function MusicPlayer({
           <span className="text-xs">♪</span>
         </div>
         <div>
-          <p className="text-sm text-ink-faint">Companion track, coming soon</p>
+          <p className="text-sm text-ink-faint">{t("site.music.comingSoon")}</p>
           <p className="text-xs text-ink-faint/70">
-            A piece written to accompany &ldquo;{title}&rdquo;.
+            {t("site.music.comingSoonSub", { title })}
           </p>
         </div>
       </div>
@@ -66,7 +68,7 @@ export default function MusicPlayer({
       <audio ref={audioRef} src={track} preload="none" />
       <button
         onClick={toggle}
-        aria-label={playing ? "Pause" : "Play"}
+        aria-label={playing ? t("site.music.pause") : t("site.music.play")}
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ink/50 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
       >
         {playing ? (
@@ -81,7 +83,7 @@ export default function MusicPlayer({
         )}
       </button>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm text-ink">Listen while you look</p>
+        <p className="truncate text-sm text-ink">{t("site.music.listen")}</p>
         <div className="mt-2 h-px w-full bg-void-line">
           <div
             className="h-px bg-dawn transition-[width] duration-150"

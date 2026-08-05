@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/i18n/LocaleProvider";
 
 /**
  * Some paintings can be entered.
@@ -12,6 +13,7 @@ const SECRET_DOORS: Record<string, string> = {
 };
 
 export default function SecretDoor({ slug }: { slug: string }) {
+  const t = useT();
   const route = SECRET_DOORS[slug];
   const [asking, setAsking] = useState(false);
   const [leaving, setLeaving] = useState(false);
@@ -47,7 +49,7 @@ export default function SecretDoor({ slug }: { slug: string }) {
         onClick={() => setAsking(true)}
         className="mt-10 block font-serif text-lg font-light italic text-ink-faint transition-colors duration-700 ease-smooth hover:text-dawn-bright"
       >
-        Something is not quite right...
+        {t("site.secret.hint")}
       </button>
 
       {asking && !leaving && (
@@ -59,8 +61,7 @@ export default function SecretDoor({ slug }: { slug: string }) {
         >
           <div className="mx-6 max-w-md border border-void-line bg-void-raised px-10 py-11 text-center">
             <p className="font-serif text-2xl font-light italic leading-relaxed text-ink">
-              It seems like there is a way inside this painting, want to take a
-              look?
+              {t("site.secret.question")}
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <button
@@ -68,14 +69,14 @@ export default function SecretDoor({ slug }: { slug: string }) {
                 onClick={() => setLeaving(true)}
                 className="bg-dawn px-7 py-3 text-xs uppercase tracking-widest2 text-ink transition-colors duration-300 hover:bg-dawn-bright"
               >
-                Take a look
+                {t("site.secret.yes")}
               </button>
               <button
                 type="button"
                 onClick={() => setAsking(false)}
                 className="border border-ink/30 px-7 py-3 text-xs uppercase tracking-widest2 text-ink transition-colors duration-300 hover:border-ink"
               >
-                Not yet
+                {t("site.secret.no")}
               </button>
             </div>
           </div>

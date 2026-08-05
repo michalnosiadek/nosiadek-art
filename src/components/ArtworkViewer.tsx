@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useT } from "@/i18n/LocaleProvider";
 
 type DragInfo = {
   startX: number;
@@ -22,6 +23,7 @@ export default function ArtworkViewer({
   width: number;
   height: number;
 }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [zoomed, setZoomed] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -97,7 +99,7 @@ export default function ArtworkViewer({
         onClick={() => setOpen(true)}
         className="group relative block w-full overflow-hidden bg-black"
         style={{ aspectRatio: `${width} / ${height}` }}
-        aria-label={`View full image of ${alt}`}
+        aria-label={t("site.viewer.viewFullImage", { title: alt })}
       >
         <Image
           src={src}
@@ -117,7 +119,7 @@ export default function ArtworkViewer({
               strokeLinejoin="round"
             />
           </svg>
-          Expand
+          {t("site.viewer.expand")}
         </span>
       </button>
 
@@ -132,7 +134,7 @@ export default function ArtworkViewer({
           <button
             type="button"
             onClick={closeViewer}
-            aria-label="Close"
+            aria-label={t("site.viewer.close")}
             className="absolute right-5 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/30 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -148,7 +150,7 @@ export default function ArtworkViewer({
           <button
             type="button"
             onClick={goFullscreen}
-            aria-label="Fullscreen"
+            aria-label={t("site.viewer.fullscreen")}
             className="absolute right-20 top-5 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/30 text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -187,7 +189,7 @@ export default function ArtworkViewer({
           </div>
 
           <p className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 text-xs uppercase tracking-widest2 text-ink-faint">
-            {zoomed ? "Drag to pan · Tap to zoom out" : "Tap to zoom"}
+            {zoomed ? t("site.viewer.dragToPan") : t("site.viewer.tapToZoom")}
           </p>
         </div>
       )}

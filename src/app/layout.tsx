@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import LocaleProvider from "@/i18n/LocaleProvider";
+import { defaultLocale, translate } from "@/i18n";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -19,21 +21,25 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Michał Nosiadek · Paintings",
-  description:
-    "Original paintings and fine art prints by Michał Nosiadek.",
+  title: translate(defaultLocale, "site.meta.homeTitle"),
+  description: translate(defaultLocale, "site.meta.homeDescription"),
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang={defaultLocale}
+      className={`${display.variable} ${body.variable}`}
+    >
       <body className="font-sans antialiased">
-        <div className="grain" aria-hidden="true" />
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
+        <LocaleProvider>
+          <div className="grain" aria-hidden="true" />
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+        </LocaleProvider>
       </body>
     </html>
   );

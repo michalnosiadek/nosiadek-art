@@ -33,6 +33,14 @@
   main { width: min(1200px, 96vw); padding: 2.6rem 0 1.4rem; text-align: center; }
   main > h1 { font-family: var(--font-serif); font-weight: 300; color: var(--ink);
     font-size: clamp(2rem, 4.4vw, 3.2rem); margin: 0.9rem 0 0.4rem; line-height: 1.05; }
+  #langbar { margin: 0.9rem 0 0.2rem; }
+  #btn-lang {
+    background: none; border: 1px solid rgba(242,236,230,.22); cursor: pointer;
+    font-family: var(--font-sans); font-size: 0.625rem; letter-spacing: var(--tracking);
+    text-transform: uppercase; color: var(--ink-faint); padding: 0.4rem 0.9rem;
+    transition: color 200ms var(--ease), border-color 200ms var(--ease);
+  }
+  #btn-lang:hover { color: var(--ink); border-color: var(--ink); }
   #version { font-size: 0.625rem; letter-spacing: var(--tracking); text-transform: uppercase;
     color: var(--ink-faint); margin-bottom: 1.8rem; }
 
@@ -239,9 +247,10 @@
 <div id="grain"></div>
 
 <main>
-  <div class="eyebrow">You found the door</div>
-  <h1>The Last Dawn</h1>
+  <div class="eyebrow" id="eyebrow">You found the door</div>
+  <h1 id="h1">The Last Dawn</h1>
   <div id="version">Demo · Chapter I — a fragment of the game being painted in Godot</div>
+  <div id="langbar"><button id="btn-lang" type="button">Polski</button></div>
 
   <div id="frame">
     <canvas id="gl"></canvas>
@@ -263,7 +272,7 @@
         <div class="slot active" id="slot-offhand"><canvas width="24" height="24"></canvas><span class="hint">F</span></div>
         <div id="offhand-name">Torch</div>
       </div>
-      <div id="nameplate"><div class="n">SIR LOTHRIC — THE KING'S LAST KNIGHT</div>
+      <div id="nameplate"><div class="n" id="nameplate-n">SIR LOTHRIC — THE KING'S LAST KNIGHT</div>
         <div class="b"><div class="fill" style="width:100%"></div></div></div>
       <div id="prompt"></div>
       <div id="ringhint">I — the signet</div>
@@ -274,7 +283,7 @@
 
     <div class="screen on" id="veil">
       <div class="step" id="step-through">STEP THROUGH</div>
-      <div class="keys">
+      <div class="keys" id="veil-keys">
         WASD — move · mouse — look · LMB — attack · RMB — block<br>
         Space — roll · F / wheel — offhand · R — flask · E — interact · Esc — pause
       </div>
@@ -284,16 +293,16 @@
     <div class="screen" id="title">
       <div class="bg"></div><div class="shade"></div>
       <div class="inner">
-        <div class="eyebrow">Nosiadek Productions — Chapter I</div>
-        <h2>The Last Dawn</h2>
-        <div class="tag">The rider enters the forgotten lands. The keep remembers a name it was told to forget.</div>
+        <div class="eyebrow" id="t-eyebrow">Nosiadek Productions — Chapter I</div>
+        <h2 id="t-title">The Last Dawn</h2>
+        <div class="tag" id="t-tag">The rider enters the forgotten lands. The keep remembers a name it was told to forget.</div>
         <div class="presskey" id="begin">Press Enter — Begin</div>
       </div>
     </div>
 
     <div class="screen" id="death">
       <div class="inner">
-        <h2>THE LIGHT FADES</h2>
+        <h2 id="d-title">THE LIGHT FADES</h2>
         <div class="presskey" id="respawn">Press Enter</div>
       </div>
     </div>
@@ -301,19 +310,19 @@
     <div class="screen" id="end">
       <div class="bg"></div><div class="shade"></div>
       <div class="inner">
-        <div class="eyebrow">Chapter I complete</div>
-        <h2>The Murder of a Star</h2>
-        <div class="tag">You reached the rail in time to watch it happen. Something opened above the mountains, and the star that fell on Alsnar screamed once — the way the grove screamed, the night a broken seal sent men to dig for it.</div>
-        <div class="light-line"><span id="light-carried">0</span> light carried forward</div>
-        <a class="cta" href="../../index.html">This was a fragment — the full game is being painted</a>
-        <a class="back" href="../../index.html">Return to the gallery</a>
+        <div class="eyebrow" id="e-eyebrow">Chapter I complete</div>
+        <h2 id="e-title">The Murder of a Star</h2>
+        <div class="tag" id="e-tag">You reached the rail in time to watch it happen. Something opened above the mountains, and the star that fell on Alsnar screamed once — the way the grove screamed, the night a broken seal sent men to dig for it.</div>
+        <div class="light-line" id="light-carried">0 light carried forward</div>
+        <a class="cta" href="../../index.html" id="e-cta">This was a fragment — the full game is being painted</a>
+        <a class="back" href="../../index.html" id="e-back">Return to the gallery</a>
       </div>
     </div>
 
     <div class="screen" id="inspect">
       <div class="exit" id="inspect-exit">Esc — put it away</div>
       <div class="cap">
-        <div class="drag">Drag to turn it over</div>
+        <div class="drag" id="inspect-drag">Drag to turn it over</div>
         <div class="nm" id="inspect-name">The Broken Signet</div>
         <div class="sub" id="inspect-sub"></div>
         <div id="inscription"></div>
@@ -322,8 +331,8 @@
 
     <div class="screen" id="namebox">
       <div class="card">
-        <div class="eyebrow">The statue at the gate</div>
-        <div class="q">“Speak the name of the King, and enter.”</div>
+        <div class="eyebrow" id="n-eyebrow">The statue at the gate</div>
+        <div class="q" id="n-q">“Speak the name of the King, and enter.”</div>
         <div class="hintline" id="name-hint"></div>
         <input id="name-input" maxlength="16" autocomplete="off" spellcheck="false" placeholder="—">
         <div class="btns">
@@ -335,8 +344,8 @@
 
     <div class="screen" id="pause">
       <div class="inner">
-        <div class="eyebrow">Paused</div>
-        <h2>The Forgotten Keep</h2>
+        <div class="eyebrow" id="p-eyebrow">Paused</div>
+        <h2 id="p-title">The Forgotten Keep</h2>
         <div class="btns">
           <button id="btn-resume">Resume</button>
           <button id="btn-leave">Return to the gallery</button>
@@ -345,14 +354,49 @@
     </div>
   </div>
 
-  <footer><a href="../../index.html">Back to the gallery</a></footer>
+  <footer><a href="../../index.html" id="f-back">Back to the gallery</a></footer>
 </main>
+
+<!-- generated by tools/sync-i18n.mjs from i18n/translations.json -->
+<script src="../../i18n/translations.js"></script>
 
 <script type="importmap">
 { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
 </script>
 <script type="module">
 import * as THREE from "three";
+
+/* =====================================================================
+   TEXT — every visible line lives in i18n/translations.json at the repo
+   root, under games["the-last-dawn"]. Edit it there, then run
+   node tools/sync-i18n.mjs  to publish it here. Nothing below hardcodes
+   a sentence; add a language by adding its code to "locales".
+   The chosen language is shared with the gallery via localStorage.
+   ===================================================================== */
+const I18N = window.I18N;
+if (!I18N) throw new Error("i18n/translations.js failed to load — run: node tools/sync-i18n.mjs");
+
+const LANGS = I18N.locales;
+const TEXT = I18N.games["the-last-dawn"];
+
+let LANG = (() => {
+  try { const s = localStorage.getItem("tld-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  return LANGS[0];
+})();
+
+/** TT("plaques.keyTitle") — dotted lookup, {placeholders} filled from vars. */
+function TT(key, vars) {
+  let node = TEXT;
+  for (const part of key.split(".")) {
+    if (!node) return key;
+    node = node[part];
+  }
+  if (!node) return key;
+  let out = node[LANG] !== undefined ? node[LANG] : node.en;
+  if (typeof out !== "string") return key;
+  if (vars) out = out.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
+  return out;
+}
 
 /* =========================================================================
    THE LAST DAWN — Chapter I
@@ -1267,9 +1311,9 @@ function makeStatue(c, r) {
   const plateTex = canvasTex(128, (gg, s2) => {
     px(gg, 0, 0, s2, s2, "#2a2622");
     gg.fillStyle = "#c9a227"; gg.font = "bold 13px monospace"; gg.textAlign = "center";
-    gg.fillText("SPEAK THE", s2 / 2, 44);
-    gg.fillText("NAME OF THE", s2 / 2, 62);
-    gg.fillText("KING", s2 / 2, 80);
+    gg.fillText(TT("statue.plateLine1"), s2 / 2, 44);
+    gg.fillText(TT("statue.plateLine2"), s2 / 2, 62);
+    gg.fillText(TT("statue.plateLine3"), s2 / 2, 80);
   });
   const plate = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.44),
     ps1Mat({ map: plateTex, color: 0xffffff, emissive: 0x1a1408, unlit: true }));
@@ -1455,9 +1499,9 @@ function makeRingModel(scale = 1, forInspect = false) {
       px(gg, 0, 0, s, s, "#6b5416");
       gg.fillStyle = "#f4e6b0"; gg.textAlign = "center";
       gg.font = "italic 20px Georgia, serif";
-      gg.fillText("to my dearest friend", s / 2, s / 2 - 6);
+      gg.fillText(TT("inspect.engravedLine1"), s / 2, s / 2 - 6);
       gg.font = "italic 30px Georgia, serif";
-      gg.fillText("Q U A N", s / 2, s / 2 + 30);
+      gg.fillText(TT("inspect.engravedLine2"), s / 2, s / 2 + 30);
     });
     const plate = new THREE.Mesh(new THREE.PlaneGeometry(0.26, 0.26),
       ps1Mat({ map: tex, color: 0xffffff, emissive: 0x2a2008, unlit: true, side: THREE.DoubleSide }));
@@ -1787,7 +1831,8 @@ function setOffhand(i) {
   rider.ringHeld.visible = k === "ring";
   if (k !== "shield") P.blockHeld = false;
   icon("offhand", ICONS[k]);
-  $("offhand-name").textContent = k === "torch" ? "Torch" : k === "shield" ? "Shield" : "Signet";
+  $("offhand-name").textContent =
+    k === "torch" ? TT("hud.offhandTorch") : k === "shield" ? TT("hud.offhandShield") : TT("hud.offhandSignet");
   const s = $("slot-offhand"); s.classList.add("cycle");
   setTimeout(() => s.classList.remove("cycle"), 260);
 }
@@ -1883,6 +1928,64 @@ function makeKnight(pos) {
 function eyeFlare(e, f) { e.eyeMat.uniforms.uEmissive.value.setHex(0xb3291f).multiplyScalar(f / 1.6); }
 
 /* ==================== UI ==================== */
+/* ---------- language ---------- */
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.title = TT("meta.pageTitle");
+  const set = (id, key, html) => {
+    const el = $(id);
+    if (!el) return;
+    if (html) el.innerHTML = TT(key);
+    else el.textContent = TT(key);
+  };
+  set("eyebrow", "shell.eyebrow");
+  set("h1", "shell.title");
+  set("version", "shell.version");
+  set("f-back", "shell.footerBack");
+  set("step-through", "veil.step");
+  set("veil-keys", "veil.keys", true);
+  set("touchnote", "veil.touchnote");
+  set("t-eyebrow", "title.eyebrow");
+  set("t-title", "title.heading");
+  set("t-tag", "title.tag");
+  set("begin", "title.begin");
+  set("d-title", "death.heading");
+  set("respawn", "death.respawn");
+  set("e-eyebrow", "end.eyebrow");
+  set("e-title", "end.heading");
+  set("e-tag", "end.tag");
+  set("e-cta", "end.cta");
+  set("e-back", "end.back");
+  set("inspect-exit", "inspect.exit");
+  set("inspect-drag", "inspect.drag");
+  set("inspect-name", "inspect.name");
+  set("n-eyebrow", "statue.eyebrow");
+  set("n-q", "statue.question");
+  set("name-say", "statue.say");
+  set("name-back", "statue.stepBack");
+  set("p-eyebrow", "pause.eyebrow");
+  set("p-title", "pause.heading");
+  set("btn-resume", "pause.resume");
+  set("btn-leave", "pause.leave");
+  set("light-l", "hud.light");
+  set("nameplate-n", "hud.nameplate");
+  set("ringhint", "hud.ringHint");
+  $("name-input").placeholder = TT("statue.inputPlaceholder");
+  $("light-carried").textContent = TT("end.lightCarried", {
+    n: typeof P !== "undefined" ? P.light : 0,
+  });
+  /* the button shows the language you'd switch to, in that language */
+  const next = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
+  const endonym = I18N.localeNames?.[next]?.[next];
+  $("btn-lang").textContent = endonym || next.toUpperCase();
+}
+$("btn-lang").onclick = () => {
+  LANG = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
+  try { localStorage.setItem("tld-lang", LANG); } catch (e) {}
+  applyLang();
+};
+applyLang();
+
 const hud = $("hud"), promptEl = $("prompt"), plaqueEl = $("plaque");
 const nameplate = $("nameplate"), npFill = nameplate.querySelector(".fill");
 let plaqueT = 0;
@@ -1982,7 +2085,7 @@ function die() {
    the painting after it. */
 function endGame() {
   mode = "end";
-  $("light-carried").textContent = P.light;
+  $("light-carried").textContent = TT("end.lightCarried", { n: P.light });
   document.exitPointerLock?.();
   sfx.starScream();
   if (breathG) { breathG.gain.value = 0; dragG.gain.value = 0; }
@@ -2086,8 +2189,7 @@ function openInspect() {
   document.exitPointerLock?.();
   inspectRing.rotation.set(0.35, 0.6, 0);
   $("inscription").classList.remove("on");
-  $("inspect-sub").textContent =
-    "Gold, heavier than it looks. The seal is split clean down the middle — broken the night it stamped the order to ride into the druids' grove and dig for the fallen star. There was no star. There was a grove, and there were people in it, and afterwards there was neither.";
+  $("inspect-sub").textContent = TT("inspect.sub");
   AMB_SAVE.copy(U.uAmbient.value);
   U.uAmbient.value.setRGB(0.46, 0.38, 0.28);      /* you can actually see it now */
   screenOn("inspect");
@@ -2118,10 +2220,10 @@ function inspectUpdate(dt) {
   $("inscription").classList.toggle("on", showing);
   if (showing && !inscriptionSeen) {
     inscriptionSeen = true;
-    $("inscription").textContent = "“to my dearest friend Quan”";
+    $("inscription").textContent = TT("inspect.inscription");
     sfx.pickup(1.5);
   } else if (showing && !$("inscription").textContent) {
-    $("inscription").textContent = "“to my dearest friend Quan”";
+    $("inscription").textContent = TT("inspect.inscription");
   }
 }
 
@@ -2131,9 +2233,7 @@ function openName() {
   mode = "name";
   document.exitPointerLock?.();
   $("name-input").value = "";
-  $("name-hint").textContent = nameTries === 0
-    ? "The stone hands are cupped and empty. Whatever was meant to be set in them is long gone — but the gate does not want gold. It wants a word."
-    : $("name-hint").textContent;
+  $("name-hint").textContent = nameTries === 0 ? TT("statue.hintFirst") : $("name-hint").textContent;
   screenOn("namebox");
   setTimeout(() => $("name-input").focus(), 60);
 }
@@ -2155,14 +2255,13 @@ function sayName() {
     nameSolved = true;
     closeName();
     gate.t = 0; sfx.door();
-    showPlaque("AGMAR", "The stone hands close on nothing, and the gate remembers being a door.");
+    showPlaque(TT("plaques.gateOpenedTitle"), TT("plaques.gateOpenedBody"));
     P.light += 200;
     return;
   }
   if (raw === "quan") {
     nameTries++;
-    $("name-hint").textContent =
-      "The statue does not move. “That is the friend, not the King. The friend outlived him — and buried the name with the seal.” Something settles behind the wall, and a little light comes loose.";
+    $("name-hint").textContent = TT("statue.hintQuan");
     P.light += 120;
     $("name-input").value = "";
     return;
@@ -2173,9 +2272,7 @@ function sayName() {
     enemy.lastSeen.copy(P.pos); enemy.target.copy(P.pos);
     sfx.roar(0.5);
   }
-  $("name-hint").textContent = nameTries >= 3
-    ? "The statue is silent. The name begins with the sound a blade makes leaving a scabbard — and it is cut into a tomb in this keep."
-    : "The gate does not move. Somewhere behind you, something heard you say it.";
+  $("name-hint").textContent = nameTries >= 3 ? TT("statue.hintThirdTry") : TT("statue.hintWrong");
   $("name-input").value = "";
 }
 
@@ -2203,15 +2300,13 @@ function interact() {
     keySite.taken = true; P.hasKey = true;
     keySite.g.visible = false; keySite.light.on = false;
     sfx.pickup();
-    showPlaque("The Warden's Key",
-      "Iron, colder than the room it rusted in. Its ward is cut in the shape of a falling star.");
+    showPlaque(TT("plaques.keyTitle"), TT("plaques.keyBody"));
     return;
   }
   /* the tomb */
   if (tombSite && P.pos.distanceTo(tombSite.pos) < 2.6) {
     tombSite.read = true;
-    showPlaque("A tomb, its banner rotted through",
-      "AGMAR — KING OF ALMAR, WHO DUG FOR A STAR AND BURIED A KINGDOM. His name was struck from every stone in these lands but this one, and the mason who cut it was never found.");
+    showPlaque(TT("plaques.tombTitle"), TT("plaques.tombBody"));
     return;
   }
   /* the statue */
@@ -2223,10 +2318,10 @@ function interact() {
     d.t = 0; sfx.creak(); P.noise = 0.8;
   } else if (d.kind === "portcullis") {
     if (!P.hasKey) {
-      showPlaque("Barred", "A lock plate the size of a hand, and a keyway cut like a falling star. Something small and cold is missing from this gate.");
+      showPlaque(TT("plaques.barredTitle"), TT("plaques.barredBody"));
     } else {
       d.t = 0; d.locked = false; sfx.door();
-      showPlaque("The way is open", "The Warden's Key turns once, and will not be needed again.");
+      showPlaque(TT("plaques.openedTitle"), TT("plaques.openedBody"));
     }
   } else if (d.kind === "gate") {
     if (!nameSolved) openName();
@@ -2239,8 +2334,7 @@ function takeRing() {
   ringTaken = true;
   P.offhands = ["torch", "shield", "ring"];
   sfx.pickup(0.8);
-  showPlaque("The Broken Signet",
-    "A king's ring, and the seal on its face is split in two. It sealed one order: ride into the druids' grove and dig until the fallen star is found. They found no star. The grove burned, and everyone in it burned with it. It is warm. Nothing in this keep is warm.");
+  showPlaque(TT("plaques.ringTitle"), TT("plaques.ringBody"));
   /* the keep answers */
   setTimeout(() => {
     if (mode === "death" || mode === "end") return;
@@ -2248,8 +2342,7 @@ function takeRing() {
     sfx.roar(1);
     $("dread").classList.add("on");
     for (const L of LIGHTS) if (L.flicker) L.mul = 0.55;
-    showPlaque("Something stands up",
-      "Far off, iron finds the floor and stays there. Then it finds it again, closer.");
+    showPlaque(TT("plaques.awakeTitle"), TT("plaques.awakeBody"));
   }, 900);
 }
 function spawnHunter() {
@@ -2531,8 +2624,7 @@ function killEnemy() {
   $("dread").classList.remove("on");
   for (const L of LIGHTS) if (L.flicker) L.mul = 1;
   P.light += 400;
-  showPlaque("+400 light",
-    "Sir Lothric, who carried a king out of a burning grove and was never told why. The helm comes apart before the man does.");
+  showPlaque(TT("plaques.killTitle"), TT("plaques.killBody"));
   const wp = new THREE.Vector3(), wq = new THREE.Quaternion(), ws = new THREE.Vector3();
   for (const m of e.parts) {
     m.updateWorldMatrix(true, false);
@@ -2673,15 +2765,16 @@ function playerUpdate(dt) {
 
   /* prompts */
   let pr = "";
-  if (ringSite && !ringSite.taken && P.pos.distanceTo(ringSite.pos) < 2.2) pr = "E — TAKE THE RING";
-  else if (keySite && !keySite.taken && P.pos.distanceTo(keySite.pos) < 2.2) pr = "E — TAKE THE WARDEN'S KEY";
-  else if (tombSite && P.pos.distanceTo(tombSite.pos) < 2.6) pr = "E — READ THE TOMB";
-  else if (statue && !nameSolved && P.pos.distanceTo(statue.pos) < 2.6) pr = "E — SPEAK TO THE STATUE";
+  if (ringSite && !ringSite.taken && P.pos.distanceTo(ringSite.pos) < 2.2) pr = TT("prompts.takeRing");
+  else if (P.hasRing && ringSite && ringSite.taken && P.pos.distanceTo(ringSite.pos) < 2.2) pr = TT("prompts.inspectRing");
+  else if (keySite && !keySite.taken && P.pos.distanceTo(keySite.pos) < 2.2) pr = TT("prompts.takeKey");
+  else if (tombSite && P.pos.distanceTo(tombSite.pos) < 2.6) pr = TT("prompts.readTomb");
+  else if (statue && !nameSolved && P.pos.distanceTo(statue.pos) < 2.6) pr = TT("prompts.speakStatue");
   else {
     const d = nearestDoorTo(P.pos, 3.0);
-    if (d) pr = d.kind === "swing" ? "E — OPEN THE DOOR"
-      : d.kind === "portcullis" ? (P.hasKey ? "E — TURN THE KEY" : "E — A BARRED GATE")
-      : "E — THE LAST GATE";
+    if (d) pr = d.kind === "swing" ? TT("prompts.openDoor")
+      : d.kind === "portcullis" ? (P.hasKey ? TT("prompts.turnKey") : TT("prompts.barredGate"))
+      : TT("prompts.lastGate");
   }
   setPrompt(mode === "play" ? pr : "");
   $("ringhint").classList.toggle("on", P.hasRing && mode === "play");
