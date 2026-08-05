@@ -22,6 +22,7 @@ export type Artwork = {
   /** native pixel dimensions of the image file, used to render the full painting without cropping */
   imageWidth: number;
   imageHeight: number;
+  sold?: boolean;
   featured?: boolean;
   poem?: Poem;
   /** path to an audio file for the per-painting music player, once provided */
@@ -123,21 +124,44 @@ export const artworks: Artwork[] = [
     framingPrice: 50,
   },
   {
-    slug: "eclipse",
-    title: "Eclipse",
+    slug: "coming-of-the-second-sun",
+    title: "Coming of the Second Sun",
     year: "2026",
     medium: "Oil on canvas",
-    dimensions: "60 × 60 cm",
+    dimensions: "50 × 50 cm",
     description:
-      "Totality over a mountain line: a black sun ringed in fire, indifferent to the peaks beneath it. A companion study to the end of things, seen from a different angle of the same sky.",
-    image: "/images/eclipse.jpg",
+      "The prophecy the Children of the Sun pray toward: a second sun rising black over the mountains, ringed in fire, come to end all suffering by ending everything else.",
+    image: "/images/coming-of-the-second-sun.jpg",
     imageWidth: 2000,
-    imageHeight: 1996,
-    original: { available: true, price: 1100 },
+    imageHeight: 2000,
+    original: { available: true, price: 950 },
+    poem: {
+      title: "Coming of the Second Sun",
+      body: "The Black Sun shall mark the end of light.\nA night shall rise that knows no morning.\nThrough pride and prejudice mankind shall fall,\nAnd from its ashes, a darker age begin.",
+    },
     prints: [
       { label: "Small", dimensions: "30 × 30 cm", price: 50 },
-      { label: "Medium", dimensions: "45 × 45 cm", price: 90 },
-      { label: "Large", dimensions: "60 × 60 cm", price: 145 },
+      { label: "Medium", dimensions: "40 × 40 cm", price: 80 },
+      { label: "Large", dimensions: "50 × 50 cm", price: 135 },
+    ],
+    framingPrice: 55,
+  },
+  {
+    slug: "city-of-mages",
+    title: "City of Mages",
+    year: "2026",
+    medium: "Oil on canvas",
+    dimensions: "60 × 48 cm",
+    description:
+      "A city of impossible towers and hidden paths, where the forest keeps its own kind of magic and every road seems to lead somewhere older than the people who built it.",
+    image: "/images/city-of-mages.png",
+    imageWidth: 2048,
+    imageHeight: 1536,
+    original: { available: true, price: 1050 },
+    prints: [
+      { label: "Small", dimensions: "30 × 24 cm", price: 50 },
+      { label: "Medium", dimensions: "45 × 36 cm", price: 90 },
+      { label: "Large", dimensions: "60 × 48 cm", price: 140 },
     ],
     framingPrice: 55,
   },
@@ -301,18 +325,15 @@ export const artworks: Artwork[] = [
     image: "/images/wish-you-were-here.jpg",
     imageWidth: 2000,
     imageHeight: 1596,
+    sold: true,
     poem: {
       title: "Wish You Were Here",
       year: "2026",
       medium: "Oils",
       body: "As the Sun sets upon the mountain view,\nIn its light I see what I love most,\nThe warmth, comfort and beauty\nOf simple kindness and compassion.",
     },
-    original: { available: true, price: 1000 },
-    prints: [
-      { label: "Small", dimensions: "30 × 24 cm", price: 45 },
-      { label: "Medium", dimensions: "45 × 36 cm", price: 85 },
-      { label: "Large", dimensions: "60 × 48 cm", price: 135 },
-    ],
+    original: { available: false },
+    prints: [],
     framingPrice: 50,
   },
   {

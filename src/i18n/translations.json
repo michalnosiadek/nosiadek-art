@@ -59,6 +59,10 @@
         "en": "Experience",
         "pl": "Wystawa 3D"
       },
+      "software": {
+        "en": "Software",
+        "pl": "Oprogramowanie"
+      },
       "about": {
         "en": "About",
         "pl": "O mnie"
@@ -101,7 +105,11 @@
         "en": "Classic Web Scroll",
         "pl": "Klasyczne Scrollowanie"
       },
-      "imageAlt": {
+    "ctaMobile": {
+      "en": "Enter the world of Michał Nosiadek",
+      "pl": "Wejdź do świata Michała Nosiadka"
+    },
+    "imageAlt": {
         "en": "The Last Dawn, and the light vanished for eons...",
         "pl": "Ostatni Świt, i światło zniknęło na wieki..."
       },
@@ -131,9 +139,52 @@
         "en": "Each piece is available as a museum-quality print or as the original painting.",
         "pl": "Każda praca dostępna jest jako reprodukcja o jakości muzealnej albo jako obraz oryginalny."
       },
+      "softwareEyebrow": {
+        "en": "Software & other work",
+        "pl": "Oprogramowanie i inne prace"
+      },
+      "softwareHeading": {
+        "en": "Websites, software, games, writing, and music — all part of the same practice.",
+        "pl": "Strony internetowe, oprogramowanie, gry, pisanie i muzyka — wszystko jest częścią tej samej praktyki."
+      },
       "shopCta": {
         "en": "Shop the Collection",
         "pl": "Przeglądaj kolekcję"
+      }
+    },
+    "software": {
+      "eyebrow": {
+        "en": "Websites & software",
+        "pl": "Strony internetowe i oprogramowanie"
+      },
+      "heading": {
+        "en": "Digital work with a pulse.",
+        "pl": "Cyfrowe prace z własnym rytmem."
+      },
+      "intro": {
+        "en": "I design and build websites as carefully as I build a painting: with atmosphere, structure, and a point of view.",
+        "pl": "Projektuję i buduję strony internetowe z taką samą uważnością jak obrazy: z atmosferą, strukturą i własnym punktem widzenia."
+      },
+      "visit": {
+        "en": "Visit the site",
+        "pl": "Odwiedź stronę"
+      },
+      "projects": {
+        "reviclades": {
+          "title": { "en": "Reviclades", "pl": "Reviclades" },
+          "kind": { "en": "Worldbuilding & web experience", "pl": "Światotwórstwo i doświadczenie webowe" },
+          "description": { "en": "A living doorway into a dark world of lore, images, and interactive atmosphere.", "pl": "Żywe przejście do mrocznego świata opowieści, obrazów i interaktywnej atmosfery." }
+        },
+        "nosiadekProductions": {
+          "title": { "en": "Nosiadek Productions", "pl": "Nosiadek Productions" },
+          "kind": { "en": "Games, stories & music", "pl": "Gry, historie i muzyka" },
+          "description": { "en": "The studio space for games, experiments, and the larger worlds growing behind the paintings.", "pl": "Przestrzeń studia dla gier, eksperymentów i większych światów wyrastających za obrazami." }
+        },
+        "spokojnaGlowa": {
+          "title": { "en": "Spokojna Głowa", "pl": "Spokojna Głowa" },
+          "kind": { "en": "A calm, human website", "pl": "Spokojna, ludzka strona" },
+          "description": { "en": "A warmer, quieter web presence built to make useful things feel clear and approachable.", "pl": "Cieplejsza, spokojniejsza obecność w sieci, zbudowana tak, by to, co użyteczne, było jasne i przystępne." }
+        }
       }
     },
     "galleryPage": {
@@ -180,6 +231,18 @@
       "bio4": {
         "en": "Based in Poland, trained as an engineer before I trained as a painter. That structure still shows up in how I build a piece.",
         "pl": "Mieszkam w Polsce. Zanim wyszkoliłem się na malarza, wyszkoliłem się na inżyniera — ta struktura wciąż jest widoczna w tym, jak buduję obraz."
+      },
+      "bio5Before": {
+        "en": "I also make",
+        "pl": "Tworzę również"
+      },
+      "bio5Software": {
+        "en": "websites and software",
+        "pl": "strony internetowe i oprogramowanie"
+      },
+      "bio5After": {
+        "en": ", make games, write, and compose music.",
+        "pl": ", tworzę gry, piszę i komponuję muzykę."
       },
       "getInTouchCta": {
         "en": "Get in touch",
@@ -625,6 +688,30 @@
         "description": {
           "en": "A skull, a candle, a tankard of ale: vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
           "pl": "Czaszka, świeca i kufel piwa: vanitas w pogańskim ujęciu. Za oknem chorobliwie zielony księżyc wisi nad nagimi drzewami — ostatni świadek, gdy zgaśnie ostatnie światło."
+        }
+      },
+      "coming-of-the-second-sun": {
+        "title": { "en": "Coming of the Second Sun", "pl": "Coming of the Second Sun" },
+        "medium": { "en": "Oil on canvas", "pl": "Olej na płótnie" },
+        "dimensions": { "en": "50 × 50 cm", "pl": "50 × 50 cm" },
+        "year": { "en": "2026", "pl": "2026" },
+        "description": {
+          "en": "The prophecy the Children of the Sun pray toward: a second sun rising black over the mountains, ringed in fire, come to end all suffering by ending everything else.",
+          "pl": "Przepowiednia, ku której modlą się Dzieci Słońca: drugie słońce wschodzące czarno nad górami, otoczone pierścieniem ognia, przybywające zakończyć wszelkie cierpienie — kończąc wszystko inne."
+        },
+        "poem": {
+          "title": { "en": "Coming of the Second Sun", "pl": "Coming of the Second Sun" },
+          "body": { "en": "The Black Sun shall mark the end of light.\nA night shall rise that knows no morning.\nThrough pride and prejudice mankind shall fall,\nAnd from its ashes, a darker age begin.", "pl": "Czarne Słońce oznajmi kres światła.\nWzejdzie noc, co nie zna poranka.\nZ pychy i uprzedzeń ludzkość upadnie,\na z jej popiołów narodzi się mroczniejsza era." }
+        }
+      },
+      "city-of-mages": {
+        "title": { "en": "City of Mages", "pl": "City of Mages" },
+        "medium": { "en": "Oil on canvas", "pl": "Olej na płótnie" },
+        "dimensions": { "en": "60 × 48 cm", "pl": "60 × 48 cm" },
+        "year": { "en": "2026", "pl": "2026" },
+        "description": {
+          "en": "A city of impossible towers and hidden paths, where the forest keeps its own kind of magic and every road seems to lead somewhere older than the people who built it.",
+          "pl": "Miasto niemożliwych wież i ukrytych ścieżek, gdzie las ma własny rodzaj magii, a każda droga zdaje się prowadzić do czegoś starszego niż ludzie, którzy je zbudowali."
         }
       },
       "eclipse": {
@@ -1403,6 +1490,20 @@
           "pl": "Na szczycie ludzkiej nienawiści,\nprowadzonej pychą i chciwością,\npada cios, którego nie da się cofnąć,\nktóry kończy świat raz na zawsze."
         }
       },
+      "CityOfMages": {
+        "title": {
+          "en": "City of Mages",
+          "pl": "City of Mages"
+        },
+        "medium": {
+          "en": "Oil on canvas",
+          "pl": "Olej na płótnie"
+        },
+        "description": {
+          "en": "A city of impossible towers and hidden paths, where the forest keeps its own kind of magic and every road seems to lead somewhere older than the people who built it.",
+          "pl": "Miasto niemożliwych wież i ukrytych ścieżek, gdzie las ma własny rodzaj magii, a każda droga zdaje się prowadzić do czegoś starszego niż ludzie, którzy je zbudowali."
+        }
+      },
       "Bloki": {
         "title": {
           "en": "Bloki",
@@ -1503,6 +1604,14 @@
         "tag": {
           "en": "You reached the rail in time to watch it happen. Something opened above the mountains, and the star that fell on Alsnar screamed once — the way the grove screamed, the night a broken seal sent men to dig for it.",
           "pl": "Dotarłeś do balustrady w samą porę, by to zobaczyć. Coś otworzyło się nad górami, a gwiazda, która spadła na Alsnar, krzyknęła raz — tak, jak krzyczał gaj tej nocy, gdy pęknięta pieczęć posłała ludzi, by ją wykopali."
+        },
+        "epilogue": {
+          "en": "So the knight ventured further, in the search of the fallen star.",
+          "pl": "Tak więc rycerz ruszył dalej, w poszukiwaniu upadłej gwiazdy."
+        },
+        "thanks": {
+          "en": "Thank you for playing my demo! If you enjoyed it, there is another hidden level somewhere in this gallery, with a more chill vibe to it.",
+          "pl": "Dziękuję za zagranie w moje demo! Jeśli Ci się podobało, gdzieś w tej galerii znajduje się jeszcze ukryty poziom — o znacznie spokojniejszym klimacie."
         },
         "lightCarried": {
           "en": "{n} light carried forward",

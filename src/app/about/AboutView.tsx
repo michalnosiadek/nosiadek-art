@@ -38,6 +38,16 @@ export default function AboutView() {
             <p>{t("site.about.bio2")}</p>
             <p>{t("site.about.bio3")}</p>
             <p>{t("site.about.bio4")}</p>
+            <p>
+              {t("site.about.bio5Before")}{" "}
+              <a
+                href="/software"
+                className="text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:decoration-ink"
+              >
+                {t("site.about.bio5Software")}
+              </a>{" "}
+              {t("site.about.bio5After")}
+            </p>
           </div>
 
           <a

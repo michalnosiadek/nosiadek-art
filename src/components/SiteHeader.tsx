@@ -7,6 +7,7 @@ import LanguageSwitch from "@/components/LanguageSwitch";
 
 const links = [
   { href: "/gallery", labelKey: "site.nav.gallery", external: false },
+  { href: "/software", labelKey: "site.nav.software", external: false },
   // the 3D first-person gallery is a static app served from /public/experience
   { href: "/experience/index.html", labelKey: "site.nav.experience", external: true },
   { href: "/about", labelKey: "site.nav.about", external: false },

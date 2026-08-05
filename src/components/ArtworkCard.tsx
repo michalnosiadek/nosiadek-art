@@ -22,7 +22,7 @@ export default function ArtworkCard({ artwork }: { artwork: Artwork }) {
           className="object-cover transition-transform duration-700 ease-smooth group-hover:scale-[1.04]"
         />
         <div className="absolute inset-0 bg-void/0 transition-colors duration-500 group-hover:bg-void/20" />
-        {!artwork.original.available && (
+        {(artwork.sold || !artwork.original.available) && (
           <span
             className="absolute bottom-3 right-3 h-3 w-3 rounded-full bg-dawn-bright ring-2 ring-void"
             title={t("site.card.originalSold")}

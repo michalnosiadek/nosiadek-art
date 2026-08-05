@@ -14,7 +14,13 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
   const [selected, setSelected] = useState<
     | { type: "print"; label: string; price: number }
     | { type: "original"; price: number }
-  >({ type: "print", label: artwork.prints[0].label, price: artwork.prints[0].price });
+  >(
+    artwork.original.available && artwork.original.price
+      ? { type: "original", price: artwork.original.price }
+      : artwork.prints[0]
+        ? { type: "print", label: artwork.prints[0].label, price: artwork.prints[0].price }
+        : { type: "original", price: 0 }
+  );
   const [framed, setFramed] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "unavailable" | "error">(
     "idle"
@@ -63,6 +69,14 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
     } catch {
       setStatus("error");
     }
+  }
+
+  if (artwork.sold) {
+    return (
+      <div className="border border-dawn/40 bg-dawn/10 px-5 py-4 text-sm uppercase tracking-widest2 text-ink-muted">
+        {t("site.buy.sold")}
+      </div>
+    );
   }
 
   if (!open) {

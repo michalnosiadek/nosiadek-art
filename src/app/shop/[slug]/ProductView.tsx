@@ -29,6 +29,14 @@ export default function ProductView({
     <section className="container-art grid grid-cols-1 gap-12 pb-24 pt-32 md:grid-cols-2 md:gap-16 md:pt-40">
       <LocalizedTitle titleKey="site.meta.artworkTitle" vars={{ title }} />
 
+      <nav className="col-span-full flex items-center gap-2 text-xs uppercase tracking-widest2 text-ink-faint" aria-label="Breadcrumb">
+        <Link href="/gallery" className="transition-colors hover:text-ink">
+          {t("site.galleryPage.heading")}
+        </Link>
+        <span aria-hidden="true">/</span>
+        <span className="text-ink-muted">{title}</span>
+      </nav>
+
       <div className="flex items-center">
         <ArtworkViewer
           src={artwork.image}
@@ -39,13 +47,6 @@ export default function ProductView({
       </div>
 
       <div className="flex flex-col justify-center">
-        <Link
-          href="/gallery"
-          className="mb-8 text-xs uppercase tracking-widest2 text-ink-faint transition-colors hover:text-ink"
-        >
-          {t("site.product.backToGallery")}
-        </Link>
-
         {checkout === "success" && (
           <div className="mb-8 border-l-2 border-dawn bg-dawn/10 px-5 py-4 text-sm text-ink">
             {t("site.product.checkoutSuccess")}

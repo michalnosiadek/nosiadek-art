@@ -8,8 +8,8 @@ export default function Hero() {
   const t = useT();
 
   return (
-    // min-h, not h: on a short phone the card grows the section instead of
-    // overflowing upward behind the fixed header
+    // On phones this is deliberately just the artwork and one way in. The
+    // fuller plaque remains for larger screens, where it has room to breathe.
     <section className="relative flex min-h-[100svh] w-full items-end overflow-hidden">
       <Image
         src="/images/the-last-dawn.jpg"
@@ -19,11 +19,12 @@ export default function Hero() {
         sizes="100vw"
         className="object-cover object-center"
       />
-      {/* light edge gradients only: the painting stays sharp, the title card below carries the contrast */}
-      <div className="absolute inset-0 bg-gradient-to-t from-void/60 via-transparent to-transparent" />
+      {/* A quiet lower fade keeps the single mobile action legible without
+          putting another card over the painting. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-void/75 via-void/10 to-transparent md:from-void/60 md:via-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-void/30 via-transparent to-void/10" />
 
-      <div className="container-art relative z-10 pb-16 pt-28 md:pb-28 md:pt-40">
+      <div className="container-art relative z-10 hidden pb-16 pt-28 md:block md:pb-28 md:pt-40">
         {/* museum-plaque style title card, like a label mounted on the painting's frame */}
         {/* no max-width: the card sizes to its widest line, so a longer
             translation widens the plaque instead of spilling out of it */}
@@ -62,6 +63,21 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="container-art absolute inset-x-0 bottom-0 z-10 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:hidden">
+        <Link
+          href="#collection"
+          className="inline-flex py-3 text-left text-sm tracking-wide text-ink transition-colors duration-300 hover:text-dawn-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        >
+          <span>{t("site.hero.ctaMobile")}</span>
+          <span
+            aria-hidden="true"
+            className="text-lg leading-none text-dawn transition-transform duration-300 group-hover:translate-y-1"
+          >
+            ↓
+          </span>
+        </Link>
       </div>
 
       <div className="absolute bottom-6 right-6 z-10 hidden text-right text-xs uppercase tracking-widest2 text-ink-faint md:block">

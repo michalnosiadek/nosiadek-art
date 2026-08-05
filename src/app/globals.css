@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: Inter, Helvetica, Arial, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -25,6 +30,46 @@ body {
   opacity: 0.035;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* A quiet supernatural signal for paintings that contain a hidden door. */
+.secret-door-hint {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.9rem 0.65rem 0.75rem;
+  border: 1px solid rgba(197, 119, 86, 0.28);
+  text-shadow: 0 0 10px rgba(255, 164, 99, 0.32);
+  box-shadow: 0 0 18px rgba(122, 31, 26, 0.18);
+  animation: secret-door-glow 3.2s ease-in-out infinite;
+}
+
+.secret-door-hint::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #f7b36e;
+  box-shadow: 0 0 5px #f7b36e, 0 0 14px rgba(242, 83, 45, 0.9);
+  animation: secret-door-beacon 1.8s ease-in-out infinite;
+}
+
+.secret-door-hint:hover {
+  border-color: rgba(247, 179, 110, 0.72);
+  text-shadow: 0 0 14px rgba(255, 164, 99, 0.72);
+  box-shadow: 0 0 26px rgba(179, 41, 31, 0.38);
+}
+
+@keyframes secret-door-glow {
+  0%, 100% { box-shadow: 0 0 14px rgba(122, 31, 26, 0.16); }
+  50% { box-shadow: 0 0 25px rgba(179, 41, 31, 0.38); }
+}
+
+@keyframes secret-door-beacon {
+  0%, 100% { opacity: 0.55; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.18); }
 }
 
 /* the wordmark charges like a fireball on hover, and casts on press */

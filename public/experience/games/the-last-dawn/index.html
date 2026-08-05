@@ -204,14 +204,15 @@
   #pause button:hover, #namebox button:hover { background: var(--ink); color: var(--void); border-color: var(--ink); }
 
   /* ================= the ring, inspected ================= */
-  #inspect { background: rgba(6, 5, 5, 0.94); z-index: 14; transition: opacity 700ms var(--ease); }
-  #inspect .cap { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%);
-    text-align: center; width: min(30rem, 84%); }
+  #inspect { background: rgba(12, 8, 7, 0.72); z-index: 14; transition: opacity 700ms var(--ease); }
+  #inspect .cap { position: absolute; left: auto; right: 7%; top: 50%; bottom: auto; transform: translateY(-50%);
+    text-align: left; width: min(29rem, 34vw); padding: 2rem 2.2rem; border-left: 1px solid rgba(201,162,39,0.42);
+    background: rgba(18, 13, 11, 0.76); }
   #inspect .drag { font-size: 0.62rem; letter-spacing: var(--tracking); text-transform: uppercase;
     color: var(--ink-faint); }
   #inspect .nm { font-family: var(--font-serif); font-weight: 300; font-size: 1.9rem; color: var(--ink); }
   #inspect .sub { font-size: 0.8rem; line-height: 1.6; color: var(--ink-muted); margin-top: 0.5rem; font-style: italic; }
-  #inscription { margin-top: 1.1rem; font-family: var(--font-serif); font-style: italic;
+  #inscription { position: absolute; left: 7%; bottom: 14%; width: 38%; text-align: center; margin-top: 1.1rem; font-family: var(--font-serif); font-style: italic;
     font-size: 1.35rem; color: var(--gold); opacity: 0; transition: opacity 1.2s var(--ease);
     text-shadow: 0 0 18px rgba(201,162,39,0.45); }
   #inscription.on { opacity: 1; }
@@ -325,8 +326,8 @@
         <div class="drag" id="inspect-drag">Drag to turn it over</div>
         <div class="nm" id="inspect-name">The Broken Signet</div>
         <div class="sub" id="inspect-sub"></div>
-        <div id="inscription"></div>
       </div>
+      <div id="inscription"></div>
     </div>
 
     <div class="screen" id="namebox">
@@ -1695,7 +1696,11 @@ let camYaw = -Math.PI, camElev = 0.24, camDist = 3.4, shake = 0;
 
 function makeRider() {
   const g = new THREE.Group();
-  const body = new THREE.Group(); g.add(body);          /* rolls / leans */
+  /* Roll around the rider's centre, not around his boots. Rotating the old
+     body root at y=0 sent the hood and cloak through the floor halfway through
+     the roll. */
+  const rollPivot = new THREE.Group(); rollPivot.position.y = 1.2; g.add(rollPivot);
+  const body = new THREE.Group(); body.position.y = -1.2; rollPivot.add(body);
   const cloakDark = ps1Mat({ color: 0x223842 });
   const cloakLit = ps1Mat({ color: 0x32505c });
   const cloth = ps1Mat({ map: clothTex, color: 0xcfd8dc, side: THREE.DoubleSide });
@@ -1773,6 +1778,8 @@ function makeRider() {
   /* left hand: torch / shield / ring — only one shows at a time */
   const offhandRoot = new THREE.Group(); armL.hand.add(offhandRoot);
   const torch = new THREE.Group(); offhandRoot.add(torch);
+  torch.rotation.z = -0.38;
+  torch.rotation.x = -0.18;
   const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.03, 0.52, 5),
     ps1Mat({ color: 0x4a3423 }));
   stick.position.y = 0.14; torch.add(stick);
@@ -1817,7 +1824,7 @@ function makeRider() {
   lant.add(new THREE.Mesh(new THREE.SphereGeometry(0.032, 6, 5), flameMat));
 
   scene.add(g);
-  return { g, body, hips, chest, legs, armR, armL, sword, torch, shield, ringHeld, cloakSegs };
+  return { g, body, rollPivot, hips, chest, legs, armR, armL, sword, torch, shield, ringHeld, cloakSegs };
 }
 const rider = makeRider();
 const lanternL = addLight(new THREE.Vector3(), 0xff8c40, 1.6, 7, true, true);
@@ -1920,7 +1927,7 @@ function makeKnight(pos) {
   return {
     g, body, legs, armL, armR, elbowL, elbowR, bladeG, eyeMat, parts, helm, visor, cape,
     pos: pos.clone(), yaw: Math.PI, hp: 6, state: "hunt", t: 0, cd: 0, flinch: 0,
-    stride: 0, seen: false, target: pos.clone(), lastSeen: pos.clone(),
+    stride: 0, seen: false, revealed: false, target: pos.clone(), lastSeen: pos.clone(),
     stepPhase: 0, awake: 0, dead: false, reacq: 0, stuckT: 0, moved: 0, wantStep: 0.04,
     nav: null, navAge: 0,
   };
@@ -2010,7 +2017,7 @@ function hudUpdate() {
   $("slot-shield").classList.toggle("active", shieldUp());
   $("slot-potion").classList.toggle("active", P.flasks > 0);
   $("slot-potion").querySelector(".count").textContent = "x" + P.flasks;
-  if (enemy && !enemy.dead && enemy.seen) npFill.style.width = (enemy.hp / 6 * 100) + "%";
+  if (enemy && !enemy.dead && enemy.revealed) npFill.style.width = (enemy.hp / 6 * 100) + "%";
 }
 function flashHit() {
   const f = $("flash"); f.classList.remove("hit"); void f.offsetWidth; f.classList.add("hit");
@@ -2093,7 +2100,12 @@ function endGame() {
   const fl = $("flash");
   fl.style.background = "#fde4b8";
   fl.classList.remove("hit"); void fl.offsetWidth; fl.classList.add("starburst");
-  setTimeout(() => screenOn("end"), 1500);
+  setTimeout(() => {
+    screenOn("end");
+    $("e-tag").textContent = TT("end.epilogue");
+    $("e-cta").style.display = "none";
+    setTimeout(() => { $("e-tag").textContent = TT("end.thanks"); }, 3200);
+  }, 1500);
 }
 
 /* ==================== INPUT ==================== */
@@ -2170,11 +2182,11 @@ function tryRoll(wish) {
 /* ==================== THE RING, TURNED OVER ==================== */
 const inspectScene = new THREE.Scene();
 const inspectCam = new THREE.PerspectiveCamera(38, 16 / 9, 0.05, 20);
-inspectCam.position.set(0, 0, 2.6);            /* far enough back to see all of it */
+  inspectCam.position.set(0, 0, 2.6);            /* far enough back to see all of it */
 const inspectRing = makeRingModel(1.9, true);
 inspectScene.add(inspectRing);
 inspectScene.add(new THREE.Mesh(new THREE.SphereGeometry(9, 12, 8),
-  new THREE.MeshBasicMaterial({ color: 0x181210, side: THREE.BackSide })));
+  new THREE.MeshBasicMaterial({ color: 0x241815, side: THREE.BackSide })));
 const AMB_SAVE = new THREE.Color();
 {
   const key = addLight(new THREE.Vector3(1.6, 1.8, 2.4), 0xffd9a0, 7.0, 14);
@@ -2187,11 +2199,12 @@ function openInspect() {
   if (!P.hasRing || mode === "inspect") return;
   mode = "inspect";
   document.exitPointerLock?.();
+  inspectRing.position.x = -0.72;
   inspectRing.rotation.set(0.35, 0.6, 0);
   $("inscription").classList.remove("on");
   $("inspect-sub").textContent = TT("inspect.sub");
   AMB_SAVE.copy(U.uAmbient.value);
-  U.uAmbient.value.setRGB(0.46, 0.38, 0.28);      /* you can actually see it now */
+  U.uAmbient.value.setRGB(0.78, 0.64, 0.48);      /* keep the ring readable beside the description */
   screenOn("inspect");
 }
 function closeInspect() {
@@ -2228,7 +2241,7 @@ function inspectUpdate(dt) {
 }
 
 /* ==================== THE STATUE ASKS ==================== */
-const KING_NAMES = ["agmar", "angmar"];
+const KING_NAMES = ["quan"];
 function openName() {
   mode = "name";
   document.exitPointerLock?.();
@@ -2259,13 +2272,6 @@ function sayName() {
     P.light += 200;
     return;
   }
-  if (raw === "quan") {
-    nameTries++;
-    $("name-hint").textContent = TT("statue.hintQuan");
-    P.light += 120;
-    $("name-input").value = "";
-    return;
-  }
   nameTries++;
   /* speaking into a keep with something awake in it is a mistake */
   if (enemy && !enemy.dead) {
@@ -2280,6 +2286,7 @@ function sayName() {
 function nearestDoorTo(pos, maxD) {
   let best = null, bd = maxD;
   for (const d of doors) {
+    if (d.kind === "gate") continue; /* the final gate belongs to the statue, not the player */
     if (d.open) continue;
     const dist = pos.distanceTo(d.pos);
     if (dist < bd) { bd = dist; best = d; }
@@ -2323,8 +2330,6 @@ function interact() {
       d.t = 0; d.locked = false; sfx.door();
       showPlaque(TT("plaques.openedTitle"), TT("plaques.openedBody"));
     }
-  } else if (d.kind === "gate") {
-    if (!nameSolved) openName();
   }
 }
 /* lifting the ring is what wakes him */
@@ -2356,7 +2361,6 @@ function spawnHunter() {
   enemy = makeKnight(new THREE.Vector3(best.cx, 0, best.cz));
   enemy.lastSeen.copy(P.pos);     /* he stands up already knowing where you are */
   ensureEnemyLoops();
-  nameplate.classList.add("on");
 }
 
 function damagePlayer(dmg, fromPos) {
@@ -2420,6 +2424,10 @@ function enemyUpdate(dt) {
   const toP = P.pos.clone().sub(e.pos).setY(0);
   const dist = toP.length();
   const sees = dist < 17 && los(e.pos, P.pos);
+  if (!e.revealed && dist < 9 && sees) {
+    e.revealed = true;
+    nameplate.classList.add("on");
+  }
   if (sees) { e.lastSeen.copy(P.pos); if (!e.seen) e.seen = true; }
   /* noise carries even when he cannot see: swinging, drinking, doors */
   else if (P.noise > 0.3 && dist < 26) e.lastSeen.copy(P.pos);
@@ -2683,8 +2691,8 @@ function playerUpdate(dt) {
   if (P.roll) {
     P.roll.t += dt;
     vel.copy(P.roll.dir).multiplyScalar(7.5);
-    rider.body.rotation.x = -Math.PI * 2 * clamp(P.roll.t / 0.42, 0, 1);
-    if (P.roll.t >= 0.42) { P.roll = null; rider.body.rotation.x = 0; }
+    rider.rollPivot.rotation.x = -Math.PI * 2 * clamp(P.roll.t / 0.42, 0, 1);
+    if (P.roll.t >= 0.42) { P.roll = null; rider.rollPivot.rotation.x = 0; }
   } else {
     let speed = 2.1;
     sprinting = (keys.ShiftLeft || keys.ShiftRight) && wish.lengthSq() > 0.01
@@ -2797,7 +2805,7 @@ function animateRider(dt, moved, turnRate, sprinting) {
   rider.legs[1].shin.rotation.x = Math.max(0, Math.sin(P.stride - 0.6)) * 1.1 * clamp(sp * 1.6, 0, 1);
   /* hips counter-rotate, the body bobs on the plant */
   rider.hips.rotation.y = -swing * 0.16;
-  rider.body.position.y = Math.abs(Math.sin(P.stride)) * 0.045 * sp
+  rider.body.position.y = -1.2 + Math.abs(Math.sin(P.stride)) * 0.045 * sp
     + Math.sin(t * 1.6) * 0.012;                       /* breathing at rest */
   rider.chest.rotation.z = Math.sin(P.stride) * 0.05 * sp;
 

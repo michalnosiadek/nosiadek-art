@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   let name: string;
 
   if (body.type === "original") {
-    if (!artwork.original.available || !artwork.original.price) {
+    if (artwork.sold || !artwork.original.available || !artwork.original.price) {
       return NextResponse.json(
         { error: "This original is not available." },
         { status: 400 }
@@ -53,6 +53,10 @@ export async function POST(req: NextRequest) {
     unitAmount = artwork.original.price;
     name = `${artwork.title}: Original painting`;
   } else {
+    if (artwork.sold) {
+      return NextResponse.json({ error: "This artwork is sold out" }, { status: 410 });
+    }
+
     const print = artwork.prints.find((p) => p.label === body.label);
     if (!print) {
       return NextResponse.json({ error: "Print size not found." }, { status: 400 });

@@ -443,6 +443,7 @@ const GALLERY = [
 
   /* —— Room I · The Moon —— */
   { file: "theSecondMoon.jpg", year: "2025", dimensions: "40 × 50 cm", room: "moon", music: "audio/theLastDawn.mp3" },
+  { file: "CityOfMages.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "Moon.jpg", year: "2026", dimensions: "50 × 50 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "Witches.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "Moongose.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
@@ -532,8 +533,9 @@ const CROSS_WALLS = [
      two stubs of wall either side, and sky from the floor up. */
   [-62, 8, true, 12, 11, false],
 ];
-/* the balcony beyond it: floor, and a parapet you can lean on */
-const BALCONY = { hw: 5.5, z0: -70, z1: -62, rail: 1.1, t: 0.6 };
+/* the last balcony narrows into a gangplank over the void */
+const BALCONY = { hw: 5.5, z0: -68, z1: -62, rail: 1.1, t: 0.6 };
+const GANGPLANK = { hw: 1.35, z0: -78, z1: -67, rail: 0.42, t: 0.24 };
 /* one slot per painting, in GALLERY order: x, z, ry (facing), h (art height).
    ry: 0 = faces +z, π = faces −z, π/2 = faces +x, −π/2 = faces −x. */
 const SLOTS = [
@@ -547,6 +549,7 @@ const SLOTS = [
   { x: -8.85, z:  11,    ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z:  11,    ry: -Math.PI / 2, h: 2.1 },
   { x: -5.2,  z:   6.57, ry:  0,           h: 2.1 },
+  { x:  5.2,  z:   6.57, ry:  0,           h: 2.1 },
 
   /* —— Room II · The Hubris of Men (z −20..0) —— */
   { x: -8.85, z:  -5,    ry:  Math.PI / 2, h: 2.1 },
@@ -688,15 +691,21 @@ for (const s of SEGMENTS) {
 for (const [z, hw, dw, h, w, capped] of CROSS_WALLS)
   crossWall(z, hw, dw, h || WALL_H, w || DOOR_W, capped !== false);
 
-/* ---------- the balcony ----------
-   The hall ends by stepping outside. No wall in front of you, no roof: the
-   eclipse and the whole sky, with a parapet at chest height to stop you. */
+/* ---------- the balcony and gangplank ----------
+   The final room opens onto a short balcony, then a narrow plank suspended
+   over nothing. The rails are visual only: stepping or jumping off is the
+   secret threshold into The Last Dawn. */
 {
   const b = BALCONY, len = b.z1 - b.z0, zc = (b.z0 + b.z1) / 2;
   box(b.hw * 2 + b.t, 1, len, 0, -0.5, zc, floorM, false);
   box(b.t, b.rail, len, -b.hw, b.rail / 2, zc, stone);
   box(b.t, b.rail, len,  b.hw, b.rail / 2, zc, stone);
-  box(b.hw * 2 + b.t, b.rail, b.t, 0, b.rail / 2, b.z0, stone);
+}
+{
+  const g = GANGPLANK, len = g.z1 - g.z0, zc = (g.z0 + g.z1) / 2;
+  box(g.hw * 2, g.t, len, 0, g.t / 2, zc, floorM, false);
+  box(g.t, g.rail, len, -g.hw, g.rail / 2, zc, stone, false);
+  box(g.t, g.rail, len,  g.hw, g.rail / 2, zc, stone, false);
 }
 
 /* ---------- torches ----------
@@ -1095,6 +1104,8 @@ applyLang();
 
 /* ---------- input: keyboard / mouse ---------- */
 const keys = {};
+let jumpY = 0, jumpV = 0;
+let sentToLastDawn = false;
 addEventListener("keydown", (e) => {
   keys[e.code] = true;
   if (e.code === "Escape") {
@@ -1102,6 +1113,7 @@ addEventListener("keydown", (e) => {
     panel.classList.remove("open"); indexOv.classList.remove("open");
   }
   if (e.code === "KeyE" && document.pointerLockElement && focusedIdx >= 0) openPanel(focusedIdx);
+  if (e.code === "Space" && entered && !anyOverlay() && jumpY === 0) jumpV = 5.2;
 });
 addEventListener("keyup", (e) => keys[e.code] = false);
 
@@ -1112,6 +1124,12 @@ function enter(traditional) {
   setTrack(0);
   if (traditional) indexOv.classList.add("open");
   else lock();
+}
+function fallIntoLastDawn() {
+  if (sentToLastDawn) return;
+  sentToLastDawn = true;
+  document.exitPointerLock?.();
+  window.location.href = "games/the-last-dawn/index.html";
 }
 $("btn-enter").onclick = () => enter(false);
 $("btn-traditional").onclick = () => enter(true);
@@ -1236,7 +1254,22 @@ function animate() {
       camera.position.z = pz;
       bobT += speed * dt * 1.6;
     }
-    camera.position.y = EYE + Math.sin(bobT) * 0.035;
+
+    const onGangplank =
+      camera.position.z <= GANGPLANK.z1 &&
+      camera.position.z >= GANGPLANK.z0 &&
+      Math.abs(camera.position.x) <= GANGPLANK.hw + 0.08;
+    const overVoid = camera.position.z < BALCONY.z0 && !onGangplank;
+    if (overVoid || camera.position.z < GANGPLANK.z0) {
+      jumpV -= 15 * dt;
+      jumpY += jumpV * dt;
+      if (jumpY < -3.5) fallIntoLastDawn();
+    } else if (jumpY !== 0 || jumpV !== 0) {
+      jumpV -= 15 * dt;
+      jumpY += jumpV * dt;
+      if (jumpY <= 0) { jumpY = 0; jumpV = 0; }
+    }
+    camera.position.y = EYE + jumpY + Math.sin(bobT) * 0.035;
     updateToast();
   }
   camera.rotation.set(pitch, yaw, 0);

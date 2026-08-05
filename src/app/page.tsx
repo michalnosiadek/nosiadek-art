@@ -40,6 +40,23 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="software" className="border-t border-void-line/60 bg-void">
+        <div className="container-art py-20 md:py-24">
+          <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">
+            {t("site.home.softwareEyebrow")}
+          </p>
+          <h2 className="max-w-2xl font-serif text-3xl font-light leading-snug text-ink md:text-4xl">
+            {t("site.home.softwareHeading")}
+          </h2>
+          <Link
+            href="/software"
+            className="mt-8 inline-block text-sm uppercase tracking-widest2 text-ink-muted transition-colors hover:text-ink"
+          >
+            {t("site.software.visit")} →
+          </Link>
+        </div>
+      </section>
+
       <section className="border-t border-void-line/60 bg-void-raised">
         <div className="container-art flex flex-col items-center gap-6 py-24 text-center md:py-32">
           <p className="text-xs uppercase tracking-widest2 text-ink-faint">

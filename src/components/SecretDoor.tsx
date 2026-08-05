@@ -47,7 +47,7 @@ export default function SecretDoor({ slug }: { slug: string }) {
       <button
         type="button"
         onClick={() => setAsking(true)}
-        className="mt-10 block font-serif text-lg font-light italic text-ink-faint transition-colors duration-700 ease-smooth hover:text-dawn-bright"
+        className="secret-door-hint mt-10 block font-serif text-lg font-light italic text-ink-faint transition-colors duration-700 ease-smooth hover:text-dawn-bright"
       >
         {t("site.secret.hint")}
       </button>

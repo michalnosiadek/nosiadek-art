@@ -5,7 +5,8 @@
   "scripts": {
     "i18n": "node scripts/pull-i18n.mjs",
     "dev": "npm run i18n && next dev",
-    "build": "next build",
+    "postinstall": "prisma generate",
+    "build": "npm run i18n && prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "prisma migrate dev",
