@@ -1613,6 +1613,26 @@
           "en": "Thank you for playing my demo! If you enjoyed it, there is another hidden level somewhere in this gallery, with a more chill vibe to it.",
           "pl": "Dziękuję za zagranie w moje demo! Jeśli Ci się podobało, gdzieś w tej galerii znajduje się jeszcze ukryty poziom — o znacznie spokojniejszym klimacie."
         },
+        "poem": {
+          "en": "At the summit of men's hatred\nChanneled by hubris and greed\nA blow is struck that cannot be undone\nThat ends the world once and for all",
+          "pl": "Na szczycie ludzkiej nienawiści,\nprowadzonej pychą i chciwością,\npada cios, którego nie da się cofnąć,\nktóry kończy świat raz na zawsze."
+        },
+        "darkness": {
+          "en": "And the sun vanished from the face of the world...",
+          "pl": "I słońce zniknęło z powierzchni świata..."
+        },
+        "returned": {
+          "en": "And after ages of darkness... the light returned.",
+          "pl": "A po wiekach ciemności... światło powróciło."
+        },
+        "personal": {
+          "en": "The knight carried the light onward, and somewhere beyond the painted world, a new dawn began.",
+          "pl": "Rycerz poniósł światło dalej, a gdzieś poza namalowanym światem rozpoczął się nowy świt."
+        },
+        "continue": {
+          "en": "Continue",
+          "pl": "Dalej"
+        },
         "lightCarried": {
           "en": "{n} light carried forward",
           "pl": "{n} światła przeniesione dalej"

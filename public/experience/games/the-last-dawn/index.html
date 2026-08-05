@@ -173,7 +173,7 @@
   #title .bg, #end .bg { position: absolute; inset: 0; background-size: cover;
     background-position: center; opacity: 0.55; }
   #title .bg { background-image: url("paintings/TheLastDawn.jpg"); }
-  #end .bg { background-image: url("paintings/EndOfTheWorld.jpg"); opacity: 0.6; }
+  #end .bg { background-image: url("paintings/TheEnd.jpg"); opacity: 0.82; }
   #title .shade, #end .shade { position: absolute; inset: 0;
     background: linear-gradient(rgba(10,9,8,0.25), rgba(10,9,8,0.55) 55%, var(--void) 96%); }
   .screen .inner { position: relative; }
@@ -193,6 +193,40 @@
     text-transform: uppercase; color: var(--ink-faint); text-decoration: none;
     transition: color 400ms var(--ease); }
   #end .back:hover { color: var(--ink); }
+  #end .poem { white-space: pre-line; max-width: 36rem; margin: 1.4rem auto 0; font-family: var(--font-serif);
+    font-size: 1.28rem; line-height: 1.55; font-style: italic; color: var(--ink); }
+  #end.blackout { background: #000; }
+  #end.blackout .bg, #end.blackout .shade, #end.blackout #e-eyebrow, #end.blackout #e-title,
+  #end.blackout #e-poem, #end.blackout #light-carried, #end.blackout #e-back { display: none; }
+  #end.blackout .tag { max-width: 48rem; font-size: clamp(1.6rem, 3vw, 3rem); color: var(--ink); font-style: normal; min-height: 4em; }
+  #end-continue { margin-top: 2.4rem; font-family: var(--font-sans); background: transparent; color: var(--ink);
+    border: 1px solid rgba(242,236,230,.36); padding: .9rem 2.2rem; cursor: pointer;
+    font-size: .72rem; letter-spacing: var(--tracking); text-transform: uppercase; }
+  #end-continue:disabled { opacity: 0; pointer-events: none; }
+
+  @media (min-width: 1800px) {
+    #bars { top: 24px; left: 24px; }
+    #hp { width: 360px; height: 16px; }
+    #stam { width: 280px; height: 10px; margin-top: 7px; }
+    #lightbox { top: 22px; right: 28px; }
+    #light-n { font-size: 2.35rem; }
+    #light-l, #prompt, #ringhint { font-size: .78rem; }
+    #nameplate { bottom: 112px; }
+    #nameplate .n { font-size: 1.4rem; }
+    #nameplate .b { width: 460px; height: 6px; }
+    #prompt { bottom: 72px; }
+    #gear { left: 26px; bottom: 26px; transform: scale(1.25); transform-origin: bottom left; }
+    #plaque { left: 26px; bottom: 260px; width: 420px; padding: 1.2rem 1.3rem; }
+    #plaque .t { font-size: 1.45rem; }
+    #plaque .b { font-size: .95rem; line-height: 1.7; }
+    #inspect .cap { width: min(38rem, 34vw); padding: 2.6rem 2.8rem; }
+    #inspect .drag { font-size: .78rem; }
+    #inspect .nm { font-size: 2.5rem; }
+    #inspect .sub { font-size: 1.05rem; line-height: 1.75; }
+    #inscription { font-size: 1.7rem; }
+    #end .poem { font-size: 1.65rem; }
+    #end-continue { font-size: .84rem; padding: 1.1rem 2.8rem; }
+  }
 
   #pause { background: rgba(10, 9, 8, 0.86); transition: opacity 400ms var(--ease); }
   #pause h2 { font-size: clamp(2rem, 5vw, 3.4rem); margin-top: 0.9rem; }
@@ -313,9 +347,10 @@
       <div class="inner">
         <div class="eyebrow" id="e-eyebrow">Chapter I complete</div>
         <h2 id="e-title">The Murder of a Star</h2>
-        <div class="tag" id="e-tag">You reached the rail in time to watch it happen. Something opened above the mountains, and the star that fell on Alsnar screamed once — the way the grove screamed, the night a broken seal sent men to dig for it.</div>
+        <div class="tag" id="e-tag">The Murder of a Star</div>
+        <div class="poem" id="e-poem"></div>
         <div class="light-line" id="light-carried">0 light carried forward</div>
-        <a class="cta" href="../../index.html" id="e-cta">This was a fragment — the full game is being painted</a>
+        <button id="end-continue" type="button" disabled>Continue</button>
         <a class="back" href="../../index.html" id="e-back">Return to the gallery</a>
       </div>
     </div>
@@ -1963,6 +1998,7 @@ function applyLang() {
   set("e-tag", "end.tag");
   set("e-cta", "end.cta");
   set("e-back", "end.back");
+  set("end-continue", "end.continue");
   set("inspect-exit", "inspect.exit");
   set("inspect-drag", "inspect.drag");
   set("inspect-name", "inspect.name");
@@ -2090,22 +2126,40 @@ function die() {
 }
 /* You step off the balcony's edge and the sky tears. The scream lands first,
    the painting after it. */
+let endPhase = 0, endTyping = null;
+function typeEndText(text) {
+  clearInterval(endTyping);
+  const out = $("e-tag"); out.textContent = "";
+  $("end-continue").disabled = true;
+  let i = 0;
+  endTyping = setInterval(() => {
+    out.textContent = text.slice(0, ++i);
+    if (i >= text.length) { clearInterval(endTyping); endTyping = null; $("end-continue").disabled = false; }
+  }, 38);
+}
+function advanceEnd() {
+  if (endPhase === 0) {
+    endPhase = 1; $("end").classList.add("blackout"); typeEndText(TT("end.darkness"));
+  } else if (endPhase === 1) {
+    endPhase = 2; typeEndText(TT("end.returned"));
+  } else {
+    endPhase = 3; typeEndText(TT("end.personal"));
+    $("end-continue").style.display = "none"; $("e-back").style.display = "block";
+  }
+}
+$("end-continue").onclick = advanceEnd;
 function endGame() {
-  mode = "end";
+  mode = "end"; endPhase = 0;
+  $("end").classList.remove("blackout"); $("end-continue").style.display = "inline-block";
+  $("end-continue").disabled = false; $("e-poem").textContent = TT("end.poem");
+  $("e-tag").textContent = TT("end.heading"); $("e-back").style.display = "none";
   $("light-carried").textContent = TT("end.lightCarried", { n: P.light });
-  document.exitPointerLock?.();
-  sfx.starScream();
+  document.exitPointerLock?.(); sfx.starScream();
   if (breathG) { breathG.gain.value = 0; dragG.gain.value = 0; }
   $("dread").classList.remove("on");
-  const fl = $("flash");
-  fl.style.background = "#fde4b8";
+  const fl = $("flash"); fl.style.background = "#fde4b8";
   fl.classList.remove("hit"); void fl.offsetWidth; fl.classList.add("starburst");
-  setTimeout(() => {
-    screenOn("end");
-    $("e-tag").textContent = TT("end.epilogue");
-    $("e-cta").style.display = "none";
-    setTimeout(() => { $("e-tag").textContent = TT("end.thanks"); }, 3200);
-  }, 1500);
+  setTimeout(() => screenOn("end"), 1500);
 }
 
 /* ==================== INPUT ==================== */
@@ -2118,6 +2172,11 @@ addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     if (mode === "title") begin();
     else if (mode === "death") respawn();
+  }
+  if (mode === "end" && (e.code === "Enter" || e.code === "Space")) {
+    e.preventDefault();
+    if (!$("end-continue").disabled) advanceEnd();
+    return;
   }
   if (mode === "inspect") {
     if (e.code === "Escape" || e.code === "KeyE" || e.code === "KeyI") closeInspect();
@@ -2188,10 +2247,11 @@ inspectScene.add(inspectRing);
 inspectScene.add(new THREE.Mesh(new THREE.SphereGeometry(9, 12, 8),
   new THREE.MeshBasicMaterial({ color: 0x241815, side: THREE.BackSide })));
 const AMB_SAVE = new THREE.Color();
+let FOG_SAVE = 0.042;
 {
-  const key = addLight(new THREE.Vector3(1.6, 1.8, 2.4), 0xffd9a0, 7.0, 14);
-  const rim = addLight(new THREE.Vector3(-2.0, -0.7, 1.4), 0xb3291f, 4.0, 14);
-  const fill = addLight(new THREE.Vector3(0.3, -1.7, 2.2), 0xc9a227, 3.0, 14);
+  const key = addLight(new THREE.Vector3(1.6, 1.8, 2.4), 0xffd9a0, 18.0, 14);
+  const rim = addLight(new THREE.Vector3(-2.0, -0.7, 1.4), 0xb3291f, 10.0, 14);
+  const fill = addLight(new THREE.Vector3(0.3, -1.7, 2.2), 0xc9a227, 9.0, 14);
   key.inspectOnly = rim.inspectOnly = fill.inspectOnly = true;
 }
 let inspectDrag = false, inscriptionSeen = false;
@@ -2204,12 +2264,15 @@ function openInspect() {
   $("inscription").classList.remove("on");
   $("inspect-sub").textContent = TT("inspect.sub");
   AMB_SAVE.copy(U.uAmbient.value);
-  U.uAmbient.value.setRGB(0.78, 0.64, 0.48);      /* keep the ring readable beside the description */
+  FOG_SAVE = U.uFogD.value;
+  U.uFogD.value = 0;
+  U.uAmbient.value.setRGB(1.3, 1.08, 0.82);      /* the ring should read as an object, not a silhouette */
   screenOn("inspect");
 }
 function closeInspect() {
   if (mode !== "inspect") return;
   U.uAmbient.value.copy(AMB_SAVE);
+  U.uFogD.value = FOG_SAVE;
   mode = "play"; screenOff("inspect"); lockPointer();
 }
 $("inspect-exit").onclick = closeInspect;
