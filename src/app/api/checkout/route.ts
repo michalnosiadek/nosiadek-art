@@ -4,7 +4,7 @@ import { getArtwork } from "@/lib/artworks";
 import { convert, type Currency } from "@/lib/pricing";
 
 // Prices in artworks.ts are EUR. A Polish reader is quoted złoty, so charge
-// what they were shown — the currency comes over with the request and the
+// what they were shown  -  the currency comes over with the request and the
 // conversion is the same one src/lib/pricing.ts used to print the figure.
 const CURRENCIES: Record<Currency, string> = { EUR: "eur", PLN: "pln" };
 

@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n";
 /**
  * Money, in one place.
  *
- * The numbers in artworks.ts are EUR — that is the base, and the only figure
+ * The numbers in artworks.ts are EUR  -  that is the base, and the only figure
  * you edit when you reprice something. Everything else is derived:
  *
  *   English → euro, shown as written.
@@ -15,7 +15,7 @@ import type { Locale } from "@/i18n";
  */
 export const BASE_CURRENCY = "EUR";
 
-/** Checked 5 Aug 2026 — the mid-market rate was 4.31. Rounded down so the
+/** Checked 5 Aug 2026  -  the mid-market rate was 4.31. Rounded down so the
  *  złoty price never quietly overshoots the euro one. */
 export const PLN_PER_EUR = 4.3;
 
@@ -53,7 +53,7 @@ export function formatPrice(eur: number, locale: Locale): string {
   return FORMATTERS[currency].format(convert(eur, currency));
 }
 
-/** "+€60" / "+260 zł" — for the framing add-on. */
+/** "+€60" / "+260 zł"  -  for the framing add-on. */
 export function formatAddon(eur: number, locale: Locale): string {
   return "+" + formatPrice(eur, locale);
 }

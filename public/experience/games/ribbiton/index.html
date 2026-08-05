@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Ribbiton — The Pond at Night</title>
+<title>Ribbiton  -  The Pond at Night</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -179,7 +179,7 @@
 <main>
   <div class="eyebrow" id="eyebrow">You found the door</div>
   <h1 id="h1">Ribbiton</h1>
-  <div id="version">Vignette · The Pond at night — after the concept study</div>
+  <div id="version">Vignette · The Pond at night  -  after the concept study</div>
 
   <div id="frame">
     <canvas id="gl"></canvas>
@@ -188,7 +188,7 @@
 
     <div id="strip">
       <button id="btn-lang">Polski</button>
-      <button id="btn-music">Music — off</button>
+      <button id="btn-music">Music  -  off</button>
     </div>
 
     <div id="hud">
@@ -222,7 +222,7 @@
     <div class="screen on" id="veil">
       <div class="step" id="step-through">STEP THROUGH</div>
       <div class="keys" id="veil-keys">
-        WASD — walk · mouse — look · E — speak · Esc — pause
+        WASD  -  walk · mouse  -  look · E  -  speak · Esc  -  pause
       </div>
       <div id="touchnote"></div>
     </div>
@@ -231,17 +231,17 @@
       <div class="bg" style="background-image:url('paintings/ConceptArt.jpg')"></div>
       <div class="shade"></div>
       <div class="inner">
-        <div class="eyebrow" id="t-eyebrow">Nosiadek Productions — from the Chapel of the Moon</div>
+        <div class="eyebrow" id="t-eyebrow">Nosiadek Productions  -  from the Chapel of the Moon</div>
         <h2 id="t-title">Ribbiton</h2>
         <div class="tag" id="t-tag">A pond under two skies. Somebody is sitting at the water, and he has noticed you.</div>
-        <div class="presskey" id="begin">Press Enter — Begin</div>
+        <div class="presskey" id="begin">Press Enter  -  Begin</div>
       </div>
     </div>
 
     <div class="screen" id="pause">
       <div class="inner">
         <h2 id="p-title">The pond waits</h2>
-        <div class="presskey" id="resume">Press Esc — Return</div>
+        <div class="presskey" id="resume">Press Esc  -  Return</div>
       </div>
     </div>
 
@@ -252,7 +252,7 @@
         <div class="eyebrow" id="e-eyebrow">The Pond answered</div>
         <h2 id="e-title">The Primordial Sound</h2>
         <div class="poem" id="e-poem"></div>
-        <a class="cta" href="../../index.html" id="e-cta">Ribbiton — oil on canvas, 2026</a>
+        <a class="cta" href="../../index.html" id="e-cta">Ribbiton  -  oil on canvas, 2026</a>
         <a class="back" href="../../index.html" id="e-back">Return to the gallery</a>
       </div>
     </div>
@@ -271,7 +271,7 @@
 import * as THREE from "three";
 
 /* ===================================================================
-   RIBBITON — the pond at night
+   RIBBITON  -  the pond at night
    A secret behind the painting "Ribbiton" (Room II · Chapel of the Moon).
    One handcrafted scene, first person, no fail state: walk the bank,
    speak to the Ribbit, and answer the Primordial Sound.
@@ -281,11 +281,11 @@ import * as THREE from "three";
 /* ============================ EDIT ME ============================ */
 
 /* Optional audio. Both are loaded lazily and the game runs fine without
-   them — procedural croaks and a synth pad stand in until the files land.
+   them  -  procedural croaks and a synth pad stand in until the files land.
    Drop the files in games/ribbiton/audio/ with these names. */
 const ASSETS = {
   croak: "audio/ribbitbit.wav",       // the recorded croak (used for ambience + the Ribbit's voice)
-  music: "audio/ribbiton-piano.mp3",  // the piano track — streamed, never preloaded
+  music: "audio/ribbiton-piano.mp3",  // the piano track  -  streamed, never preloaded
 };
 
 /* =====================================================================
@@ -295,13 +295,13 @@ const ASSETS = {
    Add a language by adding its code to "locales" in that file.
    ===================================================================== */
 const I18N = window.I18N;
-if (!I18N) throw new Error("i18n/translations.js failed to load — run: node tools/sync-i18n.mjs");
+if (!I18N) throw new Error("i18n/translations.js failed to load  -  run: node tools/sync-i18n.mjs");
 
 const LANGS = I18N.locales;
 const SRC = I18N.games.ribbiton;
 const loc = (leaf, L) => (leaf && leaf[L] !== undefined ? leaf[L] : leaf ? leaf.en : "");
 
-/* T[lang].key — the shape the rest of this file already expects */
+/* T[lang].key  -  the shape the rest of this file already expects */
 const T = {};
 for (const L of LANGS) {
   const o = {};
@@ -379,7 +379,7 @@ function ambience() {
   trem.connect(tg); tg.connect(cg.gain);
   crick.connect(cf); cf.connect(cg); cg.connect(master); crick.start(t0); trem.start(t0);
 
-  /* a low, patient hum under everything — the sound that never finished */
+  /* a low, patient hum under everything  -  the sound that never finished */
   const hum = AC.createOscillator(); hum.type = "sine"; hum.frequency.value = 41.2;
   const hum2 = AC.createOscillator(); hum2.type = "sine"; hum2.frequency.value = 61.8;
   const hg = AC.createGain(); hg.gain.value = 0.5;
@@ -446,7 +446,7 @@ function pondSwell(to, sec = 3) {
   pondGain.gain.linearRampToValueAtTime(to, AC.currentTime + sec);
 }
 
-/* the piano track: streamed, never preloaded — the file is heavy on purpose.
+/* the piano track: streamed, never preloaded  -  the file is heavy on purpose.
    If it isn't there, the control quietly disappears. */
 function musicInit() {
   if (musicEl) return;
@@ -484,7 +484,7 @@ function syncMusicBtn() {
 
 /* ==================== PAINTERLY TEXTURE HELPERS ====================
    Everything in the scene is painted into a canvas with soft, loaded
-   brushstrokes — no pixel art here; the pond should look like the study. */
+   brushstrokes  -  no pixel art here; the pond should look like the study. */
 function tex(w, h, draw, opts = {}) {
   const c = document.createElement("canvas"); c.width = w; c.height = h;
   const g = c.getContext("2d");
@@ -582,7 +582,7 @@ const skyTex = tex(2048, 1024, (g, w, h) => {
   grd.addColorStop(0, C.skyTop); grd.addColorStop(0.45, C.skyMid); grd.addColorStop(0.72, C.skyLow);
   grd.addColorStop(0.86, "#2b3357"); grd.addColorStop(1, "#141b32");
   g.fillStyle = grd; g.fillRect(0, 0, w, h);
-  /* the study's circular brushwork — the night is stirred, not smooth */
+  /* the study's circular brushwork  -  the night is stirred, not smooth */
   for (let i = 0; i < 220; i++) {
     const x = Math.random() * w, y = Math.random() * h * 0.8;
     const r = rnd(40, 190), a = rnd(0, 6.283), sweep = rnd(1.1, 2.6);
@@ -627,9 +627,9 @@ function glow(color, size, opacity = 0.8) {
 }
 
 /* ============================ THE FAR SHORE ============================ */
-/* pyramids, the treeline, the sandbar — everything past the water is a
+/* pyramids, the treeline, the sandbar  -  everything past the water is a
    backdrop and is allowed to be flat, the way it is in the painting. */
-/* the backdrop ignores the fog on purpose — in the study these are flat
+/* the backdrop ignores the fog on purpose  -  in the study these are flat
    shapes cut out of the night, not distance. */
 function pyramid(x, z, base, height, tilt, color) {
   const geo = new THREE.ConeGeometry(base, height, 4, 1);
@@ -734,7 +734,7 @@ const water = new THREE.Mesh(
 );
 water.rotation.x = -Math.PI / 2; water.position.set(0, -0.35, -74); scene.add(water);
 
-/* expanding rings — every croak touches the water */
+/* expanding rings  -  every croak touches the water */
 const ripples = [];
 const rippleGeo = new THREE.RingGeometry(0.4, 0.52, 40);
 function ripple(x, z, color = C.moonstone, life = 2.6, max = 6) {
@@ -781,8 +781,8 @@ shoreLine.rotation.x = -Math.PI / 2; shoreLine.position.set(0, 0.02, -8); scene.
 
 /* ============================ FOLIAGE ============================
    Every bush is one painted quad turned toward you. The study's banks
-   are pure gesture — dark green over black green, with lime whipped
-   through them — so that is all these are.                          */
+   are pure gesture  -  dark green over black green, with lime whipped
+   through them  -  so that is all these are.                          */
 const billboards = [], swayers = [];
 
 function leafTex(pal, n = 90, lime = 0.25) {
@@ -834,7 +834,7 @@ for (let i = 0; i < 46; i++) bush(rnd(-30, 30), rnd(24, 32), rnd(5, 9), 0);
 for (let i = 0; i < 22; i++) bush(rnd(-24, -12), rnd(-8, 2), rnd(3, 6.5), 0);
 for (let i = 0; i < 26; i++) bush(rnd(6, 22), rnd(-9, 2), rnd(3, 7), Math.random() < 0.5 ? 0 : 3);
 
-/* reeds — the lime curls whipped along the waterline */
+/* reeds  -  the lime curls whipped along the waterline */
 const reedTex = tex(128, 256, (g, w, h) => {
   g.clearRect(0, 0, w, h);
   for (let i = 0; i < 7; i++)
@@ -919,7 +919,7 @@ function lightBell(i) {
 
 /* ============================ THE RIBBIT ============================
    Small, damp, entirely unimpressed by you. Two lit eyes at the
-   waterline — the first thing anyone notices in the painting.        */
+   waterline  -  the first thing anyone notices in the painting.        */
 const skinTex = tex(256, 256, (g, w, h) => {
   g.fillStyle = C.frog; g.fillRect(0, 0, w, h);
   for (let i = 0; i < 400; i++)
@@ -1102,7 +1102,7 @@ function openNode(id) {
   say(node.def.beats[0]);
 }
 
-/* typewriter — the Ribbit is in no hurry and neither is the pond */
+/* typewriter  -  the Ribbit is in no hurry and neither is the pond */
 function say(text, then) {
   clearInterval(typing);
   typed = ""; awaiting = false;
@@ -1173,7 +1173,7 @@ function ribbitCroak(tone = 1, vol = 0.45) {
 }
 
 /* ============================ THE PRIMORDIAL SOUND ============================
-   Three calls, three answers. No punishment for a wrong croak — the
+   Three calls, three answers. No punishment for a wrong croak  -  the
    Ribbit simply says it again, the way you teach anyone anything.    */
 const ROUND_LEN = [3, 4, 5];
 let round = 0, pattern = [], answerAt = 0, phase = "idle", callTimers = [];
@@ -1316,7 +1316,7 @@ $("btn-music").onclick = () => { audioInit(); musicToggle(); };
 function stepThrough() {
   audioInit();
   /* the piano is optional: if the file isn't there, the control never appears.
-     A HEAD request costs nothing — the track itself is only fetched on click. */
+     A HEAD request costs nothing  -  the track itself is only fetched on click. */
   fetch(ASSETS.music, { method: "HEAD" })
     .then((r) => { if (!r.ok) $("btn-music").style.display = "none"; })
     .catch(() => { $("btn-music").style.display = "none"; });
@@ -1404,7 +1404,7 @@ addEventListener("mousemove", (ev) => {
 document.addEventListener("pointerlockchange", () => {
   if (document.pointerLockElement !== canvas && state === "walk" && !paused) setPause(true);
 });
-/* touch: look only — the bank needs feet */
+/* touch: look only  -  the bank needs feet */
 let touchLast = null;
 canvas.addEventListener("touchstart", (e) => { touchLast = e.touches[0]; }, { passive: true });
 canvas.addEventListener("touchmove", (e) => {

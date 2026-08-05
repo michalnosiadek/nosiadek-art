@@ -16,7 +16,7 @@ import {
  * these functions; nothing else should write artwork files directly.
  *
  * Note: src/lib/artworks.ts (the static array powering the current site) is
- * untouched — migrating the site to read from the DB is a later ticket.
+ * untouched  -  migrating the site to read from the DB is a later ticket.
  */
 
 export interface FileInput {

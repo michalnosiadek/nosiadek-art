@@ -32,6 +32,86 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+.journal-prose {
+  color: #b8afa7;
+  font-family: var(--font-body);
+  font-size: 1.08rem;
+  line-height: 1.95;
+}
+
+.journal-prose p + p { margin-top: 1.55rem; }
+
+.journal-prose-dropcap::first-letter {
+  float: left;
+  margin: .18rem .65rem 0 0;
+  color: #c57756;
+  font-family: var(--font-display);
+  font-size: 4.8rem;
+  font-weight: 300;
+  line-height: .75;
+}
+
+.journal-inline-figure {
+  margin: 3.5rem 0;
+  overflow: hidden;
+  border: 1px solid rgba(242, 236, 230, .16);
+  background: #131110;
+}
+
+.journal-inline-figure button {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+  background: transparent;
+  padding: 0;
+}
+
+.journal-inline-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 700ms ease;
+}
+
+.journal-inline-figure button:hover img { transform: scale(1.025); }
+
+.journal-inline-figure figcaption {
+  padding: .7rem 1rem .85rem;
+  color: rgba(242, 236, 230, .52);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.journal-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 4rem;
+  background: rgba(5, 4, 4, .96);
+}
+
+.journal-lightbox img {
+  max-width: 94vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.journal-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  color: #f2ece6;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .journal-lightbox { padding: 1rem; }
+}
+
 /* A quiet supernatural signal for paintings that contain a hidden door. */
 .secret-door-hint {
   position: relative;

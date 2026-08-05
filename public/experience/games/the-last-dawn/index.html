@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>The Last Dawn — Chapter I</title>
+<title>The Last Dawn  -  Chapter I</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -110,7 +110,7 @@
     font-size: 0.66rem; letter-spacing: var(--tracking); text-transform: uppercase;
     color: var(--ink); text-shadow: 0 1px 6px #000; opacity: 0; transition: opacity 300ms var(--ease); }
   #prompt.on { opacity: 1; }
-  /* the ring is always on you — its reminder lives quietly in the corner
+  /* the ring is always on you  -  its reminder lives quietly in the corner
      instead of sitting under the middle of the screen */
   #ringhint { position: absolute; right: 18px; bottom: 16px;
     font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -141,7 +141,7 @@
     100% { opacity: 0; }
   }
 
-  /* the hunt has begun — a slow red pulse at the edges */
+  /* the hunt has begun  -  a slow red pulse at the edges */
   #dread { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0;
     background: radial-gradient(ellipse at center, transparent 40%, rgba(122,31,26,0.55) 100%);
     transition: opacity 900ms var(--ease); }
@@ -293,7 +293,7 @@
 <main>
   <div class="eyebrow" id="eyebrow">You found the door</div>
   <h1 id="h1">The Last Dawn</h1>
-  <div id="version">Demo · Chapter I — a fragment of the game being painted in Godot</div>
+  <div id="version">Demo · Chapter I  -  a fragment of the game being painted in Godot</div>
   <div id="langbar"><button id="btn-lang" type="button">Polski</button></div>
 
   <div id="frame">
@@ -316,10 +316,10 @@
         <div class="slot active" id="slot-offhand"><canvas width="24" height="24"></canvas><span class="hint">F</span></div>
         <div id="offhand-name">Torch</div>
       </div>
-      <div id="nameplate"><div class="n" id="nameplate-n">SIR LOTHRIC — THE KING'S LAST KNIGHT</div>
+      <div id="nameplate"><div class="n" id="nameplate-n">SIR LOTHRIC  -  THE KING'S LAST KNIGHT</div>
         <div class="b"><div class="fill" style="width:100%"></div></div></div>
       <div id="prompt"></div>
-      <div id="ringhint">I — the signet</div>
+      <div id="ringhint">I  -  the signet</div>
       <div id="plaque"><div class="t"></div><div class="b"></div></div>
     </div>
     <div id="flash"></div>
@@ -328,8 +328,8 @@
     <div class="screen on" id="veil">
       <div class="step" id="step-through">STEP THROUGH</div>
       <div class="keys" id="veil-keys">
-        WASD — move · mouse — look · LMB — attack · RMB — block<br>
-        Space — roll · F / wheel — offhand · R — flask · E — interact · Esc — pause
+        WASD  -  move · mouse  -  look · LMB  -  attack · RMB  -  block<br>
+        Space  -  roll · F / wheel  -  offhand · R  -  flask · E  -  interact · Esc  -  pause
       </div>
       <div id="touchnote">The door only opens for a keyboard. Return with one, and the corridors will be waiting.</div>
     </div>
@@ -337,10 +337,10 @@
     <div class="screen" id="title">
       <div class="bg"></div><div class="shade"></div>
       <div class="inner">
-        <div class="eyebrow" id="t-eyebrow">Nosiadek Productions — Chapter I</div>
+        <div class="eyebrow" id="t-eyebrow">Nosiadek Productions  -  Chapter I</div>
         <h2 id="t-title">The Last Dawn</h2>
         <div class="tag" id="t-tag">The rider enters the forgotten lands. The keep remembers a name it was told to forget.</div>
-        <div class="presskey" id="begin">Press Enter — Begin</div>
+        <div class="presskey" id="begin">Press Enter  -  Begin</div>
       </div>
     </div>
 
@@ -356,7 +356,7 @@
       <div class="inner">
         <div class="eyebrow" id="e-eyebrow">Chapter I complete</div>
         <h2 id="e-title">The Murder of a Star</h2>
-        <img id="e-painting" src="paintings/TheEnd.jpg" alt="The Murder of a Star — oil painting by Michał Nosiadek">
+        <img id="e-painting" src="paintings/TheEnd.jpg" alt="The Murder of a Star  -  oil painting by Michał Nosiadek">
         <div class="tag" id="e-tag">The Murder of a Star</div>
         <div class="poem" id="e-poem"></div>
         <div class="light-line" id="light-carried">0 light carried forward</div>
@@ -366,7 +366,7 @@
     </div>
 
     <div class="screen" id="inspect">
-      <div class="exit" id="inspect-exit">Esc — put it away</div>
+      <div class="exit" id="inspect-exit">Esc  -  put it away</div>
       <div class="cap">
         <div class="drag" id="inspect-drag">Drag to turn it over</div>
         <div class="nm" id="inspect-name">The Broken Signet</div>
@@ -380,7 +380,7 @@
         <div class="eyebrow" id="n-eyebrow">The statue at the gate</div>
         <div class="q" id="n-q">“Speak the name of the King, and enter.”</div>
         <div class="hintline" id="name-hint"></div>
-        <input id="name-input" maxlength="16" autocomplete="off" spellcheck="false" placeholder="—">
+        <input id="name-input" maxlength="16" autocomplete="off" spellcheck="false" placeholder=" - ">
         <div class="btns">
           <button id="name-say">Speak</button>
           <button id="name-back">Step back</button>
@@ -413,14 +413,14 @@
 import * as THREE from "three";
 
 /* =====================================================================
-   TEXT — every visible line lives in i18n/translations.json at the repo
+   TEXT  -  every visible line lives in i18n/translations.json at the repo
    root, under games["the-last-dawn"]. Edit it there, then run
    node tools/sync-i18n.mjs  to publish it here. Nothing below hardcodes
    a sentence; add a language by adding its code to "locales".
    The chosen language is shared with the gallery via localStorage.
    ===================================================================== */
 const I18N = window.I18N;
-if (!I18N) throw new Error("i18n/translations.js failed to load — run: node tools/sync-i18n.mjs");
+if (!I18N) throw new Error("i18n/translations.js failed to load  -  run: node tools/sync-i18n.mjs");
 
 const LANGS = I18N.locales;
 const TEXT = I18N.games["the-last-dawn"];
@@ -430,7 +430,7 @@ let LANG = (() => {
   return LANGS[0];
 })();
 
-/** TT("plaques.keyTitle") — dotted lookup, {placeholders} filled from vars. */
+/** TT("plaques.keyTitle")  -  dotted lookup, {placeholders} filled from vars. */
 function TT(key, vars) {
   let node = TEXT;
   for (const part of key.split(".")) {
@@ -445,7 +445,7 @@ function TT(key, vars) {
 }
 
 /* =========================================================================
-   THE LAST DAWN — Chapter I
+   THE LAST DAWN  -  Chapter I
    Secret web level reached through the painting in the 3D gallery.
    PS1 presentation · Dark Souls combat · Silent Hill dread.
 
@@ -458,7 +458,7 @@ function TT(key, vars) {
 const $ = (id) => document.getElementById(id);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
-THREE.ColorManagement.enabled = false;   /* raw passthrough — author what you see */
+THREE.ColorManagement.enabled = false;   /* raw passthrough  -  author what you see */
 
 /* seeded RNG so a run is reproducible while it lasts */
 function mulberry32(a) {
@@ -534,7 +534,7 @@ const sfx = {
     const ng = AC.createGain(); ng.gain.setValueAtTime(0.22, t); ng.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
     s.connect(lf); lf.connect(ng); ng.connect(master); s.start(t); s.stop(t + 0.27);
   },
-  scrape() {                                    /* the tell — the blade comes up */
+  scrape() {                                    /* the tell  -  the blade comes up */
     if (!AC) return; const t = AC.currentTime, d = 1.0;
     const s = srcNoise(false, 0.75);
     const f = AC.createBiquadFilter(); f.type = "bandpass"; f.Q.value = 7;
@@ -666,7 +666,7 @@ const sfx = {
     g.gain.setValueAtTime(0.001, t); g.gain.exponentialRampToValueAtTime(0.42, t + 0.3);
     g.gain.setValueAtTime(0.42, t + d * 0.5); g.gain.exponentialRampToValueAtTime(0.001, t + d);
     o.connect(f); f.connect(g); g.connect(master); o.start(t); o.stop(t + d + 0.1);
-    /* a second voice a fifth above, detuned — it stops sounding like one thing */
+    /* a second voice a fifth above, detuned  -  it stops sounding like one thing */
     const o2 = AC.createOscillator(); o2.type = "triangle";
     o2.frequency.setValueAtTime(2540, t);
     o2.frequency.exponentialRampToValueAtTime(104, t + d);
@@ -714,7 +714,7 @@ function ensureEnemyLoops() {
   blfo.connect(blg); blg.connect(inner.gain);
   bs.connect(bf); bf.connect(inner); inner.connect(breathG);
   bs.start(); blfo.start();
-  /* steel stretching over stone — bandpass noise with a wandering centre */
+  /* steel stretching over stone  -  bandpass noise with a wandering centre */
   dragG = AC.createGain(); dragG.gain.value = 0; dragG.connect(master);
   const ds = srcNoise(false, 0.42);
   const df = AC.createBiquadFilter(); df.type = "bandpass"; df.frequency.value = 760; df.Q.value = 8;
@@ -845,7 +845,7 @@ const ICONS = {
 icon("sword", ICONS.sword); icon("shield", ICONS.shield);
 icon("potion", ICONS.potion); icon("offhand", ICONS.torch);
 
-/* ============== RENDERER — low-res target, nearest upscale ============== */
+/* ============== RENDERER  -  low-res target, nearest upscale ============== */
 const frame = $("frame"), canvas = $("gl");
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
 renderer.toneMapping = THREE.NoToneMapping;
@@ -884,14 +884,14 @@ const U = {
   uCamPos: { value: new THREE.Vector3() },
 };
 const LIGHTS = [];
-/* `persistent` lights survive a level rebuild — the rider carries his own. */
+/* `persistent` lights survive a level rebuild  -  the rider carries his own. */
 function addLight(pos, hex, energy, range, flicker = false, persistent = false) {
   const L = { pos: pos.clone(), color: new THREE.Color(hex), energy, range,
     flicker, phase: Math.random() * Math.PI * 2, on: true, mul: 1,
     persistent, inspectOnly: false };
   LIGHTS.push(L); return L;
 }
-/* only the nearest lights make it into the 16 slots — with a whole keep of
+/* only the nearest lights make it into the 16 slots  -  with a whole keep of
    torches that matters. The inspect rig gets the slots to itself. */
 let inInspect = false;
 function pushLights(t) {
@@ -982,7 +982,7 @@ function ps1Mat({ map = null, color = 0xffffff, emissive = 0x000000, unlit = fal
   });
 }
 
-/* geometry merging — the whole keep ships as three draw calls */
+/* geometry merging  -  the whole keep ships as three draw calls */
 const _v3 = new THREE.Vector3(), _m3 = new THREE.Matrix3();
 const acc = () => ({ p: [], n: [], u: [] });
 function pushGeo(a, geo, m) {
@@ -1058,7 +1058,7 @@ const flameGeo = new THREE.ConeGeometry(0.09, 0.3, 6);
 const sconceGeo = new THREE.CylinderGeometry(0.03, 0.05, 0.5, 6);
 SHARED_GEO.add(flameGeo); SHARED_GEO.add(sconceGeo);
 
-/* Debris fades out, so each broken piece needs its own opacity — but it must
+/* Debris fades out, so each broken piece needs its own opacity  -  but it must
    keep sharing the live light uniforms, which a material clone would freeze. */
 function fadeMat(src) {
   const u = src.uniforms;
@@ -1089,8 +1089,8 @@ let levelRoot = new THREE.Group(); scene.add(levelRoot);
 let colliders = [];            /* dynamic AABBs: props, closed doors */
 let props = [];
 let doors = [];
-let flames = [];               /* level torches — replaced on rebuild */
-const riderFlames = [];        /* the rider's own torch — outlives the keep */
+let flames = [];               /* level torches  -  replaced on rebuild */
+const riderFlames = [];        /* the rider's own torch  -  outlives the keep */
 let chambers = [];             /* {c0,r0,w,h,cx,cz,door} */
 let startPos, exitPos, hubRect;
 let ringSite = null, keySite = null, tombSite = null, statue = null;
@@ -1150,7 +1150,7 @@ function buildLevel() {
   grid[12 * GW + cx] = ROOF;                       /* the portcullis tile */
   carve(cx - 2, 7, 5, 5, ROOF);                    /* antechamber, rows 7..11 */
   grid[6 * GW + cx] = ROOF;                        /* the statue gate tile */
-  /* The hall past the gate has no roof and no north wall — it is a balcony.
+  /* The hall past the gate has no roof and no north wall  -  it is a balcony.
      Open the gate and the dying sun is simply there, over the mountains. */
   carve(cx - 5, 1, 11, 5, OPEN);
   const balcony = new Set();
@@ -1170,7 +1170,7 @@ function buildLevel() {
     if (v === SOLID) {
       if (balcony.has(r * GW + c)) {                 /* a rail, not a wall.
         The tile underneath is still solid, so it already stops you walking
-        off — no extra collider, which would only choke the nav grid. */
+        off  -  no extra collider, which would only choke the nav grid. */
         pushGeo(wA, railGeo, m.compose(new THREE.Vector3(x, 0.45, z), q, s));
         continue;
       }
@@ -1265,7 +1265,7 @@ function buildLevel() {
 
 /* --- a chamber door: heavy oak, swings on its hinge.
    The throat between spine and chamber runs along X, so the leaf spans Z and
-   is thin in X — it has to actually stand in the gap it is closing. --- */
+   is thin in X  -  it has to actually stand in the gap it is closing. --- */
 function makeSwingDoor(ch) {
   const x = tx(ch.doorC), z = tz(ch.rowC);
   const W = TILE - 0.15;
@@ -1346,7 +1346,7 @@ function makeStatue(c, r) {
   hood.position.y = 2.92; g.add(hood);
   const face = new THREE.Mesh(new THREE.CircleGeometry(0.15, 8), ps1Mat({ color: 0x0a0908, unlit: true }));
   face.position.set(0, 2.82, 0.24); g.add(face);
-  /* hands cupped forward, holding nothing — where the ring should have gone */
+  /* hands cupped forward, holding nothing  -  where the ring should have gone */
   for (const sx of [-0.3, 0.3]) {
     const arm = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.62, 0.14), stoneMat);
     arm.position.set(sx, 2.15, 0.16); arm.rotation.x = -0.7; g.add(arm);
@@ -1396,7 +1396,7 @@ function makeKeySite(ch) {
 /* --- the tomb that still carries the name --- */
 function makeTomb(ch) {
   /* against the wall furthest from the door, and shifted off the doorway's
-     row — a stone box across the threshold would wall the chamber off. */
+     row  -  a stone box across the threshold would wall the chamber off. */
   const wallSide = ch.side < 0 ? -1 : 1;
   const x = ch.cx + wallSide * (ch.w * TILE / 2 - 1.4);
   const z = ch.cz + (rng() < 0.5 ? -1 : 1) * (ch.h * TILE / 2 - 1.9);
@@ -1502,7 +1502,7 @@ function breakProp(p, impulse) {
 }
 
 /* ==================== SHARED MODELS ==================== */
-/* The old Warden's Key — still cast, still cold. It raises the portcullis. */
+/* The old Warden's Key  -  still cast, still cold. It raises the portcullis. */
 function makeKeyModel() {
   const mat = ps1Mat({ color: 0x9fb6bc, emissive: 0x24393e, unlit: true });
   const g = new THREE.Group();
@@ -1524,7 +1524,7 @@ function makeRingModel(scale = 1, forInspect = false) {
     : ps1Mat({ color: 0xc9a227, emissive: 0x3a2c06, unlit: true });
   const dark = ps1Mat({ color: 0x8a6d1c, emissive: forInspect ? 0x2a2008 : 0x000000, unlit: !forInspect });
   const g = new THREE.Group();
-  /* the band — bezel sits at +Y, the inscription rides the underside at −Y */
+  /* the band  -  bezel sits at +Y, the inscription rides the underside at −Y */
   const band = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.042, 8, 20), gold);
   band.rotation.x = Math.PI / 2; g.add(band);
   /* the seal, broken across */
@@ -1562,7 +1562,7 @@ function makeRingModel(scale = 1, forInspect = false) {
 /* ==================== COLLISION / GRID QUERIES ==================== */
 function solidCell(c, r) { return at(c, r) === SOLID; }
 function collide(x, z, rad = 0.42) {
-  /* the map first — resolve against the 3×3 cells around us */
+  /* the map first  -  resolve against the 3×3 cells around us */
   const [c0, r0] = cellOf(x, z);
   for (let it = 0; it < 2; it++) {
     for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
@@ -1609,8 +1609,8 @@ function los(a, b) {
 
 /* ==================== FLOW FIELD (the hunt) ====================
    BFS out from the cell the hunter believes you're in; he then walks
-   downhill. Doors count as passable — he goes through them either way. */
-/* The map tiles are 4m — far too coarse to path around a tomb standing against
+   downhill. Doors count as passable  -  he goes through them either way. */
+/* The map tiles are 4m  -  far too coarse to path around a tomb standing against
    a wall. The hunt runs on a half-tile grid that also knows about the immovable
    furniture, so he walks round the things he cannot break and straight through
    the things he can. */
@@ -1629,7 +1629,7 @@ function rebuildSubGrid() {
     const c = Math.floor(x / TILE), r = Math.floor(z / TILE);
     let blocked = !walkable(c, r);
     if (!blocked) {
-      /* iron and stone he does not go through — so he can never open the way
+      /* iron and stone he does not go through  -  so he can never open the way
          forward for you. Wood is not on this list. */
       for (const d of doors) {
         if (d.open || d.kind === "swing") continue;
@@ -1708,7 +1708,7 @@ function flowStep(x, z) {
   if (!best) return null;
   return new THREE.Vector3(sx_(best[0]), 0, sz_(best[1]));
 }
-/* He is allowed to stand in places the nav grid calls blocked — it keeps a
+/* He is allowed to stand in places the nav grid calls blocked  -  it keeps a
    margin around furniture that his shoulders do not. When that happens, aim
    for the closest square that is on the field and get back on it. */
 function nearestOnField(x, z) {
@@ -1727,7 +1727,7 @@ function nearestOnField(x, z) {
 
 /* ==================== THE RIDER ====================
    A real body this time: legs that stride, arms with hands, and a long
-   cloak built from a chain of segments that lag behind him — each one
+   cloak built from a chain of segments that lag behind him  -  each one
    spring-damped toward the one above, so turning whips it and sprinting
    drags it out flat. */
 const P = {
@@ -1805,7 +1805,7 @@ function makeRider() {
   const armR = arm(0.28), armL = arm(-0.28);
 
   /* Right hand: the straight sword. The blade has to leave the fist pointing
-     away from the arm — held along it, the whole limb reads as one blade. */
+     away from the arm  -  held along it, the whole limb reads as one blade. */
   const sword = new THREE.Group(); armR.hand.add(sword);
   sword.rotation.x = Math.PI / 2 + 0.38;        /* out and slightly down */
   sword.position.set(0.02, -0.06, 0.05);
@@ -1820,7 +1820,7 @@ function makeRider() {
   const fuller = new THREE.Mesh(new THREE.BoxGeometry(0.016, 0.86, 0.026), ps1Mat({ color: 0x8f887c }));
   fuller.position.y = 0.58; sword.add(fuller);
 
-  /* left hand: torch / shield / ring — only one shows at a time */
+  /* left hand: torch / shield / ring  -  only one shows at a time */
   const offhandRoot = new THREE.Group(); armL.hand.add(offhandRoot);
   const torch = new THREE.Group(); offhandRoot.add(torch);
   torch.rotation.z = -0.38;
@@ -1906,7 +1906,7 @@ function makeKnight(pos) {
   const parts = [];
   const add = (mesh, x, y, z, parent = body) => { mesh.position.set(x, y, z); parent.add(mesh); parts.push(mesh); return mesh; };
 
-  /* legs — heavy greaves, he plants every step */
+  /* legs  -  heavy greaves, he plants every step */
   const legs = [];
   for (const sx of [-0.22, 0.22]) {
     const thigh = new THREE.Group(); thigh.position.set(sx, 1.02, 0); body.add(thigh);
@@ -1954,7 +1954,7 @@ function makeKnight(pos) {
   const elbowR = new THREE.Group(); elbowR.position.y = -0.44; armR.add(elbowR);
   add(new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.4, 0.17), platL), 0, -0.2, 0, elbowR);
 
-  /* the great blade — two-handed, tip on the stone until he lifts it */
+  /* the great blade  -  two-handed, tip on the stone until he lifts it */
   const bladeG = new THREE.Group(); bladeG.position.set(0, -0.42, 0.02); elbowR.add(bladeG);
   const gripG = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.42, 6), ps1Mat({ color: 0x2b2119 }));
   bladeG.add(gripG); parts.push(gripG);
@@ -2111,7 +2111,7 @@ canvas.addEventListener("click", () => {
 });
 
 /* Every death re-rolls the keep. You never learn the floor plan, only the
-   rules — which is the point. */
+   rules  -  which is the point. */
 function resetRun() {
   rng = mulberry32((Math.random() * 1e9) | 0);
   buildLevel();
@@ -2481,7 +2481,7 @@ function doorsUpdate(dt) {
     }
   }
 }
-/* He does not open doors. He removes them — but only the wooden ones. */
+/* He does not open doors. He removes them  -  but only the wooden ones. */
 function smashDoor(d) {
   if (d.open || d.kind !== "swing" || d.t >= 0) return;
   d.t = 0; d.broken = true;
@@ -2506,7 +2506,7 @@ function enemyUpdate(dt) {
   /* noise carries even when he cannot see: swinging, drinking, doors */
   else if (P.noise > 0.3 && dist < 26) e.lastSeen.copy(P.pos);
   /* and failing both, the keep is his. He re-finds you every few seconds no
-     matter where you hide — you get a head start, never a hiding place. */
+     matter where you hide  -  you get a head start, never a hiding place. */
   e.reacq -= dt;
   if (e.reacq <= 0) { e.reacq = 2.5; if (!sees) e.lastSeen.copy(P.pos); }
 
@@ -2524,7 +2524,7 @@ function enemyUpdate(dt) {
   };
   /* The flow field only knows about walls. Tombs, altars and the dead tree sit
      inside open cells, so he fans out a few directions and takes whichever
-     makes the most progress toward where he wants to be — that's what lets him
+     makes the most progress toward where he wants to be  -  that's what lets him
      round an obstacle instead of leaning on it. */
   const walk = (dir, speed) => {
     const step = speed * dt;
@@ -2551,7 +2551,7 @@ function enemyUpdate(dt) {
       if (dist < 9) shake = Math.max(shake, 0.1 * (1 - dist / 9));
     }
     /* Anything in his way that isn't stone gets walked through. Test real
-       contact against the box, not distance to its middle — a long table can
+       contact against the box, not distance to its middle  -  a long table can
        touch him while its centre is metres away, and he must not orbit it. */
     for (const p of props) {
       if (p.dead) continue;
@@ -2575,7 +2575,7 @@ function enemyUpdate(dt) {
     } else e.navAge += dt;
     const dir = e.nav ? e.nav.clone().sub(e.pos).setY(0) : toP.clone();
     if (dir.lengthSq() > 0.001) { dir.normalize(); face(dir, 2.4); walk(dir, 2.5); }
-    /* close enough to swing is close enough to swing — he does not need to see
+    /* close enough to swing is close enough to swing  -  he does not need to see
        you to bring it down on the spot you are standing in. */
     if (dist < 3.0 && e.cd <= 0 && !P.dead) {
       e.state = "windup"; e.t = 0; e.struck = false;
@@ -2592,14 +2592,14 @@ function enemyUpdate(dt) {
       e.state = "windup"; e.t = 0; e.struck = false;
       sfx.scrape(); eyeFlare(e, 6.0);
     }
-  } else if (e.state === "windup") {          /* 0.85 s — the blade goes up over his head */
+  } else if (e.state === "windup") {          /* 0.85 s  -  the blade goes up over his head */
     const k = clamp(e.t / 0.85, 0, 1);
     e.elbowR.rotation.x = lerp(0.25, -2.9, k * k);
     e.armR.rotation.x = lerp(-0.35, -1.5, k * k);
     e.body.rotation.x = lerp(0, -0.22, k);
     face(toP.clone().normalize(), 1.4);
     if (e.t >= 0.85) { e.state = "slam"; e.t = 0; sfx.swing(0.45, 0.9); }
-  } else if (e.state === "slam") {            /* 0.28 s — it comes down through everything */
+  } else if (e.state === "slam") {            /* 0.28 s  -  it comes down through everything */
     const k = clamp(e.t / 0.28, 0, 1);
     e.elbowR.rotation.x = lerp(-2.9, 1.1, k);
     e.armR.rotation.x = lerp(-1.5, 0.5, k);
@@ -2624,7 +2624,7 @@ function enemyUpdate(dt) {
       if (f > -0.4 && f < 3.4 && Math.abs(lat) < 1.5) damagePlayer(3, e.pos);
     }
     if (e.t >= 0.28) { e.state = "recover"; e.t = 0; eyeFlare(e, 2.2); }
-  } else if (e.state === "recover") {         /* 1.0 s — the blade is in the floor. Punish it. */
+  } else if (e.state === "recover") {         /* 1.0 s  -  the blade is in the floor. Punish it. */
     const k = clamp(e.t / 1.0, 0, 1);
     e.elbowR.rotation.x = lerp(1.1, 0.25, k);
     e.armR.rotation.x = lerp(0.5, -0.35, k);
@@ -2633,7 +2633,7 @@ function enemyUpdate(dt) {
   }
 
   /* Nothing stops the hunt. If he has been shoved up against something for
-     half a second, whatever it is stops existing — and failing that he steps
+     half a second, whatever it is stops existing  -  and failing that he steps
      around it, so he can never wedge himself in a doorway. */
   if (e.state === "hunt" || e.state === "charge") {
     e.stuckT = e.moved < (e.wantStep || 0.04) * 0.35 ? e.stuckT + dt : 0;
@@ -2902,7 +2902,7 @@ function animateRider(dt, moved, turnRate, sprinting) {
      whips it sideways, a roll throws the whole thing open. */
   const localFwd = clamp(sp, 0, 1.3);
   const rolling = !!P.roll;
-  /* positive rotation.x swings the panels toward −Z, which is his back — the
+  /* positive rotation.x swings the panels toward −Z, which is his back  -  the
      cloak has to stream out behind him, never in front */
   const baseX = 0.06 + localFwd * 0.5 + (rolling ? 0.5 : 0);
   const baseZ = clamp(-turnRate * 9, -0.7, 0.7);

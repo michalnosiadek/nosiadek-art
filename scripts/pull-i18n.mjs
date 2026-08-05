@@ -2,7 +2,7 @@
 /**
  * Pull the master translation file into this app.
  *
- * src/i18n/translations.json is COMMITTED, so a deploy never needs this — the
+ * src/i18n/translations.json is COMMITTED, so a deploy never needs this  -  the
  * host only ever sees this directory, and running the repo-root tool from here
  * is what broke the Vercel build. This script therefore does nothing at all if
  * the master file isn't reachable, and always exits 0.
@@ -19,7 +19,7 @@ const master = path.resolve(here, "..", "..", "..", "i18n", "translations.json")
 const local = path.resolve(here, "..", "src", "i18n", "translations.json");
 
 if (!fs.existsSync(master)) {
-  console.log("i18n: no master file next door — using the committed copy.");
+  console.log("i18n: no master file next door  -  using the committed copy.");
   process.exit(0);
 }
 

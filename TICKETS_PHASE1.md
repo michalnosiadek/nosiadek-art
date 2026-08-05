@@ -1,6 +1,6 @@
-# Phase 1 Tickets — MVP Pipeline
+# Phase 1 Tickets  -  MVP Pipeline
 *Status: approved. One ticket = one PR-sized change. Order matters.*
-*SE-1: ✅ code delivered 2026-07-15 — acceptance pending Michał running `npm install && npx prisma migrate dev --name init_artwork && npm run verify:se1`.*
+*SE-1: ✅ code delivered 2026-07-15  -  acceptance pending Michał running `npm install && npx prisma migrate dev --name init_artwork && npm run verify:se1`.*
 
 Locked inputs: IG is Professional + FB Page linked ✅ · captions EN only · CTA → michalnosiadek.com · hosting TBD (storage behind an interface so VPS or Vercel+R2 both work).
 
@@ -19,7 +19,7 @@ Artwork model: `title, slug, images[], poem?, music_ref?, wip_images[], visibili
 *Accept:* all renditions generated for one upload, visually checked.
 
 **SE-4 · Content engine (caption drafts)**
-Claude API + `context/BRAND_BOOK.md` + `context/BACKSTORY.md` + artwork metadata → per-platform drafts (IG, Bluesky, FB) + alt text + ≤5 hashtags, EN, CTA to site. Drafts only — nothing publishes without approval.
+Claude API + `context/BRAND_BOOK.md` + `context/BACKSTORY.md` + artwork metadata → per-platform drafts (IG, Bluesky, FB) + alt text + ≤5 hashtags, EN, CTA to site. Drafts only  -  nothing publishes without approval.
 *Accept:* drafts for 3 real paintings that Michał would post with ≤1 edit.
 
 **SE-5 · Bluesky publisher**

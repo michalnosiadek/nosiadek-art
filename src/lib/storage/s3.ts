@@ -6,7 +6,7 @@ import {
 } from "./types";
 
 /**
- * SE-1 · S3-compatible driver (Cloudflare R2) — **STUB**.
+ * SE-1 · S3-compatible driver (Cloudflare R2)  -  **STUB**.
  *
  * Deliberately not implemented: hosting is undecided (DECISIONS.md 2026-07-15)
  * and we avoid pulling in @aws-sdk/client-s3 (~3 MB) until it's needed.

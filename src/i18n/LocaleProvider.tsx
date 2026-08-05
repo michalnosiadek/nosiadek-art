@@ -45,7 +45,7 @@ export default function LocaleProvider({
       const stored = window.localStorage.getItem(STORAGE_KEY);
       if (isLocale(stored)) next = stored;
     } catch {
-      /* private mode, storage disabled — fall through to the browser hint */
+      /* private mode, storage disabled  -  fall through to the browser hint */
     }
     if (!next) {
       const nav = navigator.language?.slice(0, 2).toLowerCase();

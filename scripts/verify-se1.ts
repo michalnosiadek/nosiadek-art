@@ -24,7 +24,7 @@ function sha256(buf: Buffer): string {
 }
 
 function ok(label: string, pass: boolean, detail?: string): boolean {
-  console.log(`${pass ? "  ✓" : "  ✗ FAIL"} ${label}${detail ? ` — ${detail}` : ""}`);
+  console.log(`${pass ? "  ✓" : "  ✗ FAIL"} ${label}${detail ? `  -  ${detail}` : ""}`);
   return pass;
 }
 
@@ -110,7 +110,7 @@ async function main() {
   const filesGone = imageRow ? !(await getStorage().exists(imageRow.storageKey)) : false;
   allPass = ok("cleanup: record and files removed", gone === null && filesGone) && allPass;
 
-  console.log(`\n${allPass ? "SE-1 PASS — data model + storage layer verified." : "SE-1 FAIL — see ✗ lines above."}`);
+  console.log(`\n${allPass ? "SE-1 PASS  -  data model + storage layer verified." : "SE-1 FAIL  -  see ✗ lines above."}`);
   process.exitCode = allPass ? 0 : 1;
 }
 

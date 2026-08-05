@@ -29,14 +29,14 @@ export function isStatus(v: string): v is Status {
 export function assertVisibility(v: string): asserts v is Visibility {
   if (!isVisibility(v))
     throw new Error(
-      `Invalid visibility "${v}" — expected one of: ${VISIBILITIES.join(", ")}`
+      `Invalid visibility "${v}"  -  expected one of: ${VISIBILITIES.join(", ")}`
     );
 }
 
 export function assertStatus(v: string): asserts v is Status {
   if (!isStatus(v))
     throw new Error(
-      `Invalid status "${v}" — expected one of: ${STATUSES.join(", ")}`
+      `Invalid status "${v}"  -  expected one of: ${STATUSES.join(", ")}`
     );
 }
 
@@ -46,6 +46,6 @@ export const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export function assertSlug(slug: string): void {
   if (!SLUG_PATTERN.test(slug))
     throw new Error(
-      `Invalid slug "${slug}" — use lowercase letters, digits and hyphens (e.g. "the-last-dawn").`
+      `Invalid slug "${slug}"  -  use lowercase letters, digits and hyphens (e.g. "the-last-dawn").`
     );
 }

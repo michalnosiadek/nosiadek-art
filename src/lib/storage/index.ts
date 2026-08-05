@@ -11,7 +11,7 @@ let cached: StorageDriver | null = null;
 /**
  * SE-1 · Storage factory. Driver chosen by STORAGE_DRIVER env var:
  *   "local" (default) → LocalDiskStorage (STORAGE_LOCAL_ROOT, default ./storage)
- *   "s3"              → S3Storage (Cloudflare R2 — currently a stub)
+ *   "s3"              → S3Storage (Cloudflare R2  -  currently a stub)
  */
 export function getStorage(): StorageDriver {
   if (cached) return cached;
@@ -25,7 +25,7 @@ export function getStorage(): StorageDriver {
       break;
     default:
       throw new Error(
-        `Unknown STORAGE_DRIVER "${driver}" — expected "local" or "s3".`
+        `Unknown STORAGE_DRIVER "${driver}"  -  expected "local" or "s3".`
       );
   }
   return cached;

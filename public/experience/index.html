@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Last Dawn — Michał Nosiadek</title>
+<title>The Last Dawn  -  Michał Nosiadek</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -286,7 +286,7 @@
     opacity: 0; transition: opacity 500ms var(--ease-smooth);
   }
 
-  /* the secret door — void veil, museum-slow */
+  /* the secret door  -  void veil, museum-slow */
   #secret-veil {
     position: fixed; inset: 0; z-index: 200; background: var(--void);
     opacity: 0; pointer-events: none; transition: opacity 1.4s var(--ease-smooth);
@@ -334,7 +334,7 @@
 </div>
 
 <div id="intro">
-  <div class="eyebrow" id="intro-eyebrow">Michał Nosiadek — Paintings, Poems &amp; Music</div>
+  <div class="eyebrow" id="intro-eyebrow">Michał Nosiadek  -  Paintings, Poems &amp; Music</div>
   <h1>The Last Dawn</h1>
   <div class="sub" id="intro-sub">a gallery beneath a dying sun</div>
   <div class="choices">
@@ -398,7 +398,7 @@
   <span id="track-name">The Last Dawn</span>
   <input type="range" id="vol" min="0" max="1" step="0.01" value="0.7">
 </div>
-<div id="hint">E — view a painting</div>
+<div id="hint">E  -  view a painting</div>
 
 <audio id="music" loop preload="auto"></audio>
 
@@ -415,12 +415,12 @@
    filling in the matching value on every leaf.
    ========================================================================= */
 const I18N = window.I18N;
-if (!I18N) throw new Error("i18n/translations.js failed to load — run: node tools/sync-i18n.mjs");
+if (!I18N) throw new Error("i18n/translations.js failed to load  -  run: node tools/sync-i18n.mjs");
 
 const LANGS = I18N.locales;
 const pick = (leaf, L) => (leaf && (leaf[L] ?? leaf.en)) || "";
 
-/* UI[lang].key — same shape the rest of this file already expects */
+/* UI[lang].key  -  same shape the rest of this file already expects */
 const UI = {};
 for (const L of LANGS) {
   UI[L] = {};
@@ -434,7 +434,7 @@ for (const L of LANGS) {
 /* geometry of the cathedral; the names and stories come from the master file */
 const ROOMS = {
   /* z0..z1 is the room's extent along the hall. signZ is the doorway you
-     enter by — the name hangs above it, the story plaque just inside it. */
+     enter by  -  the name hangs above it, the story plaque just inside it. */
   intro:    { num: "",    z0:  28, z1:  44, signZ: null,
               plaque:  { x:  5.94, y: 2.45, z: 33,     ry: -Math.PI / 2, w: 3.4, h: 2.1 } },
   moon:     { num: "I",   z0:   6, z1:  22, signZ:  22,
@@ -453,13 +453,13 @@ for (const [id, r] of Object.entries(ROOMS)) {
   for (const L of LANGS) { r.name[L] = pick(src.name, L); r.story[L] = pick(src.story, L); }
 }
 
-/* hanging order through the rooms — SLOTS below pair up 1:1 */
+/* hanging order through the rooms  -  SLOTS below pair up 1:1 */
 const GALLERY = [
-  /* —— Entrance —— */
-  { file: "ThePainter.jpg", year: "—", dimensions: "—", room: "intro", music: "audio/theLastDawn.mp3" },
+  /*  -  -  Entrance  -  -  */
+  { file: "ThePainter.jpg", year: " - ", dimensions: " - ", room: "intro", music: "audio/theLastDawn.mp3" },
   { file: "Bloki.jpg", year: "2025", dimensions: "digital", room: "intro", music: "audio/theLastDawn.mp3" },
 
-  /* —— Room I · The Moon —— */
+  /*  -  -  Room I · The Moon  -  -  */
   { file: "theSecondMoon.jpg", year: "2025", dimensions: "40 × 50 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "CityOfMages.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "Moon.jpg", year: "2026", dimensions: "50 × 50 cm", room: "moon", music: "audio/theLastDawn.mp3" },
@@ -467,7 +467,7 @@ const GALLERY = [
   { file: "Moongose.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
   { file: "Celtic.jpg", year: "2026", dimensions: "60 × 48 cm", room: "moon", music: "audio/theLastDawn.mp3" },
 
-  /* —— Room II · The Hubris of Men —— */
+  /*  -  -  Room II · The Hubris of Men  -  -  */
   { file: "Pandemonium.jpg", year: "2026", dimensions: "70 × 50 cm", room: "hubris", music: "audio/theLastDawn.mp3" },
   { file: "Edephious.jpg", year: "2026", dimensions: "60 × 48 cm", room: "hubris", music: "audio/theLastDawn.mp3" },
   { file: "IsleOfTheDead.jpg", year: "2026", dimensions: "60 × 48 cm", room: "hubris", music: "audio/theLastDawn.mp3" },
@@ -476,7 +476,7 @@ const GALLERY = [
   { file: "KacMorderca.jpg", year: "2026", dimensions: "40 × 50 cm", room: "hubris", music: "audio/theLastDawn.mp3" },
   { file: "EdgeOfCivilization.jpg", year: "2026", dimensions: "48 × 60 cm", room: "hubris", music: "audio/theLastDawn.mp3" },
 
-  /* —— Room III · The Beauty of the World —— */
+  /*  -  -  Room III · The Beauty of the World  -  -  */
   { file: "WishYouWereHere.jpg", year: "2026", dimensions: "60 × 48 cm", room: "beauty", music: "audio/theLastDawn.mp3" },
   { file: "Ribbiton.jpg", year: "2026", dimensions: "60 × 45 cm", room: "beauty", music: "audio/theLastDawn.mp3", secret: "games/ribbiton/index.html" },
   { file: "Orgrimmar.jpg", year: "2026", dimensions: "70 × 56 cm", room: "beauty", music: "audio/theLastDawn.mp3" },
@@ -484,7 +484,7 @@ const GALLERY = [
   { file: "EndOfTheWorld.jpg", year: "2026", dimensions: "60 × 48 cm", room: "beauty", music: "audio/theLastDawn.mp3" },
   { file: "Neverwinter.jpg", year: "2026", dimensions: "60 × 48 cm", room: "beauty", music: "audio/theLastDawn.mp3" },
 
-  /* —— Room IV · The Last Dawn —— */
+  /*  -  -  Room IV · The Last Dawn  -  -  */
   { file: "TheLastDawn.jpg", year: "2026", dimensions: "60 × 80 cm", room: "lastdawn", music: "audio/theLastDawn.mp3", secret: "games/the-last-dawn/index.html" },
   { file: "TheEnd.jpg", year: "2025", dimensions: "70 × 100 cm", room: "lastdawn", music: "audio/theLastDawn.mp3" },
 ];
@@ -521,13 +521,13 @@ import * as THREE from "three";
 
    One straight line. Rooms are open to the red sky, corridors are roofed and
    low, so each doorway is a compression and each room a release. The end wall
-   of the last room is deliberately short — that is what lets the eclipse sit
+   of the last room is deliberately short  -  that is what lets the eclipse sit
    above The Last Dawn as you come down the final corridor.
 
    TO REHANG: move a painting between rooms in GALLERY above, then give it a
    slot below in the same order. SLOTS pairs 1:1 with GALLERY.
    TO RESIZE A ROOM: edit SEGMENTS, then the matching CROSS_WALLS entry.
-   Keep painting slots at least 1 unit clear of a room's corners — that is
+   Keep painting slots at least 1 unit clear of a room's corners  -  that is
    where the torches go (z0 + 2.2 and z1 − 2.2, both side walls).
    ========================================================================= */
 const SEGMENTS = [
@@ -547,7 +547,7 @@ const CROSS_WALLS = [
   [44, 6, false], [28, 6, true], [22, 9, true], [6, 9, true],
   [0, 9, true], [-20, 9, true], [-26, 9, true], [-44, 9, true],
   [-50, 8, true],
-  /* the far end of the last room is a wide opening with nothing over it —
+  /* the far end of the last room is a wide opening with nothing over it  - 
      two stubs of wall either side, and sky from the floor up. */
   [-62, 8, true, 12, 11, false],
 ];
@@ -555,11 +555,11 @@ const BALCONY = { hw: 5.5, z0: -68, z1: -62, rail: 1.1, t: 0.6 };
 /* one slot per painting, in GALLERY order: x, z, ry (facing), h (art height).
    ry: 0 = faces +z, π = faces −z, π/2 = faces +x, −π/2 = faces −x. */
 const SLOTS = [
-  /* —— entrance —— */
+  /*  -  -  entrance  -  -  */
   { x: -5.85, z:  38,    ry:  Math.PI / 2, h: 2.2 },   // The Painter
   { x: -5.85, z:  34,    ry:  Math.PI / 2, h: 2.0 },   // Bloki
 
-  /* —— Room I · The Moon (z 6..22) —— */
+  /*  -  -  Room I · The Moon (z 6..22)  -  -  */
   { x: -8.85, z:  17,    ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z:  17,    ry: -Math.PI / 2, h: 2.1 },
   { x: -8.85, z:  11,    ry:  Math.PI / 2, h: 2.1 },
@@ -567,7 +567,7 @@ const SLOTS = [
   { x: -5.2,  z:   6.57, ry:  0,           h: 2.1 },
   { x:  5.2,  z:   6.57, ry:  0,           h: 2.1 },
 
-  /* —— Room II · The Hubris of Men (z −20..0) —— */
+  /*  -  -  Room II · The Hubris of Men (z −20..0)  -  -  */
   { x: -8.85, z:  -5,    ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z:  -5,    ry: -Math.PI / 2, h: 2.1 },
   { x: -8.85, z: -10,    ry:  Math.PI / 2, h: 2.1 },
@@ -576,15 +576,15 @@ const SLOTS = [
   { x:  8.85, z: -15,    ry: -Math.PI / 2, h: 2.1 },   // … faces Kac Morderca
   { x: -5.2,  z: -19.43, ry:  0,           h: 2.1 },
 
-  /* —— Room III · The Beauty of the World (z −44..−26) —— */
+  /*  -  -  Room III · The Beauty of the World (z −44..−26)  -  -  */
   { x: -8.85, z: -31,    ry:  Math.PI / 2, h: 2.1 },
-  { x:  8.85, z: -31,    ry: -Math.PI / 2, h: 2.1 },   // Ribbiton — the secret door
+  { x:  8.85, z: -31,    ry: -Math.PI / 2, h: 2.1 },   // Ribbiton  -  the secret door
   { x: -8.85, z: -38,    ry:  Math.PI / 2, h: 2.1 },
   { x:  8.85, z: -38,    ry: -Math.PI / 2, h: 2.1 },
   { x: -5.2,  z: -43.43, ry:  0,           h: 2.1 },
   { x:  5.2,  z: -43.43, ry:  0,           h: 2.1 },
 
-  /* —— Room IV · The Last Dawn (z −62..−50) ——
+  /*  -  -  Room IV · The Last Dawn (z −62..−50)  -  - 
      The two halves of one event, hung facing each other down the last room,
      with the balcony and the eclipse straight ahead between them. */
   { x: -7.85, z: -56,    ry:  Math.PI / 2, h: 3.2, maxW: 4.2, y: 3.05 },
@@ -619,7 +619,7 @@ camera.rotation.order = "YXZ";
 let yaw = 0, pitch = 0;
 camera.position.set(0, EYE, 40);
 
-/* ---------- sky: blood-red swirl, black sun (unchanged — it's good) ---------- */
+/* ---------- sky: blood-red swirl, black sun (unchanged  -  it's good) ---------- */
 const skyMat = new THREE.ShaderMaterial({
   side: THREE.BackSide, depthWrite: false, fog: false,
   uniforms: { uTime: { value: 0 } },
@@ -950,7 +950,7 @@ function buildLangMeshes() {
     }
   }
 
-  /* every painting's own label is rebuilt with it — see drawPlaque below */
+  /* every painting's own label is rebuilt with it  -  see drawPlaque below */
   for (const redraw of plaqueRebuilders) redraw();
 }
 document.fonts.ready.then(buildLangMeshes);
@@ -987,7 +987,7 @@ function openPanel(i) {
   currentIdx = i;
   const p = GALLERY[i];
   $("panel-img").src = "paintings/" + p.file;
-  $("panel-img").alt = p.title + " — Michał Nosiadek";
+  $("panel-img").alt = p.title + "  -  Michał Nosiadek";
   $("panel-room").textContent = roomLabel(p.room);
   $("panel-title").textContent = p.title;
   $("panel-meta").textContent = `${p.year} · ${p.medium} · ${p.dimensions}`;
@@ -1185,15 +1185,15 @@ function pollPad(dt) {
   const justPressed = (b) => pressed(b) && !prevButtons[b];
   if (!entered && pad.buttons.some(b => b.pressed)) enter(false);
   else {
-    if (justPressed(0)) {                                   // A — view / advance
+    if (justPressed(0)) {                                   // A  -  view / advance
       if (panel.classList.contains("open")) $("btn-next").click();
       else if (focusedIdx >= 0) openPanel(focusedIdx);
     }
     if (justPressed(1)) { panel.classList.remove("open"); indexOv.classList.remove("open"); }  // B
-    if (justPressed(2)) $("btn-play").click();              // X — play/pause
+    if (justPressed(2)) $("btn-play").click();              // X  -  play/pause
     if (justPressed(4)) setTrack(trackI - 1);               // LB
     if (justPressed(5)) setTrack(trackI + 1);               // RB
-    if (justPressed(9)) indexOv.classList.toggle("open");   // Start — index
+    if (justPressed(9)) indexOv.classList.toggle("open");   // Start  -  index
     if (panel.classList.contains("open")) {
       if (justPressed(14)) $("btn-prev").click();           // dpad ←
       if (justPressed(15)) $("btn-next").click();           // dpad →
