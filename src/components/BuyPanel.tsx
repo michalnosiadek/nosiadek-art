@@ -4,11 +4,12 @@ import { useState } from "react";
 import type { Artwork } from "@/lib/artworks";
 import { useI18n } from "@/i18n/LocaleProvider";
 import { hasKey } from "@/i18n";
+import { currencyFor, formatAddon, formatPrice } from "@/lib/pricing";
 
 const CONTACT_EMAIL = "nosiadek.michal@gmail.com";
 
 export default function BuyPanel({ artwork }: { artwork: Artwork }) {
-  const { t, tArt } = useI18n();
+  const { t, tArt, locale } = useI18n();
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<
     | { type: "print"; label: string; price: number }
@@ -40,6 +41,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
           type: selected.type,
           label: selected.type === "print" ? selected.label : undefined,
           framed,
+          currency: currencyFor(locale),
         }),
       });
 
@@ -100,7 +102,9 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
                 {t("site.buy.printOption", { label: sizeLabel(p.label) })}{" "}
                 <span className="text-ink-faint">({p.dimensions})</span>
               </span>
-              <span className="text-sm text-ink-muted">${p.price}</span>
+              <span className="whitespace-nowrap text-sm text-ink-muted">
+                {formatPrice(p.price, locale)}
+              </span>
             </button>
           );
         })}
@@ -120,8 +124,8 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
               {t("site.buy.originalPainting")}{" "}
               <span className="text-ink-faint">({dimensions})</span>
             </span>
-            <span className="text-sm text-ink-muted">
-              ${artwork.original.price}
+            <span className="whitespace-nowrap text-sm text-ink-muted">
+              {formatPrice(artwork.original.price, locale)}
             </span>
           </button>
         )}
@@ -171,8 +175,8 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
           </span>
           {t("site.buy.addFraming")}
         </span>
-        <span className="text-sm text-ink-muted">
-          +${artwork.framingPrice}
+        <span className="whitespace-nowrap text-sm text-ink-muted">
+          {formatAddon(artwork.framingPrice, locale)}
         </span>
       </label>
 
@@ -183,7 +187,7 @@ export default function BuyPanel({ artwork }: { artwork: Artwork }) {
       >
         {status === "loading"
           ? t("site.buy.redirecting")
-          : t("site.buy.buyFor", { total })}
+          : t("site.buy.buyFor", { total: formatPrice(total, locale) })}
       </button>
 
       {status === "unavailable" ? (

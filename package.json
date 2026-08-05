@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "i18n": "node ../../tools/sync-i18n.mjs",
+    "i18n": "node scripts/pull-i18n.mjs",
     "dev": "npm run i18n && next dev",
-    "build": "npm run i18n && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "prisma migrate dev",

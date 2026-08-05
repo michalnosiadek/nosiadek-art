@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getArtwork } from "@/lib/artworks";
+import { convert, type Currency } from "@/lib/pricing";
 
-// Prices in artworks.ts are plain numbers in this currency. Change here if
-// you'd rather sell in EUR/PLN, no other code needs to change.
-const CURRENCY = "usd";
+// Prices in artworks.ts are EUR. A Polish reader is quoted złoty, so charge
+// what they were shown — the currency comes over with the request and the
+// conversion is the same one src/lib/pricing.ts used to print the figure.
+const CURRENCIES: Record<Currency, string> = { EUR: "eur", PLN: "pln" };
 
 const SHIPPING_COUNTRIES: Stripe.Checkout.SessionCreateParams.ShippingAddressCollection["allowed_countries"] =
   ["US", "CA", "GB", "PL", "DE", "FR", "IT", "ES", "NL", "IE", "AU", "SE", "NO", "DK", "AT", "BE", "CH"];
@@ -14,6 +16,7 @@ type CheckoutBody = {
   type: "print" | "original";
   label?: string;
   framed: boolean;
+  currency?: Currency;
 };
 
 export async function POST(req: NextRequest) {
@@ -63,6 +66,10 @@ export async function POST(req: NextRequest) {
     name += " + framing";
   }
 
+  // charge the figure the visitor was actually quoted
+  const currency: Currency = body.currency === "PLN" ? "PLN" : "EUR";
+  unitAmount = convert(unitAmount, currency);
+
   const origin =
     req.headers.get("origin") ||
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -76,7 +83,7 @@ export async function POST(req: NextRequest) {
       line_items: [
         {
           price_data: {
-            currency: CURRENCY,
+            currency: CURRENCIES[currency],
             product_data: {
               name,
               images: [`${origin}${artwork.image}`],

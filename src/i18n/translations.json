@@ -258,8 +258,8 @@
         "pl": "Przekierowanie do płatności…"
       },
       "buyFor": {
-        "en": "Buy for ${total}",
-        "pl": "Kup za ${total}"
+        "en": "Buy for {total}",
+        "pl": "Kup za {total}"
       },
       "unavailableBefore": {
         "en": "Online checkout isn't connected yet, inquire directly at ",
