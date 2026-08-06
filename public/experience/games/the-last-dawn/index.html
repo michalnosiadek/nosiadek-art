@@ -285,6 +285,18 @@
   #mobile-flip .icon { display:block; font-size:2.5rem; color:var(--ember); animation: phone-turn 1.8s ease-in-out infinite; }
   #mobile-stick { display:none; position:fixed; left:2rem; bottom:2rem; z-index:30; width:7rem; height:7rem; border:1px solid rgba(255,217,160,.35); border-radius:50%; background:radial-gradient(circle,rgba(179,41,31,.32),rgba(10,9,8,.3)); box-shadow:0 0 28px rgba(179,41,31,.45); touch-action:none; }
   #mobile-stick::after { content:""; position:absolute; left:50%; top:50%; width:2.2rem; height:2.2rem; transform:translate(-50%,-50%); border:1px solid var(--ember); border-radius:50%; box-shadow:0 0 18px rgba(255,217,160,.8); }
+  #mobile-dpad, #mobile-actions, #mobile-special { display:none; }
+  @media (hover:none) and (pointer:coarse) {
+    #gear { left:auto; right:18px; }
+    #mobile-stick { display:none !important; }
+    #mobile-dpad { position:fixed; left:1rem; bottom:1rem; z-index:35; display:grid; grid-template-columns:repeat(3,3.2rem); grid-template-rows:repeat(3,3.2rem); gap:.2rem; touch-action:none; }
+    #mobile-dpad button, #mobile-actions button, #mobile-special button { border:1px solid rgba(255,217,160,.48); background:rgba(19,17,16,.92); color:var(--ember); box-shadow:0 0 14px rgba(179,41,31,.38); font:inherit; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
+    #mobile-dpad button { font-size:1.2rem; }
+    #mobile-dpad button:active, #mobile-actions button:active, #mobile-special button:active { background:var(--dawn); }
+    #mobile-actions { position:fixed; right:1rem; bottom:1rem; z-index:35; display:grid; grid-template-columns:repeat(2,5.1rem); gap:.35rem; }
+    #mobile-special { position:fixed; left:1rem; bottom:11.4rem; z-index:35; display:flex; gap:.35rem; }
+    #mobile-special button { padding:.65rem .8rem; }
+  }
   @keyframes phone-turn { 50% { transform:rotate(90deg); } }
   @keyframes mobile-enter-glow { 50% { box-shadow:0 0 24px rgba(255,150,50,.75); filter:brightness(1.25); } }
   @media (hover: none) and (pointer: coarse) {
@@ -354,6 +366,16 @@
       <button id="mobile-enter" type="button">Enter</button>
     </div>
     <div id="mobile-stick" aria-hidden="true"></div>
+    <div id="mobile-dpad" aria-label="Move">
+      <span></span><button data-dir="up">↑</button><span></span>
+      <button data-dir="left">←</button><span></span><button data-dir="right">→</button>
+      <span></span><button data-dir="down">↓</button><span></span>
+    </div>
+    <div id="mobile-special"><button id="mobile-dodge" type="button">Dodge</button><button id="mobile-inspect" type="button">Inspect</button></div>
+    <div id="mobile-actions" aria-label="Actions">
+      <button id="mobile-attack" type="button">Attack</button><button id="mobile-block" type="button">Block</button>
+      <button id="mobile-offhand" type="button">Hand</button><button id="mobile-flask" type="button">Flask</button>
+    </div>
 
     <div class="screen" id="title">
       <div class="bg"></div><div class="shade"></div>
@@ -2149,6 +2171,21 @@ addEventListener("touchmove", e => {
 }, { passive:true });
 addEventListener("touchend", () => mobileLook = null, { passive:true });
 $("mobile-enter").addEventListener("click", () => $("step-through").click());
+const mobileDpad = $("mobile-dpad");
+const dpadValues = { up:[0,-1], down:[0,1], left:[-1,0], right:[1,0] };
+mobileDpad.querySelectorAll("button").forEach(button => {
+  const hold = () => { const v = dpadValues[button.dataset.dir]; mobileAxis.x = v[0]; mobileAxis.y = v[1]; };
+  button.addEventListener("touchstart", e => { e.preventDefault(); hold(); }, {passive:false});
+  button.addEventListener("touchend", () => mobileAxis = {x:0,y:0});
+});
+const mobileForward = () => new THREE.Vector3(-Math.sin(camYaw), 0, -Math.cos(camYaw));
+$("mobile-attack").onclick = () => { if (mode === "play") tryAttack(); };
+$("mobile-block").addEventListener("touchstart", e => { e.preventDefault(); P.blockHeld = true; }, {passive:false});
+$("mobile-block").addEventListener("touchend", () => P.blockHeld = false);
+$("mobile-offhand").onclick = () => { if (mode === "play") setOffhand(P.offhand + 1); };
+$("mobile-flask").onclick = () => { if (mode === "play" && P.flasks > 0 && P.hp < 5) { P.flasks--; P.hp = Math.min(5, P.hp + 3); P.lock = .9; sfx.pickup(.62); } };
+$("mobile-dodge").onclick = () => { if (mode === "play") tryRoll(mobileForward()); };
+$("mobile-inspect").onclick = () => { if (mode === "play" && P.hasRing) openInspect(); };
 
 /* Every death re-rolls the keep. You never learn the floor plan, only the
    rules  -  which is the point. */

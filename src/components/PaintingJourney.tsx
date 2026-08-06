@@ -7,65 +7,82 @@ import { useI18n } from "@/i18n/LocaleProvider";
 
 const opening = ["the-last-dawn", "the-end", "the-second-moon"];
 const branches = [
-  ["coming-of-the-second-sun", "city-of-mages", "celtic"],
-  ["moon", "witches", "edephious"],
-  ["edge-of-the-night", "isle-of-the-dead", "pandemonium"],
+  ["city-of-mages", "celtic", "coming-of-the-second-sun"],
+  ["moon", "witches", "coming-of-the-second-sun"],
+  ["edge-of-the-night", "isle-of-the-dead", "coming-of-the-second-sun"],
 ];
 
 export default function PaintingJourney() {
   const { t, tArt } = useI18n();
-  const [active, setActive] = useState(0);
   const [branch, setBranch] = useState(0);
+  const [active, setActive] = useState(0);
+  const [zoom, setZoom] = useState(false);
   const all = [...opening, ...branches[branch]];
+  const current = artworks.find((item) => item.slug === all[active]) ?? artworks[0];
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive(Number((visible.target as HTMLElement).dataset.index));
-    }, { threshold: [0.3, 0.7] });
+      if (visible) setActive(Number((visible.target as HTMLElement).dataset.index ?? 0));
+    }, { threshold: [0.45, 0.7] });
     document.querySelectorAll<HTMLElement>("[data-journey-frame]").forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, [branch]);
 
-  const artwork = artworks.find((item) => item.slug === all[active]) ?? artworks[0];
-
   return (
-    <section id="collection" className="border-y border-void-line/60 bg-void-raised">
-      <div className="container-art py-20 md:py-28">
-        <div className="mb-16 max-w-2xl">
-          <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">{t("site.home.selectedWorkEyebrow")}</p>
-          <h2 className="font-serif text-4xl font-light text-ink md:text-6xl">{t("site.home.collectionHeading")}</h2>
-          <p className="mt-5 text-base leading-relaxed text-ink-muted">{t("site.hero.mystery")}</p>
+    <section id="collection" className="relative bg-void">
+      <header className="container-art relative z-20 py-20 md:py-28">
+        <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">{t("site.home.selectedWorkEyebrow")}</p>
+        <h2 className="font-serif text-4xl font-light text-ink md:text-6xl">{t("site.home.collectionHeading")}</h2>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-muted">{t("site.hero.mystery")}</p>
+      </header>
+
+      <div className="relative">
+        <div className="pointer-events-none sticky top-0 z-0 h-[100svh] w-full overflow-hidden bg-void">
+          {all.map((slug, index) => {
+            const item = artworks.find((entry) => entry.slug === slug);
+            if (!item) return null;
+            const distance = index - active;
+            return <Image key={slug} src={item.image} alt={tArt(slug, "title", item.title)} fill priority={index === 0} sizes="100vw" className="object-contain object-center transition-[transform,opacity] duration-700 ease-out md:object-cover" style={{ opacity: index === active ? 1 : 0, transform: "scale(" + (index === active ? 1 : 0.88) + ") translateX(" + (distance * 2) + "%)" }} />;
+          })}
+          <div className="absolute inset-0 bg-gradient-to-r from-void/75 via-transparent to-void/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-void/20" />
+          <div className="absolute bottom-8 left-6 text-xs uppercase tracking-widest2 text-ink-faint md:left-12">{String(active + 1).padStart(2, "0")} / {String(all.length).padStart(2, "0")}</div>
+          <button type="button" onClick={() => setZoom(true)} className="pointer-events-auto absolute bottom-8 right-6 border border-ink/35 px-4 py-3 text-xs uppercase tracking-widest2 text-ink transition hover:border-ink md:right-12">View painting</button>
         </div>
 
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,.85fr)] lg:gap-20">
-          <div className="lg:sticky lg:top-8 lg:h-[calc(100svh-4rem)] lg:self-start">
-            <div className="relative h-[58svh] min-h-[25rem] overflow-hidden bg-void lg:h-full">
-              <Image src={artwork.image} alt={tArt(artwork.slug, "title", artwork.title)} fill sizes="(min-width: 1024px) 58vw, 100vw" className="object-contain transition-opacity duration-500" />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 text-xs uppercase tracking-widest2 text-ink-faint">{String(active + 1).padStart(2, "0")} / {String(all.length).padStart(2, "0")}</div>
-            </div>
-            <div className="mt-4 flex items-end justify-between">
-              <div><p className="text-xs uppercase tracking-widest2 text-ink-faint">{tArt(artwork.slug, "medium", artwork.medium)}</p><h3 className="mt-1 font-serif text-2xl text-ink">{tArt(artwork.slug, "title", artwork.title)}</h3></div>
-              <a href="/gallery" className="text-xs uppercase tracking-widest2 text-ink-muted hover:text-ink">{t("site.home.viewAll")}</a>
-            </div>
-          </div>
-
-          <div className="space-y-8">
-            {all.map((slug, index) => {
-              const item = artworks.find((entry) => entry.slug === slug);
-              if (!item) return null;
-              return <article key={`${branch}-${slug}`} data-journey-frame data-index={index} className="flex min-h-[72svh] flex-col justify-center border-b border-void-line/70 py-12 first:pt-0">
-                <p className="text-xs uppercase tracking-widest2 text-ink-faint">{index < 3 ? `0${index + 1} / ${tArt(slug, "title", item.title)}` : `Path ${branch + 1} / ${index - 2}`}</p>
-                <h3 className="mt-5 font-serif text-4xl font-light leading-tight text-ink md:text-5xl">{tArt(slug, "title", item.title)}</h3>
-                <p className="mt-6 text-base leading-relaxed text-ink-muted md:text-lg">{tArt(slug, "description", item.description)}</p>
-                {item.poem ? <p className="mt-8 whitespace-pre-line border-l border-dawn/70 pl-5 font-serif text-lg italic leading-relaxed text-ink/85">{tArt(slug, "poem.body", item.poem.body)}</p> : null}
-                {index === 2 ? <div className="mt-9"><p className="mb-4 text-xs uppercase tracking-widest2 text-ink-faint">Choose what waits beyond the moon</p><div className="flex flex-wrap gap-2">{branches.map((_, value) => <button key={value} onClick={() => { setBranch(value); setActive(3); }} className={`border px-4 py-3 text-xs uppercase tracking-widest2 transition ${branch === value ? "border-dawn bg-dawn text-ink" : "border-ink/25 text-ink-muted hover:border-ink"}`}>Path {value + 1}</button>)}</div></div> : null}
-              </article>;
-            })}
-          </div>
+        <div className="relative z-10 -mt-[100svh]">
+          {all.map((slug, index) => {
+            const item = artworks.find((entry) => entry.slug === slug);
+            if (!item) return null;
+            const isFinal = slug === "coming-of-the-second-sun";
+            return (
+              <article key={branch + "-" + slug} data-journey-frame data-index={index} className="flex min-h-[100svh] items-end px-6 pb-20 pt-[55svh] md:items-center md:px-12 md:pb-0 md:pt-0">
+                <div className="max-w-xl border-l border-dawn/80 bg-void/60 px-6 py-7 backdrop-blur-[2px] md:ml-auto md:mr-[8vw] md:max-w-lg md:px-9 md:py-10">
+                  <p className="text-xs uppercase tracking-widest2 text-ink-faint">{index < 3 ? "0" + (index + 1) : "Path " + (branch + 1)} / {tArt(slug, "title", item.title)}</p>
+                  <h3 className="mt-4 font-serif text-4xl font-light leading-tight text-ink md:text-6xl">{tArt(slug, "title", item.title)}</h3>
+                  <p className="mt-5 text-base leading-relaxed text-ink-muted md:text-lg">{tArt(slug, "description", item.description)}</p>
+                  {item.poem ? <p className="mt-7 whitespace-pre-line font-serif text-lg italic leading-relaxed text-ink/90">{tArt(slug, "poem.body", item.poem.body)}</p> : null}
+                  {index === 2 ? (
+                    <div className="mt-8">
+                      <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">Choose a path</p>
+                      <div className="flex flex-wrap gap-2">{branches.map((_, value) => <button key={value} type="button" onClick={() => { setBranch(value); setActive(3); }} className={"border px-4 py-3 text-xs uppercase tracking-widest2 transition " + (branch === value ? "border-dawn bg-dawn text-ink" : "border-ink/30 text-ink-muted hover:border-ink")}>Path {value + 1}</button>)}</div>
+                    </div>
+                  ) : null}
+                  {isFinal ? <p className="mt-7 text-xs uppercase tracking-widest2 text-ember">The light returned after eons.</p> : null}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
+
+      {zoom ? (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-void/95 p-4" role="dialog" aria-modal="true" onClick={() => setZoom(false)}>
+          <Image src={current.image} alt={tArt(current.slug, "title", current.title)} width={current.imageWidth} height={current.imageHeight} sizes="100vw" className="max-h-[95svh] w-auto max-w-full object-contain" />
+          <button type="button" className="absolute right-6 top-6 border border-ink/40 px-4 py-3 text-xs uppercase tracking-widest2 text-ink" onClick={() => setZoom(false)}>Close</button>
+        </div>
+      ) : null}
     </section>
   );
 }
