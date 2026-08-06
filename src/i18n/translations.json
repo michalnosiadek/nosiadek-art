@@ -147,6 +147,30 @@
       "credit": {
         "en": "The Last Dawn, 2026",
         "pl": "Ostatni Świt, 2026"
+      },
+      "productions": {
+        "en": "Michal Nosiadek Productions",
+        "pl": "Michal Nosiadek Productions"
+      },
+      "mystery": {
+        "en": "Paintings, poems, games, and rooms that should not exist",
+        "pl": "Obrazy, poematy, gry i pomieszczenia, ktore nie powinny istniec"
+      },
+      "previous": { "en": "Previous", "pl": "Poprzedni" },
+      "next": { "en": "Next", "pl": "Dalej" },
+      "slide": {
+        "the-last-dawn": {
+          "eyebrow": { "en": "Chapter I / The Last Dawn", "pl": "Rozdzial I / Ostatni Swit" },
+          "tagline": { "en": "The final light is still moving.", "pl": "Ostatnie swiatlo wciaz sie porusza." }
+        },
+        "the-end": {
+          "eyebrow": { "en": "Chapter II / The Murder of a Star", "pl": "Rozdzial II / Morderstwo Gwiazdy" },
+          "tagline": { "en": "Some wishes should never be answered.", "pl": "Niektore zyczenia nigdy nie powinny zostac spelnione." }
+        },
+        "the-second-moon": {
+          "eyebrow": { "en": "Chapter III / The Second Moon", "pl": "Rozdzial III / Drugi Ksiezyc" },
+          "tagline": { "en": "Something is watching from beneath the reflection.", "pl": "Cos patrzy spod powierzchni odbicia." }
+        }
       }
     },
     "home": {
@@ -618,6 +642,13 @@
     },
     "artworks": {
       "the-last-dawn": {
+        "poem": {
+          "title": { "en": "The Last Dawn", "pl": "Ostatni Swit" },
+          "body": {
+            "en": "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once.",
+            "pl": "Jedz, poki gory trzymaja jeszcze swiatlo.\nKrolestwo jest wstrzymanym oddechem.\nCokolwiek slonce ma za chwile powiedziec,\npowie to tylko raz."
+          }
+        },
         "title": {
           "en": "The Last Dawn",
           "pl": "Ostatni Świt"

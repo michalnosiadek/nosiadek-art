@@ -78,6 +78,19 @@
     font-size: 1.25rem; color: var(--ink-muted); }
   #intro .choices { margin-top: 3.2rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
   #intro .keys { margin-top: 2.2rem; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--ink-faint); line-height: 2; }
+  #mobile-flip, #mobile-enter, #mobile-stick { display: none; }
+  @media (hover:none) and (pointer:coarse) {
+    #mobile-flip { display: block; margin: 1.5rem 0; color: var(--ink-muted); font-size: .85rem; letter-spacing: .12em; text-transform: uppercase; }
+    #mobile-flip .icon { display:block; font-size:2.5rem; color:var(--ember); animation: phone-turn 1.8s ease-in-out infinite; }
+    #intro .keys { display:none; }
+    #mobile-stick { position:fixed; left:2rem; bottom:2rem; z-index:45; width:7rem; height:7rem; border:1px solid rgba(255,217,160,.35); border-radius:50%; background:radial-gradient(circle,rgba(179,41,31,.32),rgba(10,9,8,.3)); box-shadow:0 0 28px rgba(179,41,31,.45); touch-action:none; }
+    #mobile-stick::after { content:""; position:absolute; left:50%; top:50%; width:2.2rem; height:2.2rem; transform:translate(-50%,-50%); border:1px solid var(--ember); border-radius:50%; box-shadow:0 0 18px rgba(255,217,160,.8); }
+    body.mobile-ready #mobile-stick { display:block; }
+    body.mobile-ready #intro { opacity:0; pointer-events:none; }
+  }
+  @media (hover:none) and (pointer:coarse) and (orientation:landscape) { #mobile-flip { display:none; } #mobile-enter { display:inline-block; animation: mobile-enter-glow 1.8s ease-in-out infinite; } }
+  @keyframes phone-turn { 50% { transform:rotate(90deg); } }
+  @keyframes mobile-enter-glow { 50% { box-shadow:0 0 24px rgba(255,150,50,.75); filter:brightness(1.25); } }
 
   /* ============ header ============ */
   #header {
@@ -341,11 +354,14 @@
     <button class="btn primary" id="btn-enter">Enter the gallery</button>
     <button class="btn" id="btn-traditional">View traditionally</button>
   </div>
+  <div id="mobile-flip"><span class="icon">▱</span>Flip your phone</div>
+  <button class="btn primary" id="mobile-enter">Enter</button>
   <div class="keys" id="intro-keys">
     WASD walk · mouse look · E view a painting · Esc release<br>
     controller: left stick walk · right stick look · A view · B close
   </div>
 </div>
+<div id="mobile-stick" aria-hidden="true"></div>
 
 <header id="header">
   <a id="wordmark" class="wordmark-fire" href="/">Michał Nosiadek</a>
@@ -1129,6 +1145,7 @@ addEventListener("keyup", (e) => keys[e.code] = false);
 
 function enter(traditional) {
   entered = true;
+  document.body.classList.add("mobile-ready");
   document.body.classList.add("entered");
   intro.classList.add("hidden");
   setTrack(0);
@@ -1144,7 +1161,7 @@ function fallIntoLastDawn() {
 $("btn-enter").onclick = () => enter(false);
 $("btn-traditional").onclick = () => enter(true);
 
-function lock() { if (!anyOverlay()) renderer.domElement.requestPointerLock(); }
+function lock() { if (!anyOverlay() && !matchMedia("(hover:none) and (pointer:coarse)").matches) renderer.domElement.requestPointerLock(); }
 renderer.domElement.addEventListener("click", () => {
   if (!entered) return;
   if (document.pointerLockElement && focusedIdx >= 0) { openPanel(focusedIdx); return; }
@@ -1167,6 +1184,13 @@ addEventListener("touchmove", (e) => {
   lastTouch = { x: t.clientX, y: t.clientY };
 }, { passive: true });
 addEventListener("touchend", () => lastTouch = null);
+const mobileStick = $("mobile-stick");
+let mobileAxis = { x: 0, y: 0 };
+function stickMove(e) { const r = mobileStick.getBoundingClientRect(), x = e.touches[0].clientX - (r.left+r.width/2), y = e.touches[0].clientY - (r.top+r.height/2), m = Math.min(1, Math.hypot(x,y)/(r.width*.38)), a = Math.atan2(y,x); mobileAxis = { x: Math.cos(a)*m, y: Math.sin(a)*m }; }
+mobileStick.addEventListener("touchstart", e => { e.preventDefault(); stickMove(e); }, {passive:false});
+mobileStick.addEventListener("touchmove", e => { e.preventDefault(); stickMove(e); }, {passive:false});
+mobileStick.addEventListener("touchend", () => mobileAxis = {x:0,y:0});
+$("mobile-enter").onclick = () => enter(false);
 
 /* ---------- input: gamepad ---------- */
 let padActive = false, prevButtons = [];
@@ -1254,6 +1278,9 @@ function animate() {
       if (keys.KeyS) wish.sub(f);
       if (keys.KeyD) wish.add(r);
       if (keys.KeyA) wish.sub(r);
+    }
+    if (document.body.classList.contains("mobile-ready")) {
+      wish.add(f.clone().multiplyScalar(-mobileAxis.y)).add(r.clone().multiplyScalar(mobileAxis.x));
     }
     wish.addScaledVector(f, -pad.mz).addScaledVector(r, pad.mx);
     if (wish.lengthSq() > 0.001) {

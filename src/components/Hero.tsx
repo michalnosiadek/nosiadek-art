@@ -2,86 +2,56 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useT } from "@/i18n/LocaleProvider";
+import { useEffect, useState } from "react";
+import { artworks } from "@/lib/artworks";
+import { useI18n } from "@/i18n/LocaleProvider";
+
+const slides = ["the-last-dawn", "the-end", "the-second-moon"] as const;
 
 export default function Hero() {
-  const t = useT();
+  const { t, tArt } = useI18n();
+  const [active, setActive] = useState(0);
+  const artwork = artworks.find((item) => item.slug === slides[active]) ?? artworks[0];
+  const slide = slides[active];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % slides.length), 9000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const move = (delta: number) => setActive((current) => (current + delta + slides.length) % slides.length);
 
   return (
-    // On phones this is deliberately just the artwork and one way in. The
-    // fuller plaque remains for larger screens, where it has room to breathe.
-    <section className="relative flex min-h-[100svh] w-full items-end overflow-hidden">
-      <Image
-        src="/images/the-last-dawn.jpg"
-        alt={t("site.hero.imageAlt")}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      {/* A quiet lower fade keeps the single mobile action legible without
-          putting another card over the painting. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-void/75 via-void/10 to-transparent md:from-void/60 md:via-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-void/30 via-transparent to-void/10" />
+    <section className="relative min-h-[100svh] overflow-hidden bg-void text-ink">
+      <Image src={artwork.image} alt={tArt(slide, "title", artwork.title)} fill priority={active === 0} sizes="100vw" className="object-cover object-center transition-opacity duration-700" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,7,6,.82),rgba(8,7,6,.2)_58%,rgba(8,7,6,.3)),linear-gradient(0deg,rgba(8,7,6,.82),transparent_48%)]" />
 
-      <div className="container-art relative z-10 hidden pb-16 pt-28 md:block md:pb-28 md:pt-40">
-        {/* museum-plaque style title card, like a label mounted on the painting's frame */}
-        {/* no max-width: the card sizes to its widest line, so a longer
-            translation widens the plaque instead of spilling out of it */}
-        <div className="inline-block border-l-2 border-dawn bg-void/55 px-6 py-8 backdrop-blur-md sm:px-10 sm:py-10">
-          <p className="mb-4 text-xs uppercase tracking-widest2 text-ink-muted">
-            {t("site.hero.eyebrow")}
-          </p>
-          <h1 className="font-serif text-4xl font-light leading-[1.05] text-ink sm:text-6xl md:text-7xl">
-            {t("site.hero.title")}
-          </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-ink-muted md:mt-6 md:text-lg">
-            {t("site.hero.tagline")}
-          </p>
+      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
+        <span className="text-[0.65rem] uppercase tracking-[0.32em] text-ink">{t("site.hero.productions")}</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.28em] text-ink-faint">{String(active + 1).padStart(2, "0")} / 03</span>
+      </div>
 
-          <div className="mt-8 md:mt-10">
-            <p className="mb-4 text-xs uppercase tracking-widest2 text-ink-faint">
-              {t("site.hero.enterEyebrow")}
-            </p>
-            {/* stacked on phones, one row from md up. The labels never wrap and
-                the tracking is eased to 0.14em so the longer Polish ones
-                ("Wystawa w pierwszej osobie") still sit side by side. */}
-            <div className="flex flex-col gap-3 md:flex-row md:flex-nowrap md:gap-4">
-              {/* the 3D gallery is a static app served from /public/experience */}
-              <a
-                href="/experience/index.html"
-                className="whitespace-nowrap bg-dawn px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:bg-dawn-bright md:text-sm"
-              >
-                {t("site.hero.ctaExperience")}
-              </a>
-              <Link
-                href="/#collection"
-                className="whitespace-nowrap border border-ink/30 px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-void md:text-sm"
-              >
-                {t("site.hero.ctaScroll")}
-              </Link>
-            </div>
+      <div className="container-art relative z-10 flex min-h-[100svh] items-end pb-24 pt-32 md:items-center md:pb-16">
+        <div className="max-w-xl">
+          <p className="mb-5 text-xs uppercase tracking-widest2 text-ink-faint">{t(`site.hero.slide.${slide}.eyebrow`)}</p>
+          <h1 className="font-serif text-5xl font-light leading-[.95] sm:text-7xl md:text-8xl">{tArt(slide, "title", artwork.title)}</h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted md:text-xl">{t(`site.hero.slide.${slide}.tagline`)}</p>
+          {artwork.poem || slide === "the-last-dawn" ? (
+            <blockquote className="mt-8 max-w-md border-l border-dawn/80 pl-5 font-serif text-lg italic leading-relaxed text-ink/90 md:text-xl">
+              {tArt(slide, "poem.body", artwork.poem?.body ?? "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once.")}
+            </blockquote>
+          ) : null}
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="/experience/index.html" className="bg-dawn px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition hover:bg-dawn-bright">{t("site.hero.ctaExperience")}</a>
+            <Link href="#collection" className="border border-ink/35 px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition hover:border-ink hover:bg-ink hover:text-void">{t("site.hero.ctaScroll")}</Link>
           </div>
         </div>
       </div>
 
-      <div className="container-art absolute inset-x-0 bottom-0 z-10 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:hidden">
-        <Link
-          href="#collection"
-          className="inline-flex py-3 text-left text-sm tracking-wide text-ink transition-colors duration-300 hover:text-dawn-bright focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
-        >
-          <span>{t("site.hero.ctaMobile")}</span>
-          <span
-            aria-hidden="true"
-            className="text-lg leading-none text-dawn transition-transform duration-300 group-hover:translate-y-1"
-          >
-            ↓
-          </span>
-        </Link>
-      </div>
-
-      <div className="absolute bottom-6 right-6 z-10 hidden text-right text-xs uppercase tracking-widest2 text-ink-faint md:block">
-        {t("site.hero.credit")}
+      <div className="absolute bottom-7 right-6 z-20 flex items-center gap-3 md:right-12">
+        <button aria-label={t("site.hero.previous")} onClick={() => move(-1)} className="border border-ink/30 px-3 py-2 text-ink transition hover:border-ink">‹</button>
+        <button aria-label={t("site.hero.next")} onClick={() => move(1)} className="border border-ink/30 px-3 py-2 text-ink transition hover:border-ink">›</button>
+        <div className="ml-2 flex gap-2">{slides.map((item, index) => <button key={item} aria-label={tArt(item, "title", item)} onClick={() => setActive(index)} className={`h-1 w-10 transition ${index === active ? "bg-ink" : "bg-ink/35"}`} />)}</div>
       </div>
     </section>
   );

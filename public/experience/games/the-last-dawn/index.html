@@ -280,9 +280,27 @@
 
   #touchnote { display: none; font-family: var(--font-serif); font-style: italic;
     font-size: 1.2rem; color: var(--ink-muted); max-width: 26rem; margin: 0 auto; }
+  #mobile-flip { display:none; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-muted); }
+  #mobile-enter { display:none; margin:1.4rem auto 0; border:1px solid var(--dawn-bright); background:var(--dawn); color:var(--ink); padding:.9rem 1.8rem; letter-spacing:.22em; text-transform:uppercase; animation:mobile-enter-glow 1.8s ease-in-out infinite; }
+  #mobile-flip .icon { display:block; font-size:2.5rem; color:var(--ember); animation: phone-turn 1.8s ease-in-out infinite; }
+  #mobile-stick { display:none; position:fixed; left:2rem; bottom:2rem; z-index:30; width:7rem; height:7rem; border:1px solid rgba(255,217,160,.35); border-radius:50%; background:radial-gradient(circle,rgba(179,41,31,.32),rgba(10,9,8,.3)); box-shadow:0 0 28px rgba(179,41,31,.45); touch-action:none; }
+  #mobile-stick::after { content:""; position:absolute; left:50%; top:50%; width:2.2rem; height:2.2rem; transform:translate(-50%,-50%); border:1px solid var(--ember); border-radius:50%; box-shadow:0 0 18px rgba(255,217,160,.8); }
+  @keyframes phone-turn { 50% { transform:rotate(90deg); } }
+  @keyframes mobile-enter-glow { 50% { box-shadow:0 0 24px rgba(255,150,50,.75); filter:brightness(1.25); } }
   @media (hover: none) and (pointer: coarse) {
     #veil .step, #veil .keys { display: none; }
     #touchnote { display: block; }
+    #mobile-flip { display:block; }
+    #mobile-stick { display:block; }
+  }
+  @media (hover: none) and (pointer: coarse) and (orientation: portrait) {
+    #mobile-stick { display:none; }
+    #mobile-flip { display:block; }
+  }
+  @media (hover: none) and (pointer: coarse) and (orientation: landscape) {
+    #mobile-flip { display:none; }
+    #mobile-stick { display:block; }
+    #mobile-enter { display:block; }
   }
 </style>
 </head>
@@ -332,7 +350,10 @@
         Space  -  roll · F / wheel  -  offhand · R  -  flask · E  -  interact · Esc  -  pause
       </div>
       <div id="touchnote">The door only opens for a keyboard. Return with one, and the corridors will be waiting.</div>
+      <div id="mobile-flip"><span class="icon">▱</span>Flip your phone</div>
+      <button id="mobile-enter" type="button">Enter</button>
     </div>
+    <div id="mobile-stick" aria-hidden="true"></div>
 
     <div class="screen" id="title">
       <div class="bg"></div><div class="shade"></div>
@@ -2076,7 +2097,7 @@ let ringTaken = false, nameSolved = false, nameTries = 0;
 
 function screenOff(id) { $(id).classList.remove("on"); }
 function screenOn(id) { $(id).classList.add("on"); }
-function lockPointer() { canvas.requestPointerLock(); }
+function lockPointer() { if (!matchMedia("(hover:none) and (pointer:coarse)").matches) canvas.requestPointerLock(); }
 
 $("step-through").addEventListener("click", () => {
   if (mode !== "veil") return;
@@ -2109,6 +2130,25 @@ document.addEventListener("pointerlockchange", () => {
 canvas.addEventListener("click", () => {
   if (mode === "play" && !document.pointerLockElement) lockPointer();
 });
+let mobileAxis = { x: 0, y: 0 }, mobileLook = null;
+const mobileStick = $("mobile-stick");
+function updateMobileStick(e) {
+  const r = mobileStick.getBoundingClientRect(), x = e.touches[0].clientX - (r.left + r.width / 2), y = e.touches[0].clientY - (r.top + r.height / 2), m = Math.min(1, Math.hypot(x, y) / (r.width * .38)), a = Math.atan2(y, x);
+  mobileAxis = { x: Math.cos(a) * m, y: Math.sin(a) * m };
+}
+mobileStick.addEventListener("touchstart", e => { e.preventDefault(); updateMobileStick(e); }, { passive:false });
+mobileStick.addEventListener("touchmove", e => { e.preventDefault(); updateMobileStick(e); }, { passive:false });
+mobileStick.addEventListener("touchend", () => mobileAxis = { x:0, y:0 });
+addEventListener("touchstart", e => { if (mode === "veil") $("step-through").click(); if (e.touches[0].clientX > innerWidth * .45) mobileLook = e.touches[0]; }, { passive:true });
+addEventListener("touchmove", e => {
+  if (!mobileLook || mode !== "play") return;
+  const t = [...e.touches].find(item => item.identifier === mobileLook.identifier) || e.touches[0];
+  camYaw -= (t.clientX - mobileLook.clientX) * .004;
+  camElev = clamp(camElev + (t.clientY - mobileLook.clientY) * .003, -.4538, 1.0996);
+  mobileLook = t;
+}, { passive:true });
+addEventListener("touchend", () => mobileLook = null, { passive:true });
+$("mobile-enter").addEventListener("click", () => $("step-through").click());
 
 /* Every death re-rolls the keep. You never learn the floor plan, only the
    rules  -  which is the point. */
@@ -2756,6 +2796,7 @@ function playerUpdate(dt) {
     if (keys.KeyS) wish.sub(f);
     if (keys.KeyD) wish.add(r);
     if (keys.KeyA) wish.sub(r);
+    wish.add(f.clone().multiplyScalar(-mobileAxis.y)).add(r.clone().multiplyScalar(mobileAxis.x));
     if (wish.lengthSq() > 1) wish.normalize();
   }
   if (keys.Space && mode === "play" && !P.dead) { tryRoll(wish); keys.Space = false; }
