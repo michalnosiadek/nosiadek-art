@@ -31,13 +31,13 @@ export default function Hero() {
         <span className="text-[0.65rem] uppercase tracking-[0.28em] text-ink-faint">{String(active + 1).padStart(2, "0")} / 03</span>
       </div>
 
-      <div className="container-art relative z-10 flex min-h-[100svh] items-end pb-24 pt-32 md:items-center md:pb-16">
+      <div className="container-art relative z-10 flex min-h-[100svh] items-end pb-24 pt-32 md:items-end md:pb-28 md:pt-40">
         <div className="max-w-xl">
-          <p className="mb-5 text-xs uppercase tracking-widest2 text-ink-faint">{t(`site.hero.slide.${slide}.eyebrow`)}</p>
+          <p className="hero-mobile-hide mb-5 text-xs uppercase tracking-widest2 text-ink-faint">{t(`site.hero.slide.${slide}.eyebrow`)}</p>
           <h1 className="font-serif text-5xl font-light leading-[.95] sm:text-7xl md:text-8xl">{tArt(slide, "title", artwork.title)}</h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted md:text-xl">{t(`site.hero.slide.${slide}.tagline`)}</p>
+          <p className="hero-mobile-hide mt-5 max-w-lg text-base leading-relaxed text-ink-muted md:text-xl">{t(`site.hero.slide.${slide}.tagline`)}</p>
           {artwork.poem || slide === "the-last-dawn" ? (
-            <blockquote className="mt-8 max-w-md border-l border-dawn/80 pl-5 font-serif text-lg italic leading-relaxed text-ink/90 md:text-xl">
+            <blockquote className="hero-mobile-hide mt-8 max-w-md border-l border-dawn/80 pl-5 font-serif text-lg italic leading-relaxed text-ink/90 md:text-xl">
               {tArt(slide, "poem.body", artwork.poem?.body ?? "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once.")}
             </blockquote>
           ) : null}

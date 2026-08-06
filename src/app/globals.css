@@ -242,6 +242,10 @@ body {
   padding-right: 1.5rem;
 }
 
+@media (max-width: 767px) {
+  .hero-mobile-hide { display: none; }
+}
+
 @media (min-width: 768px) {
   .container-art {
     padding-left: 3rem;

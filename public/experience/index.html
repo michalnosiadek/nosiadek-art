@@ -1211,7 +1211,12 @@ mobileDpad.querySelectorAll("button").forEach(button => {
   button.addEventListener("touchstart", e => { e.preventDefault(); set(); }, {passive:false});
   button.addEventListener("touchend", () => { dpadAxis.x = 0; dpadAxis.y = 0; });
 });
-$("mobile-view").onclick = () => { if (focusedIdx >= 0) openPanel(focusedIdx); };
+$("mobile-view").onclick = () => {
+  ray.setFromCamera({ x: 0, y: 0 }, camera);
+  const hit = ray.intersectObjects(pickables, false)[0];
+  const index = hit && hit.distance < 8 ? hit.object.userData.index : focusedIdx;
+  if (index >= 0) openPanel(index);
+};
 
 /* ---------- input: gamepad ---------- */
 let padActive = false, prevButtons = [];
@@ -1285,7 +1290,7 @@ function animate() {
   }
 
   const pad = pollPad(dt);
-  const controlling = !!document.pointerLockElement || padActive;
+  const controlling = !!document.pointerLockElement || padActive || document.body.classList.contains("mobile-ready");
   document.body.classList.toggle("walking", entered && controlling && !anyOverlay());
 
   if (entered && !anyOverlay()) {
