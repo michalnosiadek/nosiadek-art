@@ -1603,8 +1603,8 @@
           "pl": "WASD  -  ruch · mysz  -  rozglądanie · LPM  -  atak · PPM  -  blok<br>Spacja  -  przewrót · F / kółko  -  druga ręka · R  -  flakon · E  -  interakcja · Esc  -  pauza"
         },
         "touchnote": {
-          "en": "The door only opens for a keyboard. Return with one, and the corridors will be waiting.",
-          "pl": "Te drzwi otwierają się tylko dla klawiatury. Wróć z nią, a korytarze będą czekać."
+          "en": "Touch controls: left thumb walks, right thumb looks. Tap the action buttons to explore.",
+          "pl": "Sterowanie dotykowe: lewy kciuk chodzi, prawy rozgląda się. Przyciski akcji pozwalają zwiedzać."
         }
       },
       "title": {
