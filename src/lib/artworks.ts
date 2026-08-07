@@ -133,20 +133,7 @@ export const artworks: Artwork[] = [
     ],
     framingPrice: 50,
   },
-  {
-    slug: "eclipse",
-    title: "Eclipse",
-    year: "2026",
-    medium: "Oil on canvas",
-    dimensions: "60 × 60 cm",
-    description: "",
-    image: "/images/eclipse.jpg",
-    imageWidth: 2000,
-    imageHeight: 1600,
-    original: { available: false },
-    prints: [],
-    framingPrice: 0,
-  },
+
   {
     slug: "neverwinter",
     title: "Neverwinter",

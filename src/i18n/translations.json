@@ -20,12 +20,12 @@
     "journal": {
       "eyebrow": { "en": "Journal", "pl": "Dziennik" },
       "heading": {
-        "en": "Notes from the painted world",
-        "pl": "Notatki z namalowanego świata"
+        "en": "Words that should never be spoken",
+        "pl": "Słowa, które nigdy nie powinny zostać wypowiedziane"
       },
       "intro": {
-        "en": "Fragments of fiction, worldbuilding, painting, music, and the strong emotions that grow between them.",
-        "pl": "Fragmenty fikcji, worldbuildingu, malarstwa, muzyki i dziwnych pomieszczeń, które wyrastają pomiędzy nimi."
+        "en": "Fragments of fantasy, worldbuilding, painting, music, and the strong emotions that grow between them.",
+        "pl": "Fragmenty fantastyki, worldbuildingu, malarstwa, muzyki i silnych emocji, które między nimi wyrastają."
       },
       "read": { "en": "Read the fragment", "pl": "Czytaj fragment" },
       "comingSoon": { "en": "Coming soon", "pl": "Wkrótce" },
@@ -285,8 +285,8 @@
         "pl": "Strony internetowe i oprogramowanie"
       },
       "heading": {
-        "en": "Digital Experiences",
-        "pl": "Cyfrowe Doświadczenia"
+        "en": "Digital work with a pulse.",
+        "pl": "Cyfrowe prace z własnym rytmem."
       },
       "intro": {
         "en": "I design and build websites as carefully as I build a painting: with atmosphere, structure, and a point of view.",
@@ -365,12 +365,12 @@
         "pl": "Michał Nosiadek"
       },
       "bio1": {
-        "en": "",
-        "pl": ""
+        "en": "My work sits where Dark Romanticism meets Surrealism and dystopian foresight, classical rigor turned toward hubris, decay, and the ruined landscapes of tomorrow. Three ideas keep returning: the collapse that follows human greed, a subversion of purity and corruption, and the pull between desire and destruction.",
+        "pl": "Moja twórczość leży tam, gdzie mroczny romantyzm spotyka się z surrealizmem i dystopijnym przeczuciem: klasyczny rygor zwrócony ku pysze, rozkładowi i zrujnowanym krajobrazom jutra. Wracają trzy myśli: upadek, który przychodzi po ludzkiej chciwości, odwrócenie czystości i skażenia oraz napięcie między pożądaniem a zniszczeniem."
       },
       "bio2": {
-        "en": "",
-        "pl": ""
+        "en": "Every piece leans on chiaroscuro and a deliberate hand, physical pigment and, sometimes, digital tools, always in pursuit of something closer to the sublime than the comfortable.",
+        "pl": "Każda praca opiera się na światłocieniu i świadomej ręce  -  na fizycznym pigmencie, czasem na narzędziach cyfrowych  -  zawsze w pogoni za czymś bliższym wzniosłości niż wygodzie."
       },
       "bio3": {
         "en": "Painting isn't the only instrument. I write and record music as a companion to the work: piano and guitar built into the same atmosphere as the canvas, part of a wider dark-dystopian world I'm building through lore, sound, and image together.",
@@ -813,8 +813,8 @@
           "pl": "2025"
         },
         "description": {
-          "en": "",
-          "pl": ""
+          "en": "An eye rendered close and unblinking, lit like a second moon rising. Warmth and watchfulness in the same brushstroke.",
+          "pl": "Oko namalowane z bliska, nieruchome, rozświetlone jak wschodzący drugi księżyc. Ciepło i czujność w jednym pociągnięciu pędzla."
         },
         "poem": {
           "title": {

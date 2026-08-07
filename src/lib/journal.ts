@@ -34,8 +34,8 @@ export const journalEntries: JournalEntry[] = [
       pl: "Mroczna Przepowiednia",
     },
     excerpt: {
-      en: "A rider follows a painting into a kingdom that should have disappeared decades ago. At the edge of the Misty Woods, a warm inn is still waiting  -  and somebody is playing a lute for the empty chairs.",
-      pl: "Jeździec podąża za obrazem do królestwa, które powinno zniknąć dziesiątki lat temu. Na skraju Mglistego Lasu wciąż czeka ciepła gospoda  -  a ktoś gra na lutni dla pustych krzeseł.",
+      en: "A rider follows a painting into a kingdom that was cursed decades ago. At the edge of the Misty Woods, a warm inn is still waiting  -  and somebody is playing a lute for the empty chairs.",
+      pl: "Jeździec podąża za obrazem do królestwa, które od lat ogarneła klątwa. Na skraju osady Rimlet wciąż czeka ciepła gospoda, a ktoś gra na lutni dla pustych krzeseł.",
     },
     tags: [
       "dark fantasy",
