@@ -178,8 +178,8 @@
             "pl": "Rozdzial II / Morderstwo Gwiazdy"
           },
           "tagline": {
-            "en": "Star doesn't grant the Mad King wishes, so he murders her",
-            "pl": "Gwiazda nie spełnia życzeń Szalonego Króla, więc on ją zabija"
+            "en": "On top of the Starfell Peak",
+            "pl": "Na szczycie góry Spadających Gwiazd"
           }
         },
         "the-second-moon": {
@@ -198,8 +198,8 @@
             "pl": "Rozdzial IV / Nadejscie Drugiego Slonca"
           },
           "tagline": {
-            "en": "After ages of darkness, the light returned.",
-            "pl": "I po wiekach ciemności... światło wróciło."
+            "en": "A new Age Begins",
+            "pl": "Początek nowej Ery"
           }
         }
       }
@@ -723,10 +723,10 @@
     "artworks": {
       "the-last-dawn": {
         "poem": {
-          "title": { "en": "The Last Dawn", "pl": "Ostatni Swit" },
+          "title": { "en": "The Last Dawn", "pl": "Ostatni Świt" },
           "body": {
             "en": "The Last Dawn shall mark the end of light. \nA night shall rise that knows no morning. \nThrough pride and prejudice mankind shall fall, \nAnd from its ashes, a darker age begin.",
-            "pl": "Ostatni Świt oznajmi kres światła. Noc powstanie, co brzasku nie zna. Z pychy i uprzedzeń ludzkość upadnie, \nA z jej popiołów narodzi się mroczniejsza era."
+            "pl": "Ostatni Świt oznajmi kres światła. \nNoc powstanie, co brzasku nie zna. \nZ pychy i uprzedzeń ludzkość upadnie, \nA z jej popiołów narodzi się mroczniejsza era."
           }
         },
         "title": {
@@ -814,7 +814,7 @@
         "poem": {
           "title": {
             "en": "The Second Moon",
-            "pl": "The Second Moon"
+            "pl": "Drugi Księżyc"
           },
           "body": {
             "en": "the Second Moon is watching\nso is the sleeping forest\nIn the depths of reflection\nOf a lake long forgotten",
@@ -847,7 +847,7 @@
       "coming-of-the-second-sun": {
         "title": {
           "en": "Coming of the Second Sun",
-          "pl": "Coming of the Second Sun"
+          "pl": "Nadejście Drugiego Słońca"
         },
         "medium": { "en": "Oil on canvas", "pl": "Olej na płótnie" },
         "dimensions": { "en": "50 × 50 cm", "pl": "50 × 50 cm" },
@@ -859,11 +859,11 @@
         "poem": {
           "title": {
             "en": "Coming of the Second Sun",
-            "pl": "Coming of the Second Sun"
+            "pl": "Nadejście Drugiego Słońca"
           },
           "body": {
-            "en": "The Black Sun shall mark the end of light.\nA night shall rise that knows no morning.\nThrough pride and prejudice mankind shall fall,\nAnd from its ashes, a darker age begin.",
-            "pl": "Czarne Słońce oznajmi kres światła.\nWzejdzie noc, co nie zna poranka.\nZ pychy i uprzedzeń ludzkość upadnie,\na z jej popiołów narodzi się mroczniejsza era."
+            "en": "The Sun vanished from the face of the world... \nAnd after ages of darkness... the Light Returned",
+            "pl": "Słońce zniknęło z powierzchni świata... \nA po wiekach ciemności... Światło powróciło"
           }
         }
       },

@@ -27,7 +27,7 @@ export default function Hero() {
       </div>
 
       <div className="container-art relative z-10 flex min-h-[100svh] items-end pb-24 pt-32 md:items-end md:pb-28 md:pt-40">
-        <div className="max-w-xl">
+        {slide !== "the-second-moon" ? <div className="max-w-xl">
           <p className="hero-mobile-hide mb-5 text-xs uppercase tracking-widest2 text-ink-faint">{t(`site.hero.slide.${slide}.eyebrow`)}</p>
           <h1 className="font-serif text-5xl font-light leading-[.95] sm:text-7xl md:text-8xl">{tArt(slide, "title", artwork.title)}</h1>
           <p className="hero-mobile-hide mt-5 max-w-lg text-base leading-relaxed text-ink-muted md:text-xl">{t(`site.hero.slide.${slide}.tagline`)}</p>
@@ -40,7 +40,7 @@ export default function Hero() {
             <a href="/experience/index.html" className="bg-dawn px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition hover:bg-dawn-bright">{t("site.hero.ctaExperience")}</a>
             <Link href="#collection" className="border border-ink/35 px-5 py-3 text-center text-xs uppercase tracking-[0.14em] text-ink transition hover:border-ink hover:bg-ink hover:text-void">{t("site.hero.ctaScroll")}</Link>
           </div>
-        </div>
+        </div> : null}
       </div>
 
       <div className="absolute bottom-7 right-6 z-20 flex items-center gap-3 md:right-12">
