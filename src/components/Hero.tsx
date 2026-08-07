@@ -32,7 +32,7 @@ export default function Hero() {
           <h1 className="font-serif text-5xl font-light leading-[.95] sm:text-7xl md:text-8xl">{tArt(slide, "title", artwork.title)}</h1>
           <p className="hero-mobile-hide mt-5 max-w-lg text-base leading-relaxed text-ink-muted md:text-xl">{t(`site.hero.slide.${slide}.tagline`)}</p>
           {artwork.poem || slide === "the-last-dawn" ? (
-            <blockquote className="hero-mobile-hide mt-8 max-w-md border-l border-dawn/80 pl-5 font-serif text-lg italic leading-relaxed text-ink/90 md:text-xl">
+            <blockquote className="hero-mobile-hide mt-8 max-w-xl whitespace-pre-line border-l border-dawn/80 pl-5 font-serif text-lg italic leading-relaxed text-ink/90 md:text-xl">
               {tArt(slide, "poem.body", artwork.poem?.body ?? "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once.")}
             </blockquote>
           ) : null}
