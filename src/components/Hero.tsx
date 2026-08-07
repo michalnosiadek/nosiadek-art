@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { artworks } from "@/lib/artworks";
 import { useI18n } from "@/i18n/LocaleProvider";
 
-const slides = ["the-last-dawn", "the-end", "the-second-moon"] as const;
+const slides = ["the-last-dawn", "the-end", "the-second-moon", "coming-of-the-second-sun"] as const;
 
 export default function Hero() {
   const { t, tArt } = useI18n();
@@ -28,7 +28,7 @@ export default function Hero() {
 
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-6 py-6 md:px-12 md:py-8">
         <span className="text-[0.65rem] uppercase tracking-[0.32em] text-ink">{t("site.hero.productions")}</span>
-        <span className="text-[0.65rem] uppercase tracking-[0.28em] text-ink-faint">{String(active + 1).padStart(2, "0")} / 03</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.28em] text-ink-faint">{String(active + 1).padStart(2, "0")} / 04</span>
       </div>
 
       <div className="container-art relative z-10 flex min-h-[100svh] items-end pb-24 pt-32 md:items-end md:pb-28 md:pt-40">

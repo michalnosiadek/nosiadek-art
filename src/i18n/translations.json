@@ -170,6 +170,10 @@
         "the-second-moon": {
           "eyebrow": { "en": "Chapter III / The Second Moon", "pl": "Rozdzial III / Drugi Ksiezyc" },
           "tagline": { "en": "Something is watching from beneath the reflection.", "pl": "Cos patrzy spod powierzchni odbicia." }
+        },
+        "coming-of-the-second-sun": {
+          "eyebrow": { "en": "Chapter IV / The Coming of the Second Sun", "pl": "Rozdzial IV / Nadejscie Drugiego Slonca" },
+          "tagline": { "en": "After ages of darkness, the light returned.", "pl": "Po wiekach ciemnosci swiatlo powrocilo." }
         }
       }
     },
