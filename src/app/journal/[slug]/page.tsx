@@ -4,12 +4,12 @@ import { getJournalEntry, journalEntries } from "@/lib/journal";
 import JournalEntryView from "./JournalEntryView";
 
 export function generateStaticParams() {
-  return journalEntries.map((entry) => ({ slug: entry.slug }));
+  return journalEntries.filter((entry) => entry.published !== false).map((entry) => ({ slug: entry.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const entry = getJournalEntry(params.slug);
-  if (!entry) return { title: "Journal entry not found" };
+  if (!entry || entry.published === false) return { title: "Journal entry not found" };
   return {
     title: `${entry.title.en} · Michał Nosiadek`,
     description: entry.excerpt.en,
@@ -20,7 +20,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default function JournalEntryPage({ params }: { params: { slug: string } }) {
   const entry = getJournalEntry(params.slug);
-  if (!entry) notFound();
+  if (!entry || entry.published === false) notFound();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://michalnosiadek.art";
   const structuredData = {
     "@context": "https://schema.org",

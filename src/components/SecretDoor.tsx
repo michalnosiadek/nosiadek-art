@@ -10,6 +10,7 @@ import { useT } from "@/i18n/LocaleProvider";
  */
 const SECRET_DOORS: Record<string, string> = {
   "the-last-dawn": "/experience/games/the-last-dawn/index.html",
+  ribbiton: "/experience/games/ribbiton/index.html",
 };
 
 export default function SecretDoor({ slug }: { slug: string }) {
@@ -49,7 +50,7 @@ export default function SecretDoor({ slug }: { slug: string }) {
         onClick={() => setAsking(true)}
         className="secret-door-hint mt-10 block font-serif text-lg font-light italic text-ink-faint transition-colors duration-700 ease-smooth hover:text-dawn-bright"
       >
-        {t("site.secret.hint")}
+        {t(slug === "ribbiton" ? "site.secret.ribbitonHint" : "site.secret.hint")}
       </button>
 
       {asking && !leaving && (

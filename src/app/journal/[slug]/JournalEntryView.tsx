@@ -45,7 +45,7 @@ export default function JournalEntryView({ slug }: { slug: string }) {
         <div className="journal-prose mt-14">
           {entry.paragraphs[lang].map((paragraph, index) => (
             <Fragment key={`${entry.slug}-${index}`}>
-              <p className={index === 0 ? "journal-prose-dropcap" : undefined}>{paragraph}</p>
+              <p className={`whitespace-pre-line${paragraph.includes("\n") ? " journal-quote" : index === 1 ? " journal-prose-dropcap" : ""}`}>{paragraph}</p>
               {imagesAfter(index).map((image) => (
                 <figure key={image.src} className="journal-inline-figure">
                   <button type="button" onClick={() => setLightbox({ src: image.src, alt: image.alt[lang] })} aria-label={`${t("site.journal.zoom")}: ${image.alt[lang]}`}>

@@ -1,20 +1,28 @@
 export type JournalLocale = "en" | "pl";
 
+import { darkProphecy, prophecy } from "./journalChapter";
+
 export type JournalEntry = {
   slug: string;
+  published?: boolean;
   date: string;
   readingTime: string;
   title: Record<JournalLocale, string>;
   subtitle: Record<JournalLocale, string>;
   excerpt: Record<JournalLocale, string>;
   tags: string[];
-  images?: { src: string; alt: Record<JournalLocale, string>; afterParagraph?: number }[];
+  images?: {
+    src: string;
+    alt: Record<JournalLocale, string>;
+    afterParagraph?: number;
+  }[];
   paragraphs: Record<JournalLocale, string[]>;
 };
 
 export const journalEntries: JournalEntry[] = [
   {
     slug: "the-last-dawn-chapter-one",
+    published: true,
     date: "2026-08-05",
     readingTime: "8 min",
     title: {
@@ -29,10 +37,29 @@ export const journalEntries: JournalEntry[] = [
       en: "A rider follows a painting into a kingdom that should have disappeared decades ago. At the edge of the Misty Woods, a warm inn is still waiting  -  and somebody is playing a lute for the empty chairs.",
       pl: "Jeździec podąża za obrazem do królestwa, które powinno zniknąć dziesiątki lat temu. Na skraju Mglistego Lasu wciąż czeka ciepła gospoda  -  a ktoś gra na lutni dla pustych krzeseł.",
     },
-    tags: ["dark fantasy", "fantasy fiction", "The Last Dawn", "soulslike atmosphere"],
+    tags: [
+      "dark fantasy",
+      "fantasy fiction",
+      "The Last Dawn",
+      "soulslike atmosphere",
+    ],
     images: [
-      { src: "/images/journal/the-last-dawn-menu.png", alt: { en: "The Last Dawn game menu over a red fantasy landscape", pl: "Menu gry The Last Dawn na tle czerwonego fantastycznego krajobrazu" } },
-      { src: "/images/journal/the-last-dawn-jester.png", alt: { en: "The Jester playing music on the balcony in The Last Dawn", pl: "Błazen grający muzykę na balkonie w The Last Dawn" } },
+      {
+        src: "/images/journal/the-last-dawn-menu.png",
+        afterParagraph: 0,
+        alt: {
+          en: "The Last Dawn game menu over a red fantasy landscape",
+          pl: "Menu gry The Last Dawn na tle czerwonego fantastycznego krajobrazu",
+        },
+      },
+      {
+        src: "/images/journal/the-last-dawn-jester.png",
+        afterParagraph: 25,
+        alt: {
+          en: "The Jester playing music on the balcony in The Last Dawn",
+          pl: "Błazen grający muzykę na balkonie w The Last Dawn",
+        },
+      },
     ],
     paragraphs: {
       en: [
@@ -69,20 +96,53 @@ export const journalEntries: JournalEntry[] = [
   },
   {
     slug: "children-of-the-sun-worldbuilding",
+    published: false,
     date: "2026-08-06",
     readingTime: "10 min",
     title: { en: "Children of the Sun", pl: "Dzieci Słońca" },
-    subtitle: { en: "Worldbuilding notes from Reviclades", pl: "Notatki ze świata Reviclades" },
+    subtitle: {
+      en: "Worldbuilding notes from Reviclades",
+      pl: "Notatki ze świata Reviclades",
+    },
     excerpt: {
       en: "The Children of the Sun began as a refuge for people who had nothing left. Over centuries, shelter became prophecy, prophecy became power, and the Black Phoenix began to look back at the world.",
       pl: "Dzieci Słońca zaczęły jako schronienie dla ludzi, którym nie pozostało już nic. Przez stulecia schronienie stało się proroctwem, proroctwo władzą, a Czarny Feniks zaczął spoglądać w stronę świata.",
     },
-    tags: ["worldbuilding", "dark fantasy", "Reviclades", "Children of the Sun"],
+    tags: [
+      "worldbuilding",
+      "dark fantasy",
+      "Reviclades",
+      "Children of the Sun",
+    ],
     images: [
-      { src: "/images/journal/sand-shrine.png", alt: { en: "Church of the Sun concept sketch", pl: "Szkic Kościoła Słońca" } },
-      { src: "/images/journal/the-first-eclipse.jpg", alt: { en: "The First Eclipse over a desert kingdom", pl: "Pierwsze Zaćmienie nad pustynnym królestwem" } },
-      { src: "/images/journal/children-of-the-sun.png", alt: { en: "The Black Phoenix before the sun", pl: "Czarny Feniks na tle słońca" } },
-      { src: "/images/journal/architect-quan.png", alt: { en: "Architect Quan with the Phoenix staff", pl: "Architekt Quan z laską Feniksa" } },
+      {
+        src: "/images/journal/sand-shrine.png",
+        alt: {
+          en: "Church of the Sun concept sketch",
+          pl: "Szkic Kościoła Słońca",
+        },
+      },
+      {
+        src: "/images/journal/the-first-eclipse.jpg",
+        alt: {
+          en: "The First Eclipse over a desert kingdom",
+          pl: "Pierwsze Zaćmienie nad pustynnym królestwem",
+        },
+      },
+      {
+        src: "/images/journal/children-of-the-sun.png",
+        alt: {
+          en: "The Black Phoenix before the sun",
+          pl: "Czarny Feniks na tle słońca",
+        },
+      },
+      {
+        src: "/images/journal/architect-quan.png",
+        alt: {
+          en: "Architect Quan with the Phoenix staff",
+          pl: "Architekt Quan z laską Feniksa",
+        },
+      },
     ],
     paragraphs: {
       en: [
@@ -121,21 +181,52 @@ export const journalEntries: JournalEntry[] = [
   },
   {
     slug: "the-first-stars-worldbuilding",
+    published: false,
     date: "2026-08-07",
     readingTime: "12 min",
-    title: { en: "The First Stars", pl: "Pierwsze Gwiazdy" },
-    subtitle: { en: "The Moon, the Gallery of Stars, and the Forest of Fallen Stars", pl: "Księżyc, Galeria Gwiazd i Las Upadłych Gwiazd" },
+    title: { en: "Circle of the Moon", pl: "Krąg Księżyca" },
+    subtitle: {
+      en: "The Moon, the Gallery of Stars, and the Forest of Fallen Stars",
+      pl: "Księżyc, Galeria Gwiazd i Las Upadłych Gwiazd",
+    },
     excerpt: {
       en: "Fragments of the Moon fell on the outskirts of the Kingdom of the Makers. The Singing Stones taught the forest people to read the stars, until the Gallery of Stars turned knowledge into catastrophe.",
       pl: "Fragmenty Księżyca spadły na obrzeża Królestwa Twórców. Śpiewające Kamienie nauczyły leśny lud czytać gwiazdy, dopóki Galeria Gwiazd nie zamieniła wiedzy w katastrofę.",
     },
     tags: ["worldbuilding", "moon world", "Forest of Fallen Stars", "Ribbiton"],
     images: [
-      { src: "/images/journal/circle-of-the-moon.jpg", alt: { en: "Quan disguised as Martin before the Circle of the Moon", pl: "Quan przebrany za Martina przed Kręgiem Księżyca" } },
-      { src: "/images/journal/the-moon.jpg", alt: { en: "The Moon painting", pl: "Obraz Księżyc" } },
-      { src: "/images/journal/forest-of-the-fallen-stars-map.png", alt: { en: "Map sketch of the Forest of the Fallen Stars", pl: "Szkic mapy Lasu Upadłych Gwiazd" } },
-      { src: "/images/journal/akira.png", alt: { en: "Akira, the flute lady, playing in the forest", pl: "Akira, flecistka, grająca w lesie" } },
-      { src: "/images/journal/ribbiton.png", alt: { en: "Ribbiton beside the forest pond", pl: "Ribbiton nad leśnym stawem" } },
+      {
+        src: "/images/journal/circle-of-the-moon.jpg",
+        alt: {
+          en: "Quan disguised as Martin before the Circle of the Moon",
+          pl: "Quan przebrany za Martina przed Kręgiem Księżyca",
+        },
+      },
+      {
+        src: "/images/journal/the-moon.jpg",
+        alt: { en: "The Moon painting", pl: "Obraz Księżyc" },
+      },
+      {
+        src: "/images/journal/forest-of-the-fallen-stars-map.png",
+        alt: {
+          en: "Map sketch of the Forest of the Fallen Stars",
+          pl: "Szkic mapy Lasu Upadłych Gwiazd",
+        },
+      },
+      {
+        src: "/images/journal/akira.png",
+        alt: {
+          en: "Akira, the flute lady, playing in the forest",
+          pl: "Akira, flecistka, grająca w lesie",
+        },
+      },
+      {
+        src: "/images/journal/ribbiton.png",
+        alt: {
+          en: "Ribbiton beside the forest pond",
+          pl: "Ribbiton nad leśnym stawem",
+        },
+      },
     ],
     paragraphs: {
       en: [
@@ -180,19 +271,47 @@ export const journalEntries: JournalEntry[] = [
   },
   {
     slug: "the-makers-and-the-stone-of-knowing",
+    published: false,
     date: "2026-08-08",
     readingTime: "9 min",
-    title: { en: "The Makers and the Stone of Knowing", pl: "Twórcy i Kamień Wiedzy" },
-    subtitle: { en: "A history with too many missing pieces", pl: "Historia zbyt wielu brakujących fragmentów" },
+    title: {
+      en: "Stone of Knowing",
+      pl: "Kamień Wiedzy",
+    },
+    subtitle: {
+      en: "A history with too many missing pieces",
+      pl: "Historia zbyt wielu brakujących fragmentów",
+    },
     excerpt: {
-      en: "Nobody agrees on what the Makers wanted. The stones remember a laboratory, a drowned gallery, and a thing that could make the laws of the world bend.",
-      pl: "Nikt nie zgadza się co do tego, czego chcieli Twórcy. Kamienie pamiętają laboratorium, zatopioną galerię i rzecz, która mogła naginać prawa świata.",
+      en: "An inhuman creation of the Makers - a Stone that knew the answer to every question. The pinnacle of technology of a fallen civilization and their ultimate downfall.",
+      pl: "Nieludzki wytwór Twórców - Kamień, który znał odpowiedź na każde pytanie. Szczyt technologii upadłej cywilizacji i jednocześnie ich zguba.",
     },
     tags: ["worldbuilding", "the Makers", "Stone of Knowing", "dark fantasy"],
     images: [
-      { src: "/images/journal/the-first-stone.png", alt: { en: "The First Stone beneath the trees", pl: "Pierwszy Kamień pośród drzew" }, afterParagraph: 0 },
-      { src: "/images/journal/fall-of-mankind.png", alt: { en: "A figure looking upon the fall of the Makers", pl: "Postać patrząca na upadek Twórców" }, afterParagraph: 8 },
-      { src: "/images/journal/cordia.png", alt: { en: "A forgotten city above the clouds", pl: "Zapomniane miasto ponad chmurami" }, afterParagraph: 11 },
+      {
+        src: "/images/journal/the-first-stone.png",
+        alt: {
+          en: "The First Stone beneath the trees",
+          pl: "Pierwszy Kamień pośród drzew",
+        },
+        afterParagraph: 0,
+      },
+      {
+        src: "/images/journal/fall-of-mankind.png",
+        alt: {
+          en: "A figure looking upon the fall of the Makers",
+          pl: "Postać patrząca na upadek Twórców",
+        },
+        afterParagraph: 8,
+      },
+      {
+        src: "/images/journal/cordia.png",
+        alt: {
+          en: "A forgotten city above the clouds",
+          pl: "Zapomniane miasto ponad chmurami",
+        },
+        afterParagraph: 11,
+      },
     ],
     paragraphs: {
       en: [
@@ -226,6 +345,25 @@ export const journalEntries: JournalEntry[] = [
     },
   },
 ];
+
+const lastDawnChapter = journalEntries.find(
+  (entry) => entry.slug === "the-last-dawn-chapter-one",
+);
+if (lastDawnChapter) {
+  lastDawnChapter.title = {
+    en: "The Last Dawn  -  Chapter One",
+    pl: "The Last Dawn  -  Rozdział pierwszy",
+  };
+  lastDawnChapter.subtitle = {
+    en: darkProphecy.en.title,
+    pl: darkProphecy.pl.title,
+  };
+  lastDawnChapter.readingTime = "30 min";
+  lastDawnChapter.paragraphs = {
+    en: [prophecy.en, ...darkProphecy.en.paragraphs],
+    pl: [prophecy.pl, ...darkProphecy.pl.paragraphs],
+  };
+}
 
 export function getJournalEntry(slug: string) {
   return journalEntries.find((entry) => entry.slug === slug);

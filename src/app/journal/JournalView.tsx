@@ -17,15 +17,28 @@ export default function JournalView() {
       </header>
 
       <div className="mt-20 grid gap-8 md:grid-cols-2">
-        {journalEntries.map((entry) => (
-          <Link key={entry.slug} href={`/journal/${entry.slug}`} className="group block border border-void-line bg-void-raised p-7 transition-colors hover:border-dawn md:p-10">
+        {journalEntries.map((entry) => {
+          const card = (
+            <>
             <p className="text-xs uppercase tracking-widest2 text-ink-faint">{entry.date} · {entry.readingTime}</p>
             <h2 className="mt-5 font-serif text-3xl font-light text-ink transition-colors group-hover:text-moon-soft">{entry.title[lang]}</h2>
             <p className="mt-2 font-serif text-lg italic text-moon-soft">{entry.subtitle[lang]}</p>
             <p className="mt-6 leading-relaxed text-ink-muted">{entry.excerpt[lang]}</p>
-            <span className="mt-8 inline-block text-xs uppercase tracking-widest2 text-ink-faint transition-colors group-hover:text-ink">{t("site.journal.read")} →</span>
-          </Link>
-        ))}
+            <span className="mt-8 inline-block text-xs uppercase tracking-widest2 text-ink-faint transition-colors group-hover:text-ink">
+              {entry.published === false ? t("site.journal.comingSoon") : `${t("site.journal.read")} →`}
+            </span>
+            </>
+          );
+          return entry.published === false ? (
+            <div key={entry.slug} aria-disabled="true" className="group block border border-void-line bg-void-raised p-7 opacity-60 md:p-10">
+              {card}
+            </div>
+          ) : (
+            <Link key={entry.slug} href={`/journal/${entry.slug}`} className="group block border border-void-line bg-void-raised p-7 transition-colors hover:border-dawn md:p-10">
+              {card}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
