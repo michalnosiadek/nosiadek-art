@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useT } from "@/i18n/LocaleProvider";
 
@@ -17,11 +18,13 @@ export default function ArtworkViewer({
   alt,
   width,
   height,
+  compact = false,
 }: {
   src: string;
   alt: string;
   width: number;
   height: number;
+  compact?: boolean;
 }) {
   const t = useT();
   const [open, setOpen] = useState(false);
@@ -97,33 +100,39 @@ export default function ArtworkViewer({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group relative block w-full overflow-hidden bg-black"
-        style={{ aspectRatio: `${width} / ${height}` }}
+        className={compact
+          ? "group relative block border border-ink/40 bg-void/75 px-4 py-3 text-xs uppercase tracking-widest2 text-ink backdrop-blur-sm transition hover:border-ink hover:bg-ink hover:text-void"
+          : "group relative block w-full overflow-hidden bg-black"}
+        style={compact ? undefined : { aspectRatio: `${width} / ${height}` }}
         aria-label={t("site.viewer.viewFullImage", { title: alt })}
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-contain transition-transform duration-700 ease-smooth group-hover:scale-[1.02]"
-        />
-        <span className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-void/70 px-3 py-1.5 text-[10px] uppercase tracking-widest2 text-ink-muted opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-          <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M6 2H2v4M10 2h4v4M6 14H2v-4M10 14h4v-4"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        {compact ? t("site.journey.viewPainting") : (
+          <>
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              priority
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-contain transition-transform duration-700 ease-smooth group-hover:scale-[1.02]"
             />
-          </svg>
-          {t("site.viewer.expand")}
-        </span>
+            <span className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-void/70 px-3 py-1.5 text-[10px] uppercase tracking-widest2 text-ink-muted opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M6 2H2v4M10 2h4v4M6 14H2v-4M10 14h4v-4"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              {t("site.viewer.expand")}
+            </span>
+          </>
+        )}
       </button>
 
-      {open && (
+      {open && createPortal(
         <div
           ref={modalRef}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95"
@@ -191,7 +200,8 @@ export default function ArtworkViewer({
           <p className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 text-xs uppercase tracking-widest2 text-ink-faint">
             {zoomed ? t("site.viewer.dragToPan") : t("site.viewer.tapToZoom")}
           </p>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

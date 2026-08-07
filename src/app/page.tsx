@@ -2,9 +2,7 @@
 
 import Hero from "@/components/Hero";
 import PaintingJourney from "@/components/PaintingJourney";
-import ArtworkCard from "@/components/ArtworkCard";
 import Link from "next/link";
-import { artworks } from "@/lib/artworks";
 import { useT } from "@/i18n/LocaleProvider";
 import LocalizedTitle from "@/components/LocalizedTitle";
 
@@ -17,28 +15,37 @@ export default function Home() {
       <Hero />
       <PaintingJourney />
 
-      <section id="collection-grid" className="container-art scroll-mt-16 py-24 md:py-32">
-        <div className="mb-14 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="mb-3 text-xs uppercase tracking-widest2 text-ink-faint">
-              {t("site.home.selectedWorkEyebrow")}
-            </p>
-            <h2 className="font-serif text-3xl font-light text-ink md:text-4xl">
-              {t("site.home.collectionHeading")}
-            </h2>
+      <section className="relative overflow-hidden border-t border-void-line/60 bg-void-raised">
+        <div className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(circle_at_50%_0%,rgba(150,44,32,.18),transparent_42%)]" />
+        <div className="container-art relative py-24 md:py-32">
+          <div className="mb-12 max-w-2xl md:mb-16">
+            <p className="mb-4 text-xs uppercase tracking-widest2 text-ember">{t("site.home.destinationsEyebrow")}</p>
+            <h2 className="font-serif text-4xl font-light leading-tight text-ink md:text-6xl">{t("site.home.destinationsHeading")}</h2>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted">{t("site.home.destinationsBody")}</p>
           </div>
-          <Link
-            href="/gallery"
-            className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors hover:text-ink"
-          >
-            {t("site.home.viewAll")}
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-          {artworks.map((artwork) => (
-            <ArtworkCard key={artwork.slug} artwork={artwork} />
-          ))}
+          <nav className="grid border-t border-ink/15 md:grid-cols-5" aria-label={t("site.nav.toggleMenu")}>
+            {[
+              ["/gallery", "site.nav.gallery"],
+              ["/journal", "site.nav.journal"],
+              ["/software", "site.nav.software"],
+              ["/experience", "site.nav.experience"],
+              ["/about", "site.nav.about"],
+            ].map(([href, labelKey], index) => (
+              <Link
+                key={href}
+                href={href}
+                className="group flex min-h-32 flex-col justify-between border-b border-ink/15 px-5 py-5 transition-colors duration-500 hover:bg-ink/[.04] md:min-h-40 md:border-b-0 md:border-r md:last:border-r-0"
+              >
+                <span className="text-[10px] uppercase tracking-widest2 text-ink-faint">{"0" + (index + 1)}</span>
+                <span className="flex items-center justify-between gap-3 text-xs uppercase tracking-widest2 text-ink-muted transition-colors group-hover:text-ink">
+                  {t(labelKey)}
+                  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-ember transition-transform duration-300 group-hover:translate-x-1">
+                    <path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
@@ -54,7 +61,7 @@ export default function Home() {
             href="/software"
             className="mt-8 inline-block text-sm uppercase tracking-widest2 text-ink-muted transition-colors hover:text-ink"
           >
-            {t("site.software.visit")} →
+            {t("site.software.visit")}
           </Link>
         </div>
       </section>
@@ -71,7 +78,7 @@ export default function Home() {
             href="/journal"
             className="mt-8 inline-block text-sm uppercase tracking-widest2 text-ink-muted transition-colors hover:text-ink"
           >
-            {t("site.home.journalCta")} →
+            {t("site.home.journalCta")}
           </Link>
         </div>
       </section>

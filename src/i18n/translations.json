@@ -173,6 +173,13 @@
         }
       }
     },
+    "journey": {
+      "viewPainting": { "en": "View painting", "pl": "Zobacz obraz" },
+      "close": { "en": "Close", "pl": "Zamknij" },
+      "darkness": { "en": "And the light vanished from the face of the world...", "pl": "I światło zniknęło z powierzchni świata..." },
+      "return": { "en": "And after ages of darkness... the Light Returned", "pl": "A po wiekach ciemności... Światło powróciło" },
+      "returnedCaption": { "en": "The light returned after eons.", "pl": "Światło powróciło po eonach." }
+    },
     "home": {
       "selectedWorkEyebrow": {
         "en": "Selected work",
@@ -210,10 +217,22 @@
           "en": "Fragments from the painted world.",
           "pl": "Fragmenty z namalowanego świata."
         },
-        "journalCta": {
-          "en": "Read the journal",
-          "pl": "Czytaj dziennik"
-        },
+      "journalCta": {
+        "en": "Read the journal",
+        "pl": "Czytaj dziennik"
+      },
+      "destinationsEyebrow": {
+        "en": "Continue beyond the paintings",
+        "pl": "Idź dalej za obrazami"
+      },
+      "destinationsHeading": {
+        "en": "There is more to discover.",
+        "pl": "Jest jeszcze wiele do odkrycia."
+      },
+      "destinationsBody": {
+        "en": "Enter the rooms, follow the notes, or look behind the canvas.",
+        "pl": "Wejdź do środka, podążaj za notatkami albo zajrzyj za płótno."
+      },
       "shopCta": {
         "en": "Shop the Collection",
         "pl": "Przeglądaj kolekcję"
@@ -1091,6 +1110,10 @@
       "hint": {
         "en": "E  -  view a painting",
         "pl": "E  -  obejrzyj obraz"
+      },
+      "viewPainting": {
+        "en": "View painting",
+        "pl": "Obejrzyj obraz"
       },
       "theme": {
         "en": "♪  Play theme",
