@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { artworks } from "@/lib/artworks";
 import { useI18n } from "@/i18n/LocaleProvider";
 
@@ -13,11 +13,6 @@ export default function Hero() {
   const [active, setActive] = useState(0);
   const artwork = artworks.find((item) => item.slug === slides[active]) ?? artworks[0];
   const slide = slides[active];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % slides.length), 9000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const move = (delta: number) => setActive((current) => (current + delta + slides.length) % slides.length);
 

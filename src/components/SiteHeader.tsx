@@ -20,21 +20,21 @@ export default function SiteHeader() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-void-line/60 bg-void/70 backdrop-blur-md">
-      <div className="container-art flex h-16 items-center justify-between md:h-20">
+      <div className="container-art flex h-16 items-center justify-between xl:h-20">
         <Link
           href="/"
-          className="wordmark-fire font-serif text-sm tracking-wide text-ink sm:text-lg sm:tracking-widest2 md:text-xl"
+          className="wordmark-fire whitespace-nowrap font-serif text-sm tracking-wide text-ink sm:text-lg sm:tracking-widest2 xl:text-xl"
         >
           {t("site.nav.wordmark")}
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-6 xl:flex 2xl:gap-10">
           {links.map((link) =>
             link.external ? (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+                className="whitespace-nowrap text-xs uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink 2xl:text-sm"
               >
                 {t(link.labelKey)}
               </a>
@@ -42,7 +42,7 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+                className="whitespace-nowrap text-xs uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink 2xl:text-sm"
               >
                 {t(link.labelKey)}
               </Link>
@@ -51,7 +51,7 @@ export default function SiteHeader() {
           <LanguageSwitch />
         </nav>
 
-        <div className="flex items-center gap-5 md:hidden">
+        <div className="flex items-center gap-5 xl:hidden">
           <LanguageSwitch />
           <button
             className="flex flex-col gap-1.5"
@@ -73,14 +73,14 @@ export default function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-void-line/60 bg-void px-6 pb-6 pt-2 md:hidden">
+        <nav className="flex flex-col gap-1 border-t border-void-line/60 bg-void px-6 pb-6 pt-2 xl:hidden">
           {links.map((link) =>
             link.external ? (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+                className="whitespace-nowrap py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
               >
                 {t(link.labelKey)}
               </a>
@@ -89,7 +89,7 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
+                className="whitespace-nowrap py-3 text-sm uppercase tracking-widest2 text-ink-muted transition-colors duration-300 hover:text-ink"
               >
                 {t(link.labelKey)}
               </Link>

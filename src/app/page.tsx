@@ -23,7 +23,7 @@ export default function Home() {
             <h2 className="font-serif text-4xl font-light leading-tight text-ink md:text-6xl">{t("site.home.destinationsHeading")}</h2>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-ink-muted">{t("site.home.destinationsBody")}</p>
           </div>
-          <nav className="grid border-t border-ink/15 md:grid-cols-5" aria-label={t("site.nav.toggleMenu")}>
+          <nav className="grid border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-5" aria-label={t("site.nav.toggleMenu")}>
             {[
               ["/gallery", "site.nav.gallery"],
               ["/journal", "site.nav.journal"],
@@ -34,10 +34,10 @@ export default function Home() {
               <Link
                 key={href}
                 href={href}
-                className="group flex min-h-32 flex-col justify-between border-b border-ink/15 px-5 py-5 transition-colors duration-500 hover:bg-ink/[.04] md:min-h-40 md:border-b-0 md:border-r md:last:border-r-0"
+                className="group flex min-h-32 min-w-0 flex-col justify-between border-b border-ink/15 px-5 py-5 transition-colors duration-500 hover:bg-ink/[.04] lg:min-h-40 lg:border-b-0 lg:border-r lg:last:border-r-0"
               >
                 <span className="text-[10px] uppercase tracking-widest2 text-ink-faint">{"0" + (index + 1)}</span>
-                <span className="flex items-center justify-between gap-3 text-xs uppercase tracking-widest2 text-ink-muted transition-colors group-hover:text-ink">
+                <span className="flex items-center justify-between gap-3 whitespace-nowrap text-xs uppercase tracking-widest2 text-ink-muted transition-colors group-hover:text-ink">
                   {t(labelKey)}
                   <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-ember transition-transform duration-300 group-hover:translate-x-1">
                     <path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
