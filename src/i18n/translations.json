@@ -1230,12 +1230,12 @@
     "rooms": {
       "intro": {
         "name": {
-          "en": "Where the Painter Lives",
-          "pl": "Gdzie mieszka Malarz"
+          "en": "About the mad Painter",
+          "pl": "O szalonym malarzu"
         },
         "story": {
-          "en": "I paint where Dark Romanticism runs into surrealism and the ruins of tomorrow: hubris, decay, and the pull between wanting a thing and destroying it. I trained as an engineer before I trained as a painter, and the structure still shows in how I build a picture. The music you can hear is mine as well  -  the paintings and the songs are one world told twice. On the wall behind you is the block I actually live in, painted the way I paint the other worlds. Four doors lead out of this room. Take them in any order.",
-          "pl": "Maluję tam, gdzie mroczny romantyzm zderza się z surrealizmem i ruinami jutra: pycha, rozkład i napięcie między pragnieniem czegoś a zniszczeniem tego. Zanim wyszkoliłem się na malarza, wyszkoliłem się na inżyniera  -  i ta struktura wciąż widać w tym, jak buduję obraz. Muzyka, którą słyszysz, też jest moja: obrazy i utwory to jeden świat opowiedziany dwa razy. Na ścianie za tobą jest blok, w którym naprawdę mieszkam, namalowany tak, jak maluję tamte światy. Z tej sali wychodzą czworo drzwi. Wybierz w dowolnej kolejności."
+          "en": "",
+          "pl": ""
         }
       },
       "lastdawn": {
@@ -1244,12 +1244,12 @@
           "pl": "Ostatni Świt"
         },
         "story": {
-          "en": "Two paintings hung together because they are one event seen twice: the blow struck, and the morning after it. A star is forced down onto a kingdom; a rider crosses the threshold while the sky is still bleeding. Everything else in this building leads here.",
-          "pl": "Dwa obrazy powieszone razem, bo są jednym wydarzeniem widzianym dwa razy: zadanym ciosem i porankiem po nim. Gwiazda zostaje strącona na królestwo; jeździec przekracza próg, gdy niebo wciąż krwawi. Wszystko inne w tym budynku prowadzi tutaj."
+          "en": "",
+          "pl": ""
         },
         "story2": {
-          "en": "“The Black Sun shall mark the end of light. A night shall rise that knows no morning.” Every world I have made ends beneath the same sky: a star is murdered, an eclipse opens like a door, and a second sun rises black to burn what is left. There is a way out of this room that is not the one you came in by.",
-          "pl": "„Czarne Słońce oznajmi kres światła. Wzejdzie noc, co nie zna poranka.” Każdy świat, który stworzyłem, kończy się pod tym samym niebem: gwiazda zostaje zamordowana, zaćmienie otwiera się jak drzwi, a drugie słońce wschodzi czarno, by spalić to, co zostało. Z tej sali jest wyjście inne niż to, którym wszedłeś."
+          "en": "",
+          "pl": ""
         }
       },
       "moon": {
@@ -1258,18 +1258,18 @@
           "pl": "Księżyc"
         },
         "story": {
-          "en": "The Moonlight Clan holds that the moon is the lens of the universe: look through it long enough and you will see what waits behind the veil. Shards of it fell into their forest and sang. Beneath the Red Moon the druids judge the hearts of trespassers, and the fires at the treeline are lit by people asking for things they should not ask for.",
+          "en": "Circle of the Moon holds that the moon is the lens of the universe: look through it long enough and you will see what waits behind the veil. Shards of it fell into their forest and sang. Beneath the Red Moon the druids judge the hearts of trespassers, and the fires at the treeline are lit by people asking for things they should not ask for.",
           "pl": "Klan Księżycowej Poświaty wierzy, że księżyc jest soczewką wszechświata: patrz przez niego dość długo, a zobaczysz, co czeka za zasłoną. Jego odłamki spadły w ich las i śpiewały. Pod Czerwonym Księżycem druidzi sądzą serca intruzów, a ogniska na skraju lasu rozpalają ci, którzy proszą o rzeczy, o które prosić nie należy."
         }
       },
       "hubris": {
         "name": {
-          "en": "The Hubris of Men",
-          "pl": "Pycha Ludzi"
+          "en": "Hubris of Mankind",
+          "pl": "Pycha Ludzkości"
         },
         "story": {
-          "en": "The room about what people do to themselves. A hallway with a watching face at the end of it and a door left open behind. A capital built out of the dark and then surprised to find it burning. A tomb lit from the inside. A man who met himself in the morning with no face left to wear. None of it is done to them; all of it is done by them.",
-          "pl": "Sala o tym, co ludzie robią sami sobie. Korytarz z patrzącą twarzą na końcu i uchylonymi drzwiami za plecami. Stolica zbudowana z ciemności, zdziwiona, że płonie. Grobowiec oświetlony od środka. Człowiek, który spotkał siebie nad ranem, bez twarzy do włożenia. Nic z tego im się nie przydarza  -  wszystko robią sami."
+          "en": "",
+          "pl": ""
         }
       },
       "beauty": {
@@ -1278,8 +1278,8 @@
           "pl": "Piękno Świata"
         },
         "story": {
-          "en": "And yet. A sunset over still water with two people underneath it. A frog on a log who would rather talk to you than frighten you. A gate with eyes that still lets travellers through. The same hand painted the endings and painted these, on the same days, out of the same window. The world being destroyed is the world worth keeping  -  that is the whole argument.",
-          "pl": "A jednak. Zachód słońca nad spokojną wodą i dwoje ludzi pod nim. Żaba na kłodzie, która wolałaby z tobą porozmawiać, niż cię przestraszyć. Brama z oczami, która wciąż przepuszcza wędrowców. Ta sama ręka namalowała końce i namalowała to, w te same dni, z tego samego okna. Świat, który zostaje zniszczony, jest światem wartym ocalenia  -  na tym polega cały argument."
+          "en": "",
+          "pl": ""
         }
       }
     },
@@ -1294,12 +1294,12 @@
           "pl": "Photograph"
         },
         "description": {
-          "en": "The only likeness of him that survives, and not one he made. He refuses to paint his own face  -  a face, he says, is a door, and his stays locked. The keepers of the candles say he works only at dusk, mixing his reds while the light dies, and that the paintings answer him.",
-          "pl": "Jedyna jego podobizna, jaka przetrwała  -  i nie on ją wykonał. Nie chce malować własnej twarzy; twarz, jak mówi, to drzwi, a swoje trzyma zamknięte. Opiekunowie świec mówią, że pracuje tylko o zmierzchu, mieszając czerwienie, gdy umiera światło  -  i że obrazy mu odpowiadają."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "I paint a world where souls suffer\nuntil the sun vanishes from the face of it,\nforever.\nI am only copying what I see.",
-          "pl": "Maluję świat, w którym dusze cierpią,\naż słońce zniknie z jego oblicza\nna zawsze.\nJa tylko przepisuję to, co widzę."
+          "en": "",
+          "pl": ""
         }
       },
       "JohnSinger": {
@@ -1312,12 +1312,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A direct, unflinching self-portrait built from hard chiaroscuro: half the face lit, half given to the dark, the way most things about a person are.",
-          "pl": "Bezpośredni, pozbawiony złudzeń autoportret zbudowany na twardym światłocieniu: pół twarzy w świetle, pół oddane ciemności  -  jak większość rzeczy w człowieku."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "I lit one half of my face\nso you would trust the other.\nThe dark half is the honest one.\nIt keeps the vigil.",
-          "pl": "Oświetliłem pół twarzy,\nżebyś zaufał drugiej połowie.\nTa ciemna jest szczera.\nTo ona trzyma wartę."
+          "en": "",
+          "pl": ""
         }
       },
       "KacMorderca": {
@@ -1330,12 +1330,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A head with no face  -  only a hollow that spirals inward  -  and where a halo should hang, a kitchen knife. The morning after, painted as a portrait: the murderer and the murdered sharing one skull.",
-          "pl": "Głowa bez twarzy  -  tylko pustka zwijająca się do środka  -  a tam, gdzie powinna wisieć aureola, kuchenny nóż. Poranek dnia następnego namalowany jako portret: morderca i zamordowany w jednej czaszce."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The morning after, I met myself\nwith no face left to wear.\nSomething had used my hands all night  - \nthe knife remembers where.",
-          "pl": "Nazajutrz rano spotkałem siebie\nbez twarzy do włożenia.\nCoś całą noc używało mych rąk  - \nnóż pamięta gdzie."
+          "en": "",
+          "pl": ""
         }
       },
       "WishYouWereHere": {
@@ -1348,8 +1348,8 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "Sunset over still water, two figures at rest beneath it: a rare warm, tender scene set against the darker currents running through the rest of the work. Quiet gratitude, given room to breathe.",
-          "pl": "Zachód słońca nad spokojną wodą i dwie odpoczywające postacie: rzadka, ciepła scena na tle ciemniejszych nurtów reszty prac. Cicha wdzięczność, której pozwolono odetchnąć."
+          "en": "",
+          "pl": ""
         },
         "poem": {
           "en": "As the Sun sets upon the mountain view,\nIn its light I see what I love most,\nThe warmth, comfort and beauty\nOf simple kindness and compassion.",
@@ -1366,12 +1366,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A window at the edge of the wild: beyond the sill, a burrow, a worn path, and the last kept light before the trees take over.",
-          "pl": "Okno na skraju dziczy: za parapetem nora, wydeptana ścieżka i ostatnie pilnowane światło, nim las przejmie wszystko."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The last kept light before the trees.\nBeyond the sill, a worn path waits.\nEverything I love fits in one window.\nEverything else is night.",
-          "pl": "Ostatnie pilnowane światło przed lasem.\nZa parapetem czeka wydeptana ścieżka.\nWszystko, co kocham, mieści się w jednym oknie.\nCała reszta jest nocą."
+          "en": "",
+          "pl": ""
         }
       },
       "Moon": {
@@ -1384,12 +1384,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A lone red moon adrift in a near-black sky. Restraint over detail: everything the painting needs is already there in the color. The Moonlight Clan would call it the lens of the universe, briefly uncovered.",
-          "pl": "Samotny czerwony księżyc dryfujący po niemal czarnym niebie. Powściągliwość zamiast detalu: wszystko, czego obraz potrzebuje, jest już w kolorze. Klan Księżycowej Poświaty nazwałby go soczewką wszechświata, na chwilę odsłoniętą."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The moon is the lens of the universe.\nLook long enough and you will see\nwhat waits behind the veil  - \nand it will see you looking.",
-          "pl": "Księżyc jest soczewką wszechświata.\nPatrz wystarczająco długo, a zobaczysz,\nco czeka za zasłoną  - \ni ono zobaczy, że patrzysz."
+          "en": "",
+          "pl": ""
         }
       },
       "theSecondMoon": {
@@ -1406,8 +1406,8 @@
           "pl": ""
         },
         "poem": {
-          "en": "the Second Moon is watching\nso is the sleeping forest\nIn the depths of reflection\nOf a lake long forgotten",
-          "pl": "Drugi Księżyc patrzy,\ntak jak i śpiący las,\nw głębinach odbicia\ndawno zapomnianego jeziora."
+          "en": "",
+          "pl": ""
         }
       },
       "Witches": {
@@ -1420,12 +1420,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A gathering at the forest's edge: two figures lit by campfire beneath a rising moon and a glowing ridge of mountains. Firelight and moonlight are the only witnesses to whatever rite this is.",
-          "pl": "Zgromadzenie na skraju lasu: dwie postacie w blasku ogniska, nad nimi wschodzący księżyc i łuna nad granią. Ogień i księżyc są jedynymi świadkami tego obrzędu."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "Two by the fire, the ridge alight,\nthe moon a witness overhead.\nWhat we asked for that night, we received.\nWe should have asked for less.",
-          "pl": "Dwie przy ogniu, grań w łunie,\nksiężyc świadkiem nad głowami.\nO co prosiłyśmy tej nocy, to otrzymałyśmy.\nTrzeba było prosić o mniej."
+          "en": "",
+          "pl": ""
         }
       },
       "Celtic": {
@@ -1438,12 +1438,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A skull, a candle, a tankard of ale: vanitas rendered through a pagan lens. Beyond the window, a sickly green moon hangs over bare trees, the only witness left once the last light gutters out.",
-          "pl": "Czaszka, świeca i kufel piwa: vanitas w pogańskim ujęciu. Za oknem chorobliwie zielony księżyc wisi nad nagimi drzewami  -  ostatni świadek, gdy zgaśnie ostatnie światło."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "Drink, for the candle is patient\nand the skull is in no hurry.\nBeyond the glass, a green moon\ncounts what is left of us.",
-          "pl": "Pij, bo świeca jest cierpliwa,\na czaszce się nie spieszy.\nZa szybą zielony księżyc\nliczy, ile z nas zostało."
+          "en": "",
+          "pl": ""
         }
       },
       "Ribbiton": {
@@ -1456,12 +1456,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "One of the bestiary pieces: a Ribbit of the Pond, caught between menace and play, painted with more affection than fear. In the lore of Reviclades his tribe worships the Primordial Sound and carves moonstone bells of remembrance for their dead.",
-          "pl": "Jeden z obrazów bestiariusza: Ribbit znad Stawu, zawieszony między groźbą a zabawą, namalowany z większą czułością niż strachem. W świecie Reviclades jego plemię czci Pradźwięk i rzeźbi z księżycowego kamienia dzwonki pamięci dla zmarłych."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The world was born from a single sound,\nsay the frogs of the Pond,\nand every bell rung for the dead\nreturns a little of it.",
-          "pl": "Świat narodził się z jednego dźwięku,\nmówią żaby znad Stawu,\ni każdy dzwonek bijący za zmarłych\noddaje go po trochu."
+          "en": "",
+          "pl": ""
         }
       },
       "Moongose": {
@@ -1474,12 +1474,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A vast, tusked lunar eye dominates the frame while a small penguin stands beneath it, unbothered. Scale and strangeness: a stray moment of dark humor let into the work.",
-          "pl": "Ogromne, kłowe księżycowe oko wypełnia kadr, a pod nim stoi niewzruszony mały pingwin. Skala i dziwność: zabłąkana chwila czarnego humoru wpuszczona między obrazy."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "Under the tusked eye of the moon\nthe smallest witness stands unbothered.\nNot all who are watched\nare afraid.",
-          "pl": "Pod kłowym okiem księżyca\nnajmniejszy świadek stoi niewzruszony.\nNie wszyscy, na których się patrzy,\nsię boją."
+          "en": "",
+          "pl": ""
         }
       },
       "Neverwinter": {
@@ -1492,12 +1492,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A cloaked rider approaches a silhouetted keep beneath a swollen sun. The road is short; the arrival is the whole story.",
-          "pl": "Zakapturzony jeździec zbliża się do sylwetki warowni pod spuchniętym słońcem. Droga jest krótka; przybycie jest całą historią."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The King hath tried  - \noh yes, he hath tried,\nbut the deed was done,\nand he too knew why.",
-          "pl": "Król próbował, tak bardzo, próbował,\nlecz czyn został dokonany,\na on też wiedział czemu."
+          "en": "",
+          "pl": ""
         }
       },
       "Edephious": {
@@ -1510,12 +1510,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A red-carpeted hallway stretches toward a pale, watching face framed in a window at its end, while a door left ajar spills warm light from the other direction. A choice between two thresholds, neither one comfortable.",
-          "pl": "Czerwony dywan korytarza ciągnie się ku bladej, patrzącej twarzy w oknie na jego końcu, a uchylone drzwi z drugiej strony sączą ciepłe światło. Wybór między dwoma progami  -  żaden nie jest bezpieczny."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "Two doors, one hallway, no good end:\nwarm light behind me, a face ahead.\nI have been walking this carpet for years.\nThe face is patient. The light is not.",
-          "pl": "Dwoje drzwi, jeden korytarz, żadnego dobrego końca:\nza mną ciepłe światło, przede mną twarz.\nIdę tym dywanem od lat.\nTwarz jest cierpliwa. Światło nie."
+          "en": "",
+          "pl": ""
         }
       },
       "IsleOfTheDead": {
@@ -1528,12 +1528,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A tomb carved into rock, glowing from within like an ember that refuses to go out. A reinterpretation of the old motif: the threshold to whatever waits past the dead, lit rather than shrouded.",
-          "pl": "Grobowiec wykuty w skale, jarzący się od środka jak żar, który nie chce zgasnąć. Stary motyw na nowo: próg tego, co czeka za umarłymi  -  oświetlony, nie spowity."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "They carved the tomb into the rock\nand the rock kept it warm.\nWhatever waits past the dead\nleaves a light on for us.",
-          "pl": "Wykuli grobowiec w skale,\na skała utrzymała w nim ciepło.\nCokolwiek czeka za umarłymi,\nzostawia nam zapalone światło."
+          "en": "",
+          "pl": ""
         }
       },
       "EdgeOfTheNight": {
@@ -1546,12 +1546,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A cloaked figure dissolves into, or is born from, a torrent of crimson light against total black. The instant before dawn, or the instant after everything else has gone out.",
-          "pl": "Zakapturzona postać rozpływa się w strumieniu karmazynowego światła na tle absolutnej czerni  -  albo się z niego rodzi. Chwila tuż przed świtem, albo tuż po tym, jak zgasło wszystko inne."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "At the edge of the night a figure stands\nstitched from the last of the red.\nOne step forward is morning.\nOne step back is not.",
-          "pl": "Na krawędzi nocy stoi postać\nuszyta z resztek czerwieni.\nKrok naprzód to poranek.\nKrok wstecz  -  już nie."
+          "en": "",
+          "pl": ""
         }
       },
       "Orgrimmar": {
@@ -1564,12 +1564,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A fortress gate flanked by towers built as giant horned eyes, watching every approach. A road lined with broken fences leads travelers toward the fire glowing at its heart.",
-          "pl": "Brama twierdzy między wieżami zbudowanymi jak wielkie rogate oczy, śledzące każde podejście. Droga wśród połamanych płotów prowadzi wędrowców ku ognisku żarzącemu się w jej sercu."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The gate has eyes and the eyes have horns\nand the road walks you in.\nEvery fence along it is broken\nfrom the inside.",
-          "pl": "Brama ma oczy, a oczy mają rogi,\ni to droga wprowadza cię do środka.\nKażdy płot przy niej jest połamany\nod wewnątrz."
+          "en": "",
+          "pl": ""
         }
       },
       "Pandemonium": {
@@ -1582,12 +1582,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "Named for Milton's capital of ruin: a vast colonnade burns through the night as robed figures process past it, torches and banners held high against the dark it's built from.",
-          "pl": "Od Miltonowskiej stolicy ruiny: ogromna kolumnada płonie w nocy, a obok procesją suną postacie w szatach, z pochodniami i sztandarami wzniesionymi przeciw ciemności, z której ją zbudowano."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "They built their capital out of the dark\nand were surprised when it burned.\nNow they process past the colonnade,\ntorches high, praising the flame.",
-          "pl": "Zbudowali stolicę z ciemności\ni zdziwili się, że płonie.\nTeraz suną procesją wzdłuż kolumnady,\nz pochodniami, wielbiąc płomień."
+          "en": "",
+          "pl": ""
         }
       },
       "ComingOfTheSecondSun": {
@@ -1600,12 +1600,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "The prophecy the Children of the Sun pray toward: a second sun rising black over the mountains, ringed in fire, come to end all suffering by ending everything else. Painted as totality  -  the ring burns, the disc devours.",
-          "pl": "Przepowiednia, ku której modlą się Dzieci Słońca: drugie słońce wschodzące czarno nad górami, otoczone pierścieniem ognia, przybywające zakończyć wszelkie cierpienie  -  kończąc wszystko inne. Namalowane jako pełnia zaćmienia: pierścień płonie, tarcza pochłania."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The Black Sun shall mark the end of light.\nA night shall rise that knows no morning.\nThrough pride and prejudice mankind shall fall,\nAnd from its ashes, a darker age begin.",
-          "pl": "Czarne Słońce oznajmi kres światła.\nWzejdzie noc, co nie zna poranka.\nZ pychy i uprzedzeń ludzkość upadnie,\na z jej popiołów narodzi się mroczniejsza era."
+          "en": "",
+          "pl": ""
         }
       },
       "EndOfTheWorld": {
@@ -1618,12 +1618,12 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A tree of fire feeds a wound in the sky over snow-lit peaks: the world ending not with noise but with a slow red spiral.",
-          "pl": "Drzewo ognia karmi ranę na niebie nad ośnieżonymi szczytami: świat kończy się nie hałasem, lecz powolną czerwoną spiralą."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "The world does not end with noise.\nIt ends with a tree of fire\nfeeding a wound in the sky\nslowly, like devotion.",
-          "pl": "Świat nie kończy się hałasem.\nKończy się drzewem ognia,\nkarmiącym ranę na niebie\npowoli, jak modlitwa."
+          "en": "",
+          "pl": ""
         }
       },
       "TheLastDawn": {
@@ -1640,8 +1640,8 @@
           "pl": "Samotny jeździec przekracza próg umierającego królestwa, gdy słońce wschodzi krwawo nad górami  -  namalowane jako obraz zamykający opowieść: ostatnie światło przed ciemnością."
         },
         "poem": {
-          "en": "Ride, while the mountains still hold the light.\nThe kingdom is a held breath.\nWhatever the sun is about to say,\nit will only say it once.",
-          "pl": "Jedź, póki góry trzymają jeszcze światło.\nKrólestwo jest wstrzymanym oddechem.\nCokolwiek słońce ma za chwilę powiedzieć,\npowie to tylko raz."
+          "en": "The Last Dawn shall mark the end of light. \nA night shall rise that knows no morning. \nThrough pride and prejudice mankind shall fall, \nAnd from its ashes, a darker age begin.",
+          "pl": "Ostatni Świt oznajmi kres światła. \nNoc powstanie, co brzasku nie zna. \nZ pychy i uprzedzeń ludzkość upadnie, \nA z jej popiołów narodzi się mroczniejsza era."
         }
       },
       "TheEnd": {
@@ -1654,8 +1654,8 @@
           "pl": "Oil on canvas"
         },
         "description": {
-          "en": "A ring of fire opens over a mountain range, indifferent and total. In the lore of Reviclades this is the Night of the Red Moon: the Maker bending the heavens, forcing a star down upon a god. A study in scale  -  how small a peak looks against something ending.",
-          "pl": "Pierścień ognia otwiera się nad łańcuchem gór, obojętny i całkowity. W świecie Reviclades to Noc Czerwonego Księżyca: Twórca nagina niebiosa i strąca gwiazdę na boga. Studium skali  -  jak mały wydaje się szczyt wobec czegoś, co się kończy."
+          "en": "",
+          "pl": ""
         },
         "poem": {
           "en": "At the summit of men's hatred\nChanneled by hubris and greed\nA blow is struck that cannot be undone\nThat ends the world once and for all",
@@ -1672,8 +1672,8 @@
           "pl": "Olej na płótnie"
         },
         "description": {
-          "en": "A city of impossible towers and hidden paths, where the forest keeps its own kind of magic and every road seems to lead somewhere older than the people who built it.",
-          "pl": "Miasto niemożliwych wież i ukrytych ścieżek, gdzie las ma własny rodzaj magii, a każda droga zdaje się prowadzić do czegoś starszego niż ludzie, którzy je zbudowali."
+          "en": "",
+          "pl": ""
         }
       },
       "Bloki": {
@@ -1686,12 +1686,12 @@
           "pl": "Cyfrowy"
         },
         "description": {
-          "en": "The block I actually live in, painted at sunset with figures out on the roofs  -  the real world handed the same red sky and the same long shadows as the invented ones. It hangs here on purpose: everything past this room was painted from this window.",
-          "pl": "Blok, w którym naprawdę mieszkam, namalowany o zachodzie słońca, z postaciami na dachach  -  realny świat dostał to samo czerwone niebo i te same długie cienie co światy wymyślone. Wisi tu celowo: wszystko za tą salą powstało z tego okna."
+          "en": "",
+          "pl": ""
         },
         "poem": {
-          "en": "Concrete, and a sun going down on it\nthe same colour it uses on kingdoms.\nPeople are out on the roofs again.\nNobody down here knows how it ends.",
-          "pl": "Beton, a nad nim słońce zachodzi\ntym samym kolorem, co nad królestwami.\nLudzie znów wyszli na dachy.\nNikt tu na dole nie wie, jak to się kończy."
+          "en": "",
+          "pl": " "
         }
       }
     }
