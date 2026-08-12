@@ -193,6 +193,7 @@ export const artworks: Artwork[] = [
     prints: [],
     framingPrice: 0,
   },
+
   {
     slug: "coming-of-the-second-sun",
     title: "Coming of the Second Sun",
@@ -202,6 +203,7 @@ export const artworks: Artwork[] = [
     description:
       "The prophecy the Children of the Sun pray toward: a second sun rising black over the mountains, ringed in fire, come to end all suffering by ending everything else.",
     image: "/images/coming-of-the-second-sun.jpg",
+    track: "/audio/ancient-gallery.mp3",
     imageWidth: 2000,
     imageHeight: 2000,
     original: { available: true, price: 950 },

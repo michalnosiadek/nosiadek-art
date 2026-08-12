@@ -5,10 +5,15 @@ import SiteFooter from "@/components/SiteFooter";
 import LocaleProvider from "@/i18n/LocaleProvider";
 import { defaultLocale, translate } from "@/i18n";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://michalnosiadek.art";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://michalnosiadek.art";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   title: translate(defaultLocale, "site.meta.homeTitle"),
   description: translate(defaultLocale, "site.meta.homeDescription"),
   alternates: { canonical: "/" },
@@ -18,7 +23,14 @@ export const metadata: Metadata = {
     title: translate(defaultLocale, "site.meta.homeTitle"),
     description: translate(defaultLocale, "site.meta.homeDescription"),
     url: siteUrl,
-    images: [{ url: "/images/the-last-dawn.jpg", width: 2000, height: 1599, alt: "The Last Dawn by Michał Nosiadek" }],
+    images: [
+      {
+        url: "/images/the-last-dawn.jpg",
+        width: 2000,
+        height: 1599,
+        alt: "The Last Dawn by Michał Nosiadek",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -33,9 +45,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang={defaultLocale}
-    >
+    <html lang={defaultLocale}>
       <body className="font-sans antialiased">
         <LocaleProvider>
           <script
@@ -47,7 +57,10 @@ export default function RootLayout({
                 name: "Michał Nosiadek",
                 url: siteUrl,
                 jobTitle: "Painter and creative developer",
-                description: translate(defaultLocale, "site.meta.homeDescription"),
+                description: translate(
+                  defaultLocale,
+                  "site.meta.homeDescription",
+                ),
                 image: `${siteUrl}/images/michal-portrait.png`,
               }),
             }}
