@@ -49,6 +49,7 @@ export const artworks: Artwork[] = [
     imageWidth: 2000,
     imageHeight: 1599,
     featured: true,
+    track: "/audio/the-last-dawn.mp3",
     poem: { title: "", body: "" },
     original: { available: true, price: 1400 },
     prints: [
@@ -69,6 +70,7 @@ export const artworks: Artwork[] = [
     image: "/images/the-end.jpg",
     imageWidth: 2000,
     imageHeight: 1430,
+    track: "/audio/murder-of-a-star.mp3",
     poem: {
       title: "The Murder of a Star",
       year: "2025",
@@ -110,6 +112,7 @@ export const artworks: Artwork[] = [
     image: "/images/ribbiton.jpg",
     imageWidth: 2000,
     imageHeight: 1500,
+    track: "/audio/ribbiton.mp3",
     original: { available: false },
     prints: [],
     framingPrice: 0,

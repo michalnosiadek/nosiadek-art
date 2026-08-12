@@ -1918,8 +1918,8 @@
           "pl": "Pęknięty Sygnet"
         },
         "sub": {
-          "en": "Gold, heavier than it looks. The seal is split clean down the middle  -  broken the night it stamped the order to ride into the druids' grove and dig for the fallen star. There was no star. There was a grove, and there were people in it, and afterwards there was neither.",
-          "pl": "Złoto, cięższe niż wygląda. Pieczęć jest pęknięta równo na pół  -  pękła tej nocy, gdy przypieczętowała rozkaz, by wjechać do gaju druidów i kopać w poszukiwaniu spadłej gwiazdy. Gwiazdy nie było. Był gaj, a w nim byli ludzie, a potem nie było ani jednego, ani drugich."
+          "en": "Gold, heavier than it looks. The seal is split clean down the middle  -  broken the night it stamped the order to ride into the druids' grove and dig for the fallen star.",
+          "pl": "Złoto, cięższe niż wygląda. Pieczęć jest pęknięta równo na pół  -  pękła tej nocy, gdy przypieczętowała rozkaz, by wjechać do gaju druidów i kopać w poszukiwaniu spadłej gwiazdy."
         },
         "inscription": {
           "en": "“to my dearest friend Quan”",
@@ -2162,12 +2162,12 @@
       },
       "whispers": {
         "en": [
-          "The far bank is Egypt. Nobody here can explain that either.",
+          "The far bank is Starfell Peak. Nobody here can explain that either.",
           "Something pale is lying in the reeds to your right. It has not moved.",
           "The water is louder than it should be for water."
         ],
         "pl": [
-          "Drugi brzeg to Egipt. Tutaj też nikt tego nie potrafi wyjaśnić.",
+          "Drugi brzeg to Góry Spadających Gwiazd. Tutaj też nikt tego nie potrafi wyjaśnić.",
           "Coś bladego leży w trzcinach po prawej. Nie poruszyło się.",
           "Woda szumi głośniej, niż woda powinna."
         ]

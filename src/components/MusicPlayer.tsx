@@ -42,8 +42,7 @@ export default function MusicPlayer({
       audio.pause();
       setPlaying(false);
     } else {
-      audio.play();
-      setPlaying(true);
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     }
   }
 
