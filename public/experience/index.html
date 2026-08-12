@@ -626,8 +626,9 @@ const EYE = 1.62, PLAYER_R = 0.42;
 
 /* ---------- language ---------- */
 let LANG = (() => {
-  try { const s = localStorage.getItem("tld-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
-  return LANGS[0];
+  try { const s = localStorage.getItem("mn-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+  return browserLanguages.map((s) => s.slice(0, 2).toLowerCase()).find((s) => LANGS.includes(s)) || LANGS[0];
 })();
 const T = () => UI[LANG];
 const roomLabel = (id) => T().room(ROOMS[id].num, ROOMS[id].name[LANG]);
@@ -1144,7 +1145,7 @@ function applyLang() {
 }
 $("btn-lang").onclick = () => {
   LANG = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
-  try { localStorage.setItem("tld-lang", LANG); } catch (e) {}
+  try { localStorage.setItem("mn-lang", LANG); } catch (e) {}
   applyLang();
 };
 applyLang();

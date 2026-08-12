@@ -469,8 +469,9 @@ const LANGS = I18N.locales;
 const TEXT = I18N.games["the-last-dawn"];
 
 let LANG = (() => {
-  try { const s = localStorage.getItem("tld-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
-  return LANGS[0];
+  try { const s = localStorage.getItem("mn-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+  return browserLanguages.map((s) => s.slice(0, 2).toLowerCase()).find((s) => LANGS.includes(s)) || LANGS[0];
 })();
 
 /** TT("plaques.keyTitle")  -  dotted lookup, {placeholders} filled from vars. */
@@ -2078,7 +2079,7 @@ function applyLang() {
 }
 $("btn-lang").onclick = () => {
   LANG = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
-  try { localStorage.setItem("tld-lang", LANG); } catch (e) {}
+  try { localStorage.setItem("mn-lang", LANG); } catch (e) {}
   applyLang();
 };
 applyLang();

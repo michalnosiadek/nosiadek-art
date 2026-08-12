@@ -320,7 +320,11 @@ for (const L of LANGS) {
   }
   T[L] = o;
 }
-let lang = LANGS[0];
+let lang = (() => {
+  try { const s = localStorage.getItem("mn-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+  const browserLanguages = navigator.languages?.length ? navigator.languages : [navigator.language];
+  return browserLanguages.map((s) => s.slice(0, 2).toLowerCase()).find((s) => LANGS.includes(s)) || LANGS[0];
+})();
 const t = () => T[lang];
 
 /* ============================ SHORTHAND ============================ */
@@ -1308,6 +1312,7 @@ function applyLang() {
 }
 $("btn-lang").onclick = () => {
   lang = LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
+  try { localStorage.setItem("mn-lang", lang); } catch (e) {}
   applyLang();
 };
 $("btn-music").onclick = () => { audioInit(); musicToggle(); };

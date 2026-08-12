@@ -48,8 +48,13 @@ export default function LocaleProvider({
       /* private mode, storage disabled  -  fall through to the browser hint */
     }
     if (!next) {
-      const nav = navigator.language?.slice(0, 2).toLowerCase();
-      if (isLocale(nav)) next = nav;
+      const browserLanguages = navigator.languages?.length
+        ? navigator.languages
+        : [navigator.language];
+      const preferred = browserLanguages
+        .map((value) => value?.slice(0, 2).toLowerCase())
+        .find((value) => isLocale(value));
+      if (isLocale(preferred)) next = preferred;
     }
     if (next && next !== locale) setLocaleState(next);
     // run once on mount
