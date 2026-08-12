@@ -4,6 +4,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import LocaleProvider from "@/i18n/LocaleProvider";
 import { defaultLocale, translate } from "@/i18n";
+import { Analytics } from "@vercel/analytics/next";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://michalnosiadek.art";
@@ -70,6 +71,7 @@ export default function RootLayout({
           <main>{children}</main>
           <SiteFooter />
         </LocaleProvider>
+        <Analytics />
       </body>
     </html>
   );
