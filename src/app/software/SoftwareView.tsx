@@ -22,6 +22,12 @@ const projects = [
     number: "03",
     accent: "from-[#a06b4d] via-[#3b2822] to-[#0b0a09]",
   },
+  {
+    key: "wavesmith",
+    url: "https://wavesmith.vercel.app/",
+    number: "04",
+    accent: "from-[#6d2b24] via-[#211316] to-[#090909]",
+  },
 ] as const;
 
 export default function SoftwareView() {
@@ -44,7 +50,7 @@ export default function SoftwareView() {
       </section>
 
       <section className="border-t border-void-line/60 bg-void-raised">
-        <div className="container-art grid grid-cols-1 gap-8 py-16 md:grid-cols-3 md:gap-6 md:py-24">
+        <div className="container-art grid grid-cols-1 gap-8 py-16 md:grid-cols-2 md:gap-6 md:py-24 xl:grid-cols-4">
           {projects.map((project) => (
             <a
               key={project.key}

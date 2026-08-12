@@ -332,6 +332,17 @@
             "en": "A warmer, quieter web presence built to make useful things feel clear and approachable.",
             "pl": "Cieplejsza, spokojniejsza obecność w sieci, zbudowana tak, by to, co użyteczne, było jasne i przystępne."
           }
+        },
+        "wavesmith": {
+          "title": { "en": "WaveSmith", "pl": "WaveSmith" },
+          "kind": {
+            "en": "Local audio workbench",
+            "pl": "Lokalny warsztat audio"
+          },
+          "description": {
+            "en": "Resize heavy WAV tracks into compact, shareable files directly in your browser. Private, quiet, and processed on your device.",
+            "pl": "Zmieniaj ciężkie ścieżki WAV w kompaktowe pliki do udostępniania bezpośrednio w przeglądarce. Prywatnie, cicho i lokalnie na Twoim urządzeniu."
+          }
         }
       }
     },
