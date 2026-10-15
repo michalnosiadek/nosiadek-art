@@ -15,7 +15,7 @@ export default function AboutView() {
       <LocalizedTitle titleKey="site.meta.aboutTitle" />
 
       <section className="container-art grid grid-cols-1 gap-12 pb-24 pt-36 md:grid-cols-[minmax(0,380px)_1fr] md:gap-20 md:pt-44">
-        <div className="relative aspect-[3/4] overflow-hidden bg-black">
+        <div className="relative aspect-[3/4] overflow-hidden">
           <Image
             src="/images/portrait.png"
             alt={t("site.about.portraitAlt")}
